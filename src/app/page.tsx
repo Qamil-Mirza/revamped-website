@@ -9,6 +9,7 @@ import {
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import IconCloud from "@/components/ui/icon-cloud";
 
+// Adjust Bento Content here
 const features = [
   {
     Icon: FileTextIcon,
@@ -58,37 +59,48 @@ const features = [
   },
 ];
 
+// Adjust IconCloud Content here
 const slugs = [
   "typescript",
   "javascript",
-  "dart",
   "java",
   "react",
-  "flutter",
-  "android",
   "html5",
   "css3",
   "nodedotjs",
   "express",
   "nextdotjs",
-  "prisma",
   "amazonaws",
   "postgresql",
-  "firebase",
   "nginx",
   "vercel",
-  "testinglibrary",
-  "jest",
-  "cypress",
   "docker",
   "git",
-  "jira",
   "github",
-  "gitlab",
   "visualstudiocode",
-  "androidstudio",
-  "sonarqube",
   "figma",
+  "ruby",
+  "vuedotjs",
+  "go",
+  "python",
+  "flask",
+  "tailwindcss",
+  "mui",
+  "shadcnui",
+  "kubernetes",
+  "postman",
+  "numpy",
+  "streamlit",
+  "scikitlearn",
+  "pytorch",
+  "tensorflow",
+  "react",
+  "plotly",
+  "keras",
+  "pandas",
+  "opencv",
+  "ubuntu",
+  "amazonec2",
 ];
 
 export default function Home() {
@@ -107,9 +119,10 @@ export default function Home() {
       <div className="flex justify-center p-3">
         <h1 className="font-bold text-3xl py-3 mt-6">Technologies I've worked with</h1>
       </div>
-      <div className="flex w-full h-[50%] items-center justify-center">
+      <div className="flex w-full h-[100%] items-center justify-center">
         <IconCloud iconSlugs={slugs} />
       </div>
+      <footer>HI</footer>
     </div>
   );
 }
