@@ -27,7 +27,7 @@ const features = [
   },
   {
     Icon: Crosshair2Icon,
-    name: "I'm Working On Modeling Chemical Reaction Networks For Toxicology With Graph Neural Networks",
+    name: "Modeling Chemical Reaction Networks For Toxicology With Graph Neural Networks",
     description: "",
     href: "/",
     cta: "Learn more",
@@ -36,7 +36,7 @@ const features = [
   },
   {
     Icon: GlobeIcon,
-    name: "Full Stack Developer Who Loves Building Solutions",
+    name: "I Love Building Things",
     description: "Checkout Some of The Projects I've Worked On Below",
     href: "/",
     cta: "Learn more",
