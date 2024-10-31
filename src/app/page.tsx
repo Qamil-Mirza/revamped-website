@@ -22,7 +22,7 @@ const features = [
     description: "University of California Berkeley",
     href: "/",
     cta: "Learn more",
-    background: <img src={qm.src} className="absolute bottom-0 opacity-60" />,
+    background: <img src={qm.src} className="absolute inset-0 w-full h-full object-cover opacity-60" />,
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
   },
   {
