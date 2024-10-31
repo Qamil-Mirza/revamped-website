@@ -1,10 +1,15 @@
 import {
   BellIcon,
-  CalendarIcon,
-  FileTextIcon,
+  LightningBoltIcon,
+  Pencil1Icon,
   GlobeIcon,
-  InputIcon,
+  RocketIcon,
+  Crosshair2Icon,
 } from "@radix-ui/react-icons";
+
+// my images
+import qm from "@/public/qm.jpg";
+import graph from "@/public/graph.gif";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import IconCloud from "@/components/ui/icon-cloud";
@@ -12,46 +17,46 @@ import IconCloud from "@/components/ui/icon-cloud";
 // Adjust Bento Content here
 const features = [
   {
-    Icon: FileTextIcon,
-    name: "Save your files",
-    description: "We automatically save your files as you type.",
+    Icon: RocketIcon,
+    name: "Data Science and Applied Mathematics",
+    description: "University of California Berkeley",
     href: "/",
     cta: "Learn more",
-    background: <img className="absolute -right-20 -top-20 opacity-60" />,
+    background: <img src={qm.src} className="absolute bottom-0 opacity-60" />,
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
   },
   {
-    Icon: InputIcon,
-    name: "Full text search",
-    description: "Search through all your files in one place.",
+    Icon: Crosshair2Icon,
+    name: "I'm Working On Modeling Chemical Reaction Networks For Toxicology With Graph Neural Networks",
+    description: "",
     href: "/",
     cta: "Learn more",
-    background: <img className="absolute -right-20 -top-20 opacity-60" />,
+    background: <img src={graph.src} className="absolute inset-0 w-full h-full object-cover opacity-60" />,
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
   },
   {
     Icon: GlobeIcon,
-    name: "Multilingual",
-    description: "Supports 100+ languages and counting.",
+    name: "Full Stack Developer Who Loves Building Solutions",
+    description: "Checkout Some of The Projects I've Worked On Below",
     href: "/",
     cta: "Learn more",
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
   },
   {
-    Icon: CalendarIcon,
-    name: "Calendar",
-    description: "Use the calendar to filter your files by date.",
+    Icon: Pencil1Icon,
+    name: "I Love Writing And Learning About New Technologies",
+    description: "Checkout My Blog On Medium For More!",
     href: "/",
     cta: "Learn more",
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
   },
   {
-    Icon: BellIcon,
-    name: "Notifications",
+    Icon: LightningBoltIcon,
+    name: "Runner, Climber and Music Enthusiast",
     description:
-      "Get notified when someone shares a file or mentions you in a comment.",
+      "A little bit on what I do outside of work",
     href: "/",
     cta: "Learn more",
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
