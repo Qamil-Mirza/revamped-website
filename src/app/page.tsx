@@ -5,8 +5,9 @@ import {
   GlobeIcon,
   InputIcon,
 } from "@radix-ui/react-icons";
- 
+
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import IconCloud from "@/components/ui/icon-cloud";
 
 const features = [
   {
@@ -57,17 +58,58 @@ const features = [
   },
 ];
 
+const slugs = [
+  "typescript",
+  "javascript",
+  "dart",
+  "java",
+  "react",
+  "flutter",
+  "android",
+  "html5",
+  "css3",
+  "nodedotjs",
+  "express",
+  "nextdotjs",
+  "prisma",
+  "amazonaws",
+  "postgresql",
+  "firebase",
+  "nginx",
+  "vercel",
+  "testinglibrary",
+  "jest",
+  "cypress",
+  "docker",
+  "git",
+  "jira",
+  "github",
+  "gitlab",
+  "visualstudiocode",
+  "androidstudio",
+  "sonarqube",
+  "figma",
+];
+
 export default function Home() {
   return (
     <div className="p-6">
-      <div className="flex justify-center p-3">
+      <div className="flex justify-center p-6">
         <h1 className="font-bold text-3xl">Hi, I'm Qamil!</h1>
       </div>
-      <BentoGrid className="lg:grid-rows-3">
-      {features.map((feature) => (
-        <BentoCard key={feature.name} {...feature} />
-      ))}
-    </BentoGrid>
+      <div>
+        <BentoGrid className="lg:grid-rows-3">
+          {features.map((feature) => (
+            <BentoCard key={feature.name} {...feature} />
+          ))}
+        </BentoGrid>
+      </div>
+      <div className="flex justify-center p-3">
+        <h1 className="font-bold text-3xl py-3 mt-6">Technologies I've worked with</h1>
+      </div>
+      <div className="flex w-full h-[50%] items-center justify-center">
+        <IconCloud iconSlugs={slugs} />
+      </div>
     </div>
   );
 }
