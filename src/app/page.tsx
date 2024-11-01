@@ -1,5 +1,4 @@
 import {
-  BellIcon,
   LightningBoltIcon,
   Pencil1Icon,
   GlobeIcon,
@@ -12,10 +11,11 @@ import qm from "@/public/qm.jpg";
 import graph from "@/public/graph.gif";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
-import IconCloud from "@/components/ui/icon-cloud";
 import TypingAnimation from "@/components/ui/typing-animation";
 import BlurFade from "@/components/ui/blur-fade";
-import WordPullUp from "@/components/ui/word-pull-up";
+
+// URL
+const prefixURL = process.env.NEXT_PUBLIC_LOCAL_DEVELOPMENT_URL;
 
 // Adjust Bento Content here
 const features = [
@@ -23,7 +23,7 @@ const features = [
     Icon: RocketIcon,
     name: "Data Science Meets Applied Mathematics",
     description: "University of California Berkeley",
-    href: "/",
+    href: `/`,
     cta: "Learn more",
     background: (
       <img
@@ -51,7 +51,7 @@ const features = [
     Icon: GlobeIcon,
     name: "Passionate Builder and Innovator",
     description: "Checkout Some of The Projects I've Worked On Below",
-    href: "/",
+    href: `${prefixURL}/projects`,
     cta: "Learn more",
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
@@ -76,50 +76,6 @@ const features = [
   },
 ];
 
-// Adjust IconCloud Content here
-const slugs = [
-  "typescript",
-  "javascript",
-  "java",
-  "react",
-  "html5",
-  "css3",
-  "nodedotjs",
-  "express",
-  "nextdotjs",
-  "amazonaws",
-  "postgresql",
-  "nginx",
-  "vercel",
-  "docker",
-  "git",
-  "github",
-  "visualstudiocode",
-  "figma",
-  "ruby",
-  "vuedotjs",
-  "go",
-  "python",
-  "flask",
-  "tailwindcss",
-  "mui",
-  "shadcnui",
-  "kubernetes",
-  "postman",
-  "numpy",
-  "streamlit",
-  "scikitlearn",
-  "pytorch",
-  "tensorflow",
-  "react",
-  "plotly",
-  "keras",
-  "pandas",
-  "opencv",
-  "ubuntu",
-  "amazonec2",
-];
-
 export default function Home() {
   return (
     <div className="p-6">
@@ -139,15 +95,6 @@ export default function Home() {
           </BentoGrid>
         </div>
       </BlurFade>
-      <div className="flex justify-center p-3">
-        <WordPullUp
-          className="font-bold text-3xl py-3 mt-6"
-          words="Technologies I've worked with"
-        />
-      </div>
-      <div className="flex w-full h-[100%] items-center justify-center">
-        <IconCloud iconSlugs={slugs} />
-      </div>
       <div className="p-3 flex justify-center">
         <h1 className="font-bold text-3xl py-3 mt-6">Let's Get Connected!</h1>
       </div>
