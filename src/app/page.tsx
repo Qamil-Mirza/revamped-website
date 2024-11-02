@@ -98,7 +98,7 @@ export default function Home() {
       <div className="flex justify-center p-3 mb-4">
         <TypingAnimation
           className="text-4xl font-bold text-black dark:text-white"
-          text="Hi, I'm Qamil!"
+          text="QAMIL MIRZA"
           duration={100}
         />
       </div>
@@ -111,9 +111,11 @@ export default function Home() {
           </BentoGrid>
         </div>
       </BlurFade>
+      <BlurFade delay={0.5} inView>
       <div className="mt-7 flex flex-row justify-center items-center w-full">
         <SocialDock />
       </div>
+      </BlurFade>
     </div>
   );
 }
