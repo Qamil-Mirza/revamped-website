@@ -14,9 +14,6 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import SocialDock from "@/components/ui/socials-dock";
 
-// URL
-const prefixURL = process.env.NEXT_PUBLIC_LOCAL_DEVELOPMENT_URL;
-
 // Adjust Bento Content here
 const features = [
   {
@@ -55,7 +52,7 @@ const features = [
     hideIcon: true,
     name: "Passionate Builder and Innovator",
     description: "Checkout Some of The Projects I've Worked On Below",
-    href: `${prefixURL}/projects`,
+    href: "/projects",
     cta: "Learn more",
     background: (
       <div className="absolute z-0 flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">

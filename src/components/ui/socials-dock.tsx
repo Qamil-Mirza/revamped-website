@@ -59,7 +59,7 @@ function SocialDock() {
         </a>
         <a
           className="transition-transform transform hover:scale-125"
-          href="mailto:qamilmirza@berkeley.edu"
+          href="/contact"
           title="Email"
         >
           <FaEnvelope size={30} />
