@@ -12,6 +12,7 @@ import Meteors from "@/components/ui/meteors";
 import { DotPattern } from "@/components/ui/dot-pattern";
 
 import { cn } from "@/lib/utils";
+import SocialDock from "@/components/ui/socials-dock";
 
 // URL
 const prefixURL = process.env.NEXT_PUBLIC_LOCAL_DEVELOPMENT_URL;
@@ -110,8 +111,8 @@ export default function Home() {
           </BentoGrid>
         </div>
       </BlurFade>
-      <div className="p-3 flex justify-center">
-        <h1 className="font-bold text-3xl py-3 mt-6">Let's Get Connected!</h1>
+      <div className="p-3 flex flex-row justify-center items-center w-full">
+        <SocialDock />
       </div>
     </div>
   );
