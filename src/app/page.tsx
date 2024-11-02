@@ -67,7 +67,7 @@ const features = [
   {
     name: "Sharing Knowledge, Fueling Growth",
     description: "Checkout My Blog On Medium For More!",
-    href: "/",
+    href: "https://medium.com/@qamilmirza",
     cta: "Learn more",
     background: (
       <div className="absolute flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
@@ -111,7 +111,7 @@ export default function Home() {
           </BentoGrid>
         </div>
       </BlurFade>
-      <div className="p-3 flex flex-row justify-center items-center w-full">
+      <div className="mt-7 flex flex-row justify-center items-center w-full">
         <SocialDock />
       </div>
     </div>
