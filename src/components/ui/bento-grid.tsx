@@ -31,14 +31,16 @@ const BentoCard = ({
   description,
   href,
   cta,
+  disable,
 }: {
   name: string;
   className: string;
   background: ReactNode;
-  Icon: any;
+  Icon?: any;
   description: string;
   href: string;
   cta: string;
+  disable?: boolean;
 }) => (
   <div
     key={name}
@@ -52,14 +54,17 @@ const BentoCard = ({
     )}
   >
     <div>{background}</div>
-    <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
-      <Icon className="h-12 w-12 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75" />
+    <div className={`pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 ${!disable ? 'group-hover:-translate-y-10' : ''}`}>
+      {Icon &&
+      <Icon className={`h-12 w-12 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out ${!disable ? 'group-hover:scale-75' : ''}`} />
+      }
       <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300">
         {name}
       </h3>
       <p className="max-w-lg text-neutral-400">{description}</p>
     </div>
-
+    
+    {!disable &&
     <div
       className={cn(
         "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
@@ -72,7 +77,11 @@ const BentoCard = ({
         </a>
       </Button>
     </div>
+    }
+
+    {!disable &&
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
+    }
   </div>
 );
 

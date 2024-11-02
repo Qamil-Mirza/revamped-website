@@ -20,11 +20,11 @@ const prefixURL = process.env.NEXT_PUBLIC_LOCAL_DEVELOPMENT_URL;
 // Adjust Bento Content here
 const features = [
   {
-    Icon: RocketIcon,
     name: "Data Science Meets Applied Mathematics",
     description: "University of California Berkeley",
     href: `/`,
     cta: "Learn more",
+    disable: true,
     background: (
       <img
         src={qm.src}

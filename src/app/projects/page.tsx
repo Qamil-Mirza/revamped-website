@@ -7,8 +7,8 @@ import IconCloud from "@/components/ui/icon-cloud";
 import WordPullUp from "@/components/ui/word-pull-up";
 import Ripple from "@/components/ui/ripple";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
-import { cn } from "@/lib/utils";
 
+// Features to moddify Bento Grid
 const features = [
     {
         Icon: FileTextIcon,
@@ -66,8 +66,6 @@ const features = [
     },
 ];
 
-
-
 // Adjust IconCloud Content here
 const slugs = [
   "typescript",
@@ -121,7 +119,9 @@ function page() {
         </p>
         <Ripple />
       </div>
-      <p>Some witty caption here with a nice animationon load</p>
+      <div className="p-3">
+        <p className="flex justify-center text-3xl font-bold">Explore My Creative Journey</p>
+      </div>
       <section className="p-6">
       <BentoGrid>
       {features.map((feature, idx) => (
@@ -140,6 +140,7 @@ function page() {
           <IconCloud iconSlugs={slugs} />
         </div>
       </section>
+      <footer className="m-12"></footer>
     </main>
   );
 }
