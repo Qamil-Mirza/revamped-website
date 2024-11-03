@@ -3,12 +3,14 @@ import { GearIcon } from "@radix-ui/react-icons";
 // my images
 import qm from "@/public/qm.jpg";
 import graph from "@/public/graph.gif";
+import temp from "@/public/temp.png";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import TypingAnimation from "@/components/ui/typing-animation";
 import BlurFade from "@/components/ui/blur-fade";
 import Meteors from "@/components/ui/meteors";
 import { DotPattern } from "@/components/ui/dot-pattern";
+
 
 import { cn } from "@/lib/utils";
 import SocialDock from "@/components/ui/socials-dock";
@@ -81,7 +83,7 @@ const features = [
     description: "A little bit on what I do outside of work",
     href: "/about",
     cta: "Learn more",
-    background: <img className="absolute inset-0 w-full h-full object-cover object-top opacity-60 brightness-50" />,
+    background: <img src={temp.src} className="absolute inset-0 w-full h-full object-cover object-top opacity-75 brightness-100" />,
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
     primaryTextColor: "text-white",
     secondaryTextColor: "text-white",
