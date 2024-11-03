@@ -27,7 +27,7 @@ const features = [
     background: (
       <img
         src={qm.src}
-        className="absolute inset-0 w-full h-full object-cover object-right-bottom opacity-60 brightness-50 scale-150 -translate-y-1/4"
+        className="absolute inset-0 w-full h-full object-cover object-right-bottom opacity-100 brightness-75 scale-150 -translate-y-1/4"
       />
     ),
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
@@ -42,7 +42,7 @@ const features = [
     background: (
       <img
         src={graph.src}
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        className="absolute inset-0 w-full h-full object-cover opacity-100"
       />
     ),
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
@@ -91,23 +91,23 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="p-3">
+    <div className="p-3 bg-backgroundColor min-h-screen">
       <div className="flex justify-center p-3 mb-4">
         <TypingAnimation
-          className="text-4xl font-bold text-black dark:text-white"
+          className="text-4xl font-bold text-primaryText dark:text-white"
           text="QAMIL MIRZA"
           duration={100}
         />
       </div>
       <BlurFade delay={0.3} inView>
-        <div>
           <BentoGrid className="lg:grid-rows-3">
             {features.map((feature) => (
               <BentoCard key={feature.name} {...feature} />
             ))}
           </BentoGrid>
-        </div>
       </BlurFade>
+      
+      {/* Social Dock */}
       <BlurFade delay={0.5} inView>
       <div className="mt-7 flex flex-row justify-center items-center w-full">
         <SocialDock />

@@ -16,8 +16,8 @@ function SocialDock() {
   const theme = useTheme();
   return (
     <ShineBorder
-      className="w-full space-x-8 mt-2"
-      color={theme.theme === "dark" ? "white" : "black"}
+      className="w-full space-x-8 mt-2 bg-cardBackground"
+      color={["#FFFFFF00", "#FFFFFF33", "#FFFFFF80", "#FFFFFF"]}
     >
       <div className="flex items-center justify-evenly w-full space-x-8">
         <a
@@ -27,7 +27,7 @@ function SocialDock() {
           rel="noopener noreferrer"
           title="LinkedIn"
         >
-          <FaLinkedin size={30} />
+          <FaLinkedin size={30} className="text-iconColor hover:text-[#2196F3]" />
         </a>
         <a
           className="transition-transform transform hover:scale-125"
@@ -36,7 +36,7 @@ function SocialDock() {
           rel="noopener noreferrer"
           title="GitHub"
         >
-          <FaGithub size={30} />
+          <FaGithub size={30} className="text-iconColor hover:text-primaryText" />
         </a>
         <a
           className="transition-transform transform hover:scale-125"
@@ -45,7 +45,7 @@ function SocialDock() {
           rel="noopener noreferrer"
           title="Instagram"
         >
-          <FaInstagram size={30} />
+          <FaInstagram size={30} className="text-iconColor hover:text-[#FF4081]" />
         </a>
         <a
           className="transition-transform transform hover:scale-125"
@@ -55,14 +55,14 @@ function SocialDock() {
           title="Resume"
           download={true}
         >
-          <FaFileAlt size={30} />
+          <FaFileAlt size={30} className="text-iconColor hover:text-primaryText" />
         </a>
         <a
           className="transition-transform transform hover:scale-125"
           href="/contact"
           title="Email"
         >
-          <FaEnvelope size={30} />
+          <FaEnvelope size={30} className="text-iconColor hover:text-primaryText" />
         </a>
       </div>
     </ShineBorder>
