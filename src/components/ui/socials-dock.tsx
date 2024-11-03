@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useTheme } from "next-themes";
 
 import {
   FaLinkedin,
@@ -13,7 +12,6 @@ import {
 import ShineBorder from "@/components/ui/shine-border";
 
 function SocialDock() {
-  const theme = useTheme();
   return (
     <ShineBorder
       className="w-full space-x-8 mt-2 bg-cardBackground"

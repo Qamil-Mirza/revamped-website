@@ -3,7 +3,6 @@ import { GearIcon } from "@radix-ui/react-icons";
 // my images
 import qm from "@/public/qm.jpg";
 import graph from "@/public/graph.gif";
-import kay from "@/public/kay.jpg";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import TypingAnimation from "@/components/ui/typing-animation";
