@@ -18,6 +18,7 @@ function SocialDock() {
     <ShineBorder
       className="w-full space-x-8 mt-2 bg-cardBackground"
       color={["#FFFFFF00", "#FFFFFF33", "#FFFFFF80", "#FFFFFF"]}
+      borderWidth={2}
     >
       <div className="flex items-center justify-evenly w-full space-x-8">
         <a
