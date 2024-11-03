@@ -35,7 +35,7 @@ const features = [
   {
     name: "Modeling Chemical Reactions with Graph Neural Networks",
     description: "",
-    href: "/",
+    href: "/moonshot",
     cta: "Learn more",
     iconColor: "text-white",
     primaryTextColor: "text-white",
@@ -80,7 +80,7 @@ const features = [
   {
     name: "Runner, Climber, and Music Lover",
     description: "A little bit on what I do outside of work",
-    href: "/",
+    href: "/about",
     cta: "Learn more",
     background: <img src={kay.src} className="absolute inset-0 w-full h-full object-cover object-top opacity-60 brightness-50" />,
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
