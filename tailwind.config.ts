@@ -10,11 +10,11 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			'primaryText': '#E0E0E0',
-			'backgroundColor': '#121212',
-			'accentColor': '#E0E0E0',
-			'cardBackground': '#2A2A2A',
-			'iconColor': '#B0BEC5',
+  			primaryText: '#E0E0E0',
+  			backgroundColor: '#121212',
+  			accentColor: '#E0E0E0',
+  			cardBackground: '#2A2A2A',
+  			iconColor: '#B0BEC5',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -64,7 +64,8 @@ const config: Config = {
   		animation: {
   			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite',
   			meteor: 'meteor 5s linear infinite',
-  			shine: 'shine var(--duration) infinite linear'
+  			shine: 'shine var(--duration) infinite linear',
+  			grid: 'grid 15s linear infinite'
   		},
   		keyframes: {
   			ripple: {
@@ -97,6 +98,14 @@ const config: Config = {
   				},
   				to: {
   					'background-position': '0% 0%'
+  				}
+  			},
+  			grid: {
+  				'0%': {
+  					transform: 'translateY(-50%)'
+  				},
+  				'100%': {
+  					transform: 'translateY(0)'
   				}
   			}
   		}

@@ -1,70 +1,16 @@
 import React from "react";
 
-import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon } from "lucide-react";
+import uni from "@/public/uni.jpg";
+import tb from "@/public/tb.jpg";
+import brain from "@/public/brain.png";
+import descent from "@/public/descent.png";
+import embed from "@/public/embed.png";
+import quiz from "@/public/quiz.jpg";
 
 import IconCloud from "@/components/ui/icon-cloud";
 import WordPullUp from "@/components/ui/word-pull-up";
-import Ripple from "@/components/ui/ripple";
+import RetroGrid from "@/components/ui/retro-grid";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
-
-// Features to moddify Bento Grid
-const features = [
-    {
-        Icon: FileTextIcon,
-        name: "Save your files",
-        description: "We automatically save your files as you type.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-    {
-        Icon: BellIcon,
-        name: "Notifications",
-        description: "Get notified when something happens.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-    {
-        Icon: Share2Icon,
-        name: "Integrations",
-        description: "Supports 100+ integrations and counting.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-    {
-        Icon: CalendarIcon,
-        name: "Calendar",
-        description: "Use the calendar to filter your files by date.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-    {
-        Icon: CalendarIcon,
-        name: "User Management",
-        description: "Manage user access and permissions easily.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-    {
-        Icon: CalendarIcon,
-        name: "Settings",
-        description: "Customize your experience with advanced settings.",
-        href: "#",
-        cta: "Learn more",
-        className: "col-span-3 lg:col-span-1",
-        background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    },
-];
 
 // Adjust IconCloud Content here
 const slugs = [
@@ -110,37 +56,98 @@ const slugs = [
   "amazonec2",
 ];
 
+// Features to moddify Bento Grid
+const features = [
+  {
+    name: "University Rankings Dashboard",
+    description: "Developed With Plotly and Streamlit",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://world-uni.streamlit.app/",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={uni.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50" />,
+  },
+  {
+    name: "Tuberculosis Detection",
+    description: "VGG16 Transfer Learning w/ TensorFlow",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://github.com/Qamil-Mirza/My-Data-Projects/blob/main/tb-detection/eda.ipynb",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={tb.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-[30%]" />,
+  },
+  {
+    name: "Brain Tumor Classification",
+    description: "Developed with TensorFlow and Keras",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://github.com/Qamil-Mirza/My-Data-Projects/blob/main/Tumor-Classification/tumor-classifier.ipynb",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={brain.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50" />,
+  },
+  {
+    name: "House Price Prediction",
+    description: "Modeling house prices purely with mathematics",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://github.com/Qamil-Mirza/My-Data-Projects/blob/main/Linear-Regression/linear-regressor.ipynb",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={descent.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50" />,
+  },
+  {
+    name: "Embedding Visualization",
+    description: "Browser tool for analyzing 1M+ embeddings",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://github.com/Qamil-Mirza/Image-Embedding-Visualization-Analysis",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={embed.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50" />,
+  },
+  {
+    name: "Annotator Onboarding Quiz App",
+    description: "PostgresSQL, Express, React, Node.js, AWS",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://github.com/Qamil-Mirza/supa-skill-challenge",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: <img src={quiz.src} className="absolute inset-0 w-full h-full object-cover opacity-50 brightness-50" />,
+  },
+];
+
 function page() {
   return (
-    <main>
+    <main className="bg-backgroundColor">
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
-        <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black">
-          Projects
-        </p>
-        <Ripple />
-      </div>
-      <div className="p-3">
-        <p className="flex justify-center text-3xl font-bold">Explore My Creative Journey</p>
+        <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#D3D3D3] via-[#F5F5F5] to-[#FFFFFF] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">
+           PROJECTS
+        </span>
+
+        <RetroGrid />
       </div>
       <section className="p-6">
-      <BentoGrid>
-      {features.map((feature, idx) => (
-        <BentoCard key={idx} {...feature} />
-      ))}
-    </BentoGrid>
+        <BentoGrid>
+          {features.map((feature, idx) => (
+            <BentoCard key={idx} {...feature} />
+          ))}
+        </BentoGrid>
       </section>
       <section>
         <div className="flex justify-center p-3">
           <WordPullUp
-            className="font-bold text-3xl mt-6"
-            words="Technologies I've worked with"
+            className="font-bold text-5xl mt-6 text-primaryText"
+            words="Tech Toolkit"
           />
         </div>
         <div className="flex w-full h-[78%] items-center justify-center">
           <IconCloud iconSlugs={slugs} />
         </div>
       </section>
-      <footer className="m-12"></footer>
     </main>
   );
 }
