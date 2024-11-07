@@ -5,7 +5,7 @@ import emailjs from '@emailjs/browser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function page() {
+function Page() {
   const form = useRef<HTMLFormElement>(null);
   const serviceId = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID || ''
   const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID || ''
@@ -26,7 +26,9 @@ function page() {
         publicKey: publicKey
       }).then((result) => {
         toast.success('Message sent successfully');
+        console.log(result.text);
       }, (error) => {
+        console.log(error.text);
         toast.error('Failed to send message');
       });
     } else {
@@ -85,4 +87,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
