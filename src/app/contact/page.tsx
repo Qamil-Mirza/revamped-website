@@ -14,7 +14,7 @@ function Page() {
   emailjs.init({
     publicKey: publicKey,
     limitRate: {
-      throttle: 5000,
+      throttle: 10000,
     }
   });
 
