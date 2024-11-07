@@ -11,6 +11,13 @@ function page() {
   const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID || ''
   const publicKey = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY || ''
 
+  emailjs.init({
+    publicKey: publicKey,
+    limitRate: {
+      throttle: 5000,
+    }
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
