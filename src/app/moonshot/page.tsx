@@ -25,16 +25,21 @@ function Page() {
 
         {/* Overlay Text */}
         <div className="p-3 ">
-          <SparklesText 
-          text="MOONSHOT" 
-          className="text-white"
-          colors={{first: '#fef9c3', second:'#cce7ff'}}
-          sparklesCount={5}
+          <SparklesText
+            text="TOX.AI"
+            className="text-green-400"
+            colors={{ first: "#fef9c3", second: "#cce7ff" }}
+            sparklesCount={5}
           />
         </div>
       </div>
-      <div className="flex justify-center items-center">
-      <h1 className="text-primaryText text-3xl font-bold">Stay Tuned To See What I'm Cooking 🤩</h1>
+      <div className="flex justify-center items-center p-3">
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-primaryText text-3xl font-bold mb-2">
+            Building Towards a Future of Ethical Innovation in Medicine
+          </h1>
+          <span className="text-primaryText">More details soon...</span>
+        </div>
       </div>
     </div>
   );
