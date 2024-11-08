@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import emailjs from '@emailjs/browser';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,15 +11,21 @@ function Page() {
   const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID || ''
   const publicKey = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY || ''
 
-  emailjs.init({
-    publicKey: publicKey,
-    limitRate: {
-      throttle: 10000,
-    }
-  });
+  // Rate limiter
+  const [lastSubmissionTime, setLastSubmissionTime] = useState<number | null>(null);
+  const throttleTime = 30000; // 30 seconds
+
+  emailjs.init(publicKey);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // check if the last submission was within the throttle time
+    const now = Date.now();
+    if (lastSubmissionTime && now - lastSubmissionTime < throttleTime) {
+      toast.error(`Please wait ${Math.ceil((throttleTime - (now - lastSubmissionTime)) / 1000)} seconds before submitting again`);
+      return;
+    }
 
     if (form.current) {
       emailjs.sendForm(serviceId, templateId, form.current, {
@@ -27,6 +33,7 @@ function Page() {
       }).then((result) => {
         toast.success('Message sent successfully');
         console.log(result.text);
+        setLastSubmissionTime(Date.now());
       }, (error) => {
         console.log(error.text);
         toast.error('Failed to send message');
