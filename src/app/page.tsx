@@ -109,7 +109,7 @@ export default function Home() {
       </BlurFade>
       
       {/* Social Dock */}
-      <BlurFade delay={0.5} inView>
+      <BlurFade delay={0.5}>
       <div className="mt-7 flex flex-row justify-center items-center w-full">
         <SocialDock />
       </div>

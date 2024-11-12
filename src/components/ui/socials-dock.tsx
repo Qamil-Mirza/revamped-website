@@ -48,7 +48,7 @@ function SocialDock() {
         </a>
         <a
           className="transition-transform transform hover:scale-125"
-          href="https://github.com/Qamil-Mirza/revamped-website/blob/main/docs/resume.pdf"
+          href="https://docs.google.com/document/d/19WATQ6s31JjC-cTm0EEM1rLkfROOngezMz7WTQvRliA/edit?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           title="Resume"
