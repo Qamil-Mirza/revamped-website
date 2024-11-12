@@ -16,6 +16,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Qamil Mirza",
   description: "Developed by Qamil Mirza",
+  verification: {
+    google: "6JnU6PmG619-vmgNef2xvtkbYnZ_b8jksYJ0H3k0kU8",
+  }
 };
 
 export default function RootLayout({
