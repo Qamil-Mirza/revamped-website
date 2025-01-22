@@ -12,7 +12,7 @@ import ship from "@/public/ship.jpg";
 import styletrans from "@/public/styletrans.jpeg";
 import rnj from "@/public/rnj.jpg";
 import flower from "@/public/flower.jpg";
-import kay from "@/public/kay.jpg";
+import catdog from "@/public/catdog.jpeg";
 import mnist from "@/public/mnist.jpg";
 import stars from "@/public/stars.png";
 
@@ -195,7 +195,7 @@ const features = [
     href: "https://colab.research.google.com/drive/1BCsibzO6j3xjeMT-n7CVS9TkB6nS4NYL?usp=sharing#scrollTo=5AbwygyurgxD",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
-    background: <img src={kay.src} className="absolute inset-0 w-full h-full object-fit opacity-100 brightness-50" />,
+    background: <img src={catdog.src} className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50" />,
   },
   {
     name: "Number Classification with CNN",
