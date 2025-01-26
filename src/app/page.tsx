@@ -7,7 +7,7 @@ import temp from "@/public/temp.png";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import TypingAnimation from "@/components/ui/typing-animation";
-import BlurFade from "@/components/ui/blur-fade";
+import { BlurFade } from "@/components/ui/blur-fade";
 import Meteors from "@/components/ui/meteors";
 import { DotPattern } from "@/components/ui/dot-pattern";
 
