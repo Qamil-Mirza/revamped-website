@@ -15,13 +15,28 @@ import flower from "@/public/flower.jpg";
 import catdog from "@/public/catdog.jpeg";
 import mnist from "@/public/mnist.jpg";
 import stars from "@/public/stars.png";
+import codon from "@/public/codon.jpg"
 
-import WordPullUp from "@/components/ui/word-pull-up";
 import RetroGrid from "@/components/ui/retro-grid";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 
 // Features to moddify Bento Grid
 const features = [
+  {
+    name: "Species-Specific Genetic Code Translator",
+    description: "Developed with biopython and NCBI APIs",
+    primaryTextColor: "text-primaryText",
+    secondaryTextColor: "text-primaryText",
+    href: "https://alt-codon-tables.streamlit.app/",
+    cta: "Learn more",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <img
+        src={codon.src}
+        className="absolute inset-0 w-full h-full object-cover opacity-100 brightness-50"
+      />
+    ),
+  },
   {
     name: "University Rankings Dashboard",
     description: "Developed With Plotly and Streamlit",

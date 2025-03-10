@@ -18,7 +18,7 @@ import SocialDock from "@/components/ui/socials-dock";
 // Adjust Bento Content here
 const features = [
   {
-    name: "Data Science Meets Applied Mathematics",
+    name: "Data Science Meets Chemistry",
     description: "University of California Berkeley",
     href: `/`,
     cta: "Learn more",
@@ -34,7 +34,7 @@ const features = [
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
   },
   {
-    name: "Modeling Chemical Reactions with Graph Neural Networks",
+    name: "Predicting Drug Target Affinities with Graph Neural Networks",
     description: "",
     href: "/moonshot",
     cta: "Learn more",
