@@ -9,26 +9,29 @@ import team from "@/public/team.jpeg";
 import solo from "@/public/solobadds.jpeg";
 import temp from "@/public/temp.png";
 
-function page() {
+function Page() {
   return (
     <div className="bg-backgroundColor min-h-screen">
+      {/* Hero Section */}
       <section className="p-3 relative bg-cover bg-center bg-no-repeat flex items-center justify-center h-screen">
-        <Image 
+        <Image
           src={temp.src}
           alt="Serene Trees and Mist"
-          layout="fill"
+          fill
           objectFit="cover"
           priority
         />
         <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <h1 className="z-20 flex justify-center text-primaryText text-4xl font-bold tracking-tighter md:text-5xl lg:text-7xl">
-          <AuroraText>Life's Too Short For Just One Adventure</AuroraText>
+        <h1 className="relative z-20 text-center text-4xl font-bold tracking-tighter text-primaryText md:text-5xl lg:text-7xl">
+          <AuroraText>Sidequests</AuroraText>
         </h1>
       </section>
+
+      {/* Academic Sidequests Section */}
       <section className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
+        <h2 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
           Academic Sidequests
-        </h1>
+        </h2>
 
         <div className="mb-10">
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
@@ -71,7 +74,7 @@ function page() {
         <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg mb-6">
           <Image
             src={solo.src}
-            alt="Academic Sidequests Team"
+            alt="Solo participant from Academic Sidequests"
             fill
             className="object-cover"
             priority
@@ -84,6 +87,7 @@ function page() {
           my team for the support. If you're interested in checking out our
           work, just click the button below!
         </p>
+
         <a
           className="flex justify-center"
           href="https://github.com/Qamil-Mirza/badss-2025-options-alpha-strategy"
@@ -91,23 +95,18 @@ function page() {
           <InteractiveHoverButton>Check Out Our Github!</InteractiveHoverButton>
         </a>
       </section>
-      {/* <section>
-        <h1 className="text-3xl flex justify-center text-primaryText">
-          Fitness and Health
-        </h1>
-      </section>
-      */}
+
+      {/* Exploring The World Section */}
       <section className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
+        <h2 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
           Exploring The World
-        </h1>
+        </h2>
         <p className="flex justify-center text-lg text-primaryText leading-relaxed mb-6">
           Coming soon
         </p>
-        {/* Add world map here */}
       </section>
     </div>
   );
 }
 
-export default page;
+export default Page;
