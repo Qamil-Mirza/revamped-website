@@ -79,7 +79,7 @@ const features = [
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
   },
   {
-    name: "Runner, Climber, and Music Lover",
+    name: "Adventures Off The Clock",
     description: "A little bit on what I do outside of work",
     href: "/about",
     cta: "Learn more",

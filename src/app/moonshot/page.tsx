@@ -48,9 +48,6 @@ function Page() {
         // Enable auto-rotation
         viewer.spin(true);
 
-        // Set the rotation speed and axis (optional)
-        // The parameters are: speed in milliseconds, axis as a 3D vector
-        viewer.setAutoRotate(true, [0, 1, 0]); // Rotate around Y-axis
         viewer.zoomTo();
         viewer.render();
       });

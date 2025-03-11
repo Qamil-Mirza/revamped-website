@@ -39,15 +39,6 @@ function SocialDock() {
         </a>
         <a
           className="transition-transform transform hover:scale-125"
-          href="https://www.instagram.com/camel_is_real/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Instagram"
-        >
-          <FaInstagram size={30} className="text-iconColor hover:text-[#FF4081]" />
-        </a>
-        <a
-          className="transition-transform transform hover:scale-125"
           href="https://docs.google.com/document/d/19WATQ6s31JjC-cTm0EEM1rLkfROOngezMz7WTQvRliA/edit?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
