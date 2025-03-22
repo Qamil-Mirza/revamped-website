@@ -96,13 +96,15 @@ function Page() {
         </a>
       </section>
 
+      
+
       {/* Exploring The World Section */}
       <section className="max-w-4xl mx-auto px-4 py-8">
         <h2 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
           Exploring The World
         </h2>
         <p className="flex justify-center text-lg text-primaryText leading-relaxed mb-6">
-          Coming soon
+          Adventures And Discoveries Across Different Cultures and Landscapes
         </p>
       </section>
     </div>
