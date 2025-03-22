@@ -46,7 +46,7 @@ function Page() {
         </div>
 
         <p className="text-lg text-primaryText leading-relaxed mb-6">
-          On the 27th of January 2205, my friend Aadil asked me to compete with
+          On the 27th of January 2025, my friend Aadil asked me to compete with
           him in the Bay Area Decision Science Summit to work on an industrial
           engineering case competition. I said yes without fully knowing what
           that entails but I believe sometimes you have to take a leap of faith.
