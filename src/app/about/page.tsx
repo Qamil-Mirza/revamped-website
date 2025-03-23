@@ -3,6 +3,7 @@
 import React from "react";
 import { AuroraText } from "@/components/ui/aurora-text";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import Map from "@/components/ui/Map";
 import Image from "next/image";
 
 import team from "@/public/team.jpeg";
@@ -23,7 +24,7 @@ function Page() {
         />
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <h1 className="relative z-20 text-center text-4xl font-bold tracking-tighter text-primaryText md:text-5xl lg:text-7xl">
-          <AuroraText>Sidequests</AuroraText>
+          Life's Too Short For Just One Adventure
         </h1>
       </section>
 
@@ -46,29 +47,30 @@ function Page() {
         </div>
 
         <p className="text-lg text-primaryText leading-relaxed mb-6">
-          On the 27th of January 2025, my friend Aadil asked me to compete with
-          him in the Bay Area Decision Science Summit to work on an industrial
-          engineering case competition. I said yes without fully knowing what
-          that entails but I believe sometimes you have to take a leap of faith.
+          On January 27, 2025, my friend Aadil invited me to join him in
+          competing at the Bay Area Decision Science Summit, an industrial
+          engineering case competition. Although I wasn't fully aware of what
+          this entailed, I accepted, trusting that sometimes embracing
+          uncertainty leads to rewarding experiences.
         </p>
 
         <p className="text-lg text-primaryText leading-relaxed mb-6">
-          We were given the problem of developing and implementing an options
-          trading strategy that minimizes premium cost subject to maintaining a
-          daily exposure of above $10M. I did not know much about options
-          trading or optimization strategies for such a use case going in, and
-          now I had 2 weeks to figure out a competitive strategy.
+          The challenge we received was to develop and implement an options
+          trading strategy aimed at minimizing premium costs while maintaining a
+          daily exposure of at least $10 million. Going into this, I had minimal
+          knowledge of options trading or related optimization techniques, and
+          only two weeks to formulate a competitive strategy.
         </p>
 
         <p className="text-lg text-primaryText leading-relaxed mb-6">
-          As a result, I picked up a book by McGraw Hill called "Option
-          Volatility and Pricing" and read the first few pages to get the gist
-          of the lingo. My research landed me in the realm of Mixed Integer
-          Linear programming approaches and picked up a book on convex
-          optimization to figure out how to set up the formulations. We ended up
-          developing a strategy that was able to maintain the daily exposure
-          above $10M and minimize the premium cost, ultimately winning us second
-          place in the competition.
+          To bridge my knowledge gap, I began reading "Option Volatility and
+          Pricing" by McGraw Hill, quickly acquainting myself with essential
+          trading terminology. Further exploration led me to Mixed Integer
+          Linear Programming approaches, prompting me to study convex
+          optimization methods in greater depth to establish effective
+          formulations. Ultimately, we crafted a robust trading strategy that
+          consistently met the exposure requirement and minimized premium costs,
+          securing second place in the competition.
         </p>
 
         <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg mb-6">
@@ -96,16 +98,15 @@ function Page() {
         </a>
       </section>
 
-      
-
       {/* Exploring The World Section */}
       <section className="max-w-4xl mx-auto px-4 py-8">
         <h2 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-8">
           Exploring The World
         </h2>
-        <p className="flex justify-center text-lg text-primaryText leading-relaxed mb-6">
+        <p className="text-center text-lg text-primaryText mb-6">
           Adventures And Discoveries Across Different Cultures and Landscapes
         </p>
+        <Map />
       </section>
     </div>
   );
