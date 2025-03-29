@@ -100,7 +100,7 @@ export default function Home() {
           duration={100}
         />
       </div>
-      <BlurFade delay={0.3} inView>
+      <BlurFade delay={0.3} inView className="flex-grow">
           <BentoGrid className="lg:grid-rows-3">
             {features.map((feature) => (
               <BentoCard key={feature.name} {...feature} />
@@ -110,7 +110,7 @@ export default function Home() {
       
       {/* Social Dock */}
       <BlurFade delay={0.5}>
-      <div className="mt-7 flex flex-row justify-center items-center w-full">
+      <div className="mt-7 flex flex-row justify-center items-center">
         <SocialDock />
       </div>
       </BlurFade>

@@ -230,14 +230,15 @@ function Page() {
                   className="w-full sm:w-1/2 rounded-lg"
                 />
               </div>
-              <p className="flex justify-center mb-4">Graph Neural Network Architecture (Chemprop)</p>
+              <p className="flex justify-center mb-4">
+                Graph Neural Network Architecture (Chemprop)
+              </p>
 
               <p className="text-lg">
                 Using <span className="text-green-400">GNNs</span>, I model
                 molecules as structured graphs, capturing atomic interactions to
                 predict binding strength.
               </p>
-
 
               {/* 3D Molecule Viewer Container */}
               <div className="flex justify-center items-center p-6 mb-12">
@@ -266,7 +267,7 @@ function Page() {
                 electrostatic properties, refine AI models for more precise
                 binding predictions.
               </p>
-                
+
               <div className="flex justify-center my-4">
                 <Image
                   src={ligand}
@@ -290,6 +291,9 @@ function Page() {
                 <span className="text-green-400">
                   less dependent on traditional screening methods.
                 </span>
+                {" "}I know this explanation is surface level for now in terms of the
+                actual process but I am limited by what I can say at the moment.
+                Will share results soon!
               </p>
             </div>
           </BlurFade>
