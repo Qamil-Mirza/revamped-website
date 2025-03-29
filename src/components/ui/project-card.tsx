@@ -56,16 +56,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
       <CardFooter className="pt-2 pb-4">
         <div className="w-full flex items-left justify-left">
-          <InteractiveHoverButton>
-            <Link
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full h-full flex items-center justify-center"
-            >
-              View Project
-            </Link>
-          </InteractiveHoverButton>
+          <Link
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full h-full flex items-left justify-left"
+          >
+            <InteractiveHoverButton>View Project</InteractiveHoverButton>
+          </Link>
         </div>
       </CardFooter>
     </Card>
