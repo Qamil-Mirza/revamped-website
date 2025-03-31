@@ -21,6 +21,7 @@ import donut from "@/public/donut.png";
 
 import RetroGrid from "@/components/ui/retro-grid";
 import { ProjectCard } from "@/components/ui/project-card";
+import { NavBar } from "@/components/ui/nav-bar";
 
 // Features to moddify Bento Grid
 const projects = [
@@ -173,6 +174,8 @@ const projects = [
 function page() {
   return (
     <main className="bg-backgroundColor">
+      <NavBar />
+      {/* Background Animation */}
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
         <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#D3D3D3] via-[#F5F5F5] to-[#FFFFFF] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">
           PROJECTS

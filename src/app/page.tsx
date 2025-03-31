@@ -10,19 +10,20 @@ import TypingAnimation from "@/components/ui/typing-animation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Meteors from "@/components/ui/meteors";
 import { DotPattern } from "@/components/ui/dot-pattern";
-
+import { NavBar } from "@/components/ui/nav-bar";
 
 import { cn } from "@/lib/utils";
-import SocialDock from "@/components/ui/socials-dock";
+import SocialConnect from "@/components/ui/social-connect";
+import { AuroraText } from "@/components/ui/aurora-text";
 
 // Adjust Bento Content here
 const features = [
   {
-    name: "Data Science Meets Chemistry",
-    description: "University of California Berkeley",
-    href: `/`,
-    cta: "Learn more",
-    disable: true,
+    name: "Full-Stack Developer & Machine Learning Researcher",
+    description: "San Francisco, CA",
+    href: `/about`,
+    cta: "About Me",
+    disable: false,
     primaryTextColor: "text-white",
     secondaryTextColor: "text-white",
     background: (
@@ -81,9 +82,14 @@ const features = [
   {
     name: "Adventures Off The Clock",
     description: "A little bit on what I do outside of work",
-    href: "/about",
+    href: "/sidequests",
     cta: "Learn more",
-    background: <img src={temp.src} className="absolute inset-0 w-full h-full object-cover object-top opacity-75 brightness-100" />,
+    background: (
+      <img
+        src={temp.src}
+        className="absolute inset-0 w-full h-full object-cover object-top opacity-75 brightness-100"
+      />
+    ),
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
     primaryTextColor: "text-white",
     secondaryTextColor: "text-white",
@@ -92,27 +98,46 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="p-3 bg-backgroundColor min-h-screen">
+    <div className="p-3 bg-backgroundColor min-h-fit">
+      <NavBar />
       <div className="flex justify-center p-3 mb-4">
         <TypingAnimation
           className="text-4xl font-bold text-primaryText dark:text-white"
-          text="QAMIL MIRZA"
-          duration={100}
+          text="Hi, I'm Qamil!"
+          duration={50}
         />
       </div>
       <BlurFade delay={0.3} inView className="flex-grow">
-          <BentoGrid className="lg:grid-rows-3">
-            {features.map((feature) => (
-              <BentoCard key={feature.name} {...feature} />
-            ))}
-          </BentoGrid>
+        <BentoGrid className="lg:grid-rows-3">
+          {features.map((feature) => (
+            <BentoCard key={feature.name} {...feature} />
+          ))}
+        </BentoGrid>
       </BlurFade>
-      
-      {/* Social Dock */}
       <BlurFade delay={0.5}>
-      <div className="mt-7 flex flex-row justify-center items-center">
-        <SocialDock />
-      </div>
+        <section>
+          {/* LETS CONNECT */}
+          <div className="flex justify-center mt-8 mb-4">
+            <AuroraText
+              className="text-5xl font-bold text-primaryText dark:text-white"
+              colors={[
+                "#ffffff",
+                "#d9ffed",
+                "#b3ffdb",
+                "#8cffca",
+                "#66ffa8",
+                "#40ff94",
+              ]}
+            >
+              Let's Connect
+            </AuroraText>
+          </div>
+
+          {/* Social Dock */}
+          <div className="mt-7 flex flex-row justify-center items-center">
+            <SocialConnect />
+          </div>
+        </section>
       </BlurFade>
     </div>
   );

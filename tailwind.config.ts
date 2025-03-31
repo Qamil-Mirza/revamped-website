@@ -70,7 +70,8 @@ const config: Config = {
   			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite',
   			meteor: 'meteor 5s linear infinite',
   			shine: 'shine var(--duration) infinite linear',
-  			grid: 'grid 15s linear infinite'
+  			grid: 'grid 15s linear infinite',
+  			aurora: 'aurora 8s ease-in-out infinite alternate'
   		},
   		keyframes: {
   			ripple: {
@@ -181,6 +182,28 @@ const config: Config = {
   				'90%': {
   					bottom: '50%',
   					right: '25%'
+  				}
+  			},
+  			aurora: {
+  				'0%': {
+  					backgroundPosition: '0% 50%',
+  					transform: 'rotate(-5deg) scale(0.9)'
+  				},
+  				'25%': {
+  					backgroundPosition: '50% 100%',
+  					transform: 'rotate(5deg) scale(1.1)'
+  				},
+  				'50%': {
+  					backgroundPosition: '100% 50%',
+  					transform: 'rotate(-3deg) scale(0.95)'
+  				},
+  				'75%': {
+  					backgroundPosition: '50% 0%',
+  					transform: 'rotate(3deg) scale(1.05)'
+  				},
+  				'100%': {
+  					backgroundPosition: '0% 50%',
+  					transform: 'rotate(-5deg) scale(0.9)'
   				}
   			}
   		}

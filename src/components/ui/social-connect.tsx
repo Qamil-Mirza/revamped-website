@@ -35,14 +35,14 @@ const socialLinks = [
   },
 ]
 
-function SocialDock() {
+function SocialConnect() {
   return (
     <ShineBorder
-      className="w-full bg-cardBackground backdrop-blur-sm py-4 px-6 rounded-xl"
+      className="w-fit bg-transparent backdrop-blur-sm py-4 px-6 rounded-xl"
       color={["#FFFFFF00", "#FFFFFF33", "#FFFFFF80", "#FFFFFF"]}
       borderWidth={2}
     >
-      <div className="flex items-center justify-center w-full gap-10 md:gap-16">
+      <div className="flex items-center justify-center w-full= gap-10 md:gap-16">
         {socialLinks.map((link, index) => (
           <motion.div
             key={link.label}
@@ -92,5 +92,5 @@ function SocialDock() {
   )
 }
 
-export default SocialDock
+export default SocialConnect
 

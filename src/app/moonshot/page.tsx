@@ -8,6 +8,7 @@ import Meteors from "@/components/ui/meteors";
 import Particles from "@/components/ui/particles";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { BoxReveal } from "@/components/ui/box-reveal";
+import { NavBar } from "@/components/ui/nav-bar";
 
 import chemprop from "@/public/chemprop.png";
 import ligand from "@/public/1c9.png";
@@ -71,7 +72,7 @@ function Page() {
         strategy="afterInteractive"
         onLoad={() => setScriptLoaded(true)}
       />
-
+      <NavBar />
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
         {/* Meteor Animation */}
         <div className="absolute inset-0">
