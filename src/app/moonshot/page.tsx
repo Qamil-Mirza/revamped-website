@@ -292,9 +292,15 @@ function Page() {
                 <span className="text-green-400">
                   less dependent on traditional screening methods.
                 </span>
-                {" "}I know this explanation is surface level for now in terms of the
-                actual process but I am limited by what I can say at the moment.
-                Will share results soon!
+                The work is ongoing, but{" "}
+                <a
+                  href="https://www.overleaf.com/read/sjdqztgpfych#a32bad"
+                  className="text-blue-400 hover:underline"
+                >
+                  here
+                </a>{" "}
+                is a research poster we developed summarizing our current
+                findings and future directions.
               </p>
             </div>
           </BlurFade>

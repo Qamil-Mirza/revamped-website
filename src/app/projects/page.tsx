@@ -18,6 +18,8 @@ import stars from "@/public/stars.png";
 import codon from "@/public/codon.jpg"
 import expenseDashboard from "@/public/expenseDashboard.png";
 import donut from "@/public/donut.png";
+import protSeqDes from "@/public/protein-sequence-design.png"
+import yosemite from "@/public/yosemite.jpg";
 
 import RetroGrid from "@/components/ui/retro-grid";
 import { ProjectCard } from "@/components/ui/project-card";
@@ -25,6 +27,22 @@ import { NavBar } from "@/components/ui/nav-bar";
 
 // Features to moddify Bento Grid
 const projects = [
+  {
+    id: 'in-silico-directed-evolution',
+    title: 'Augmenting Low-Activity Activation Domain Sequences Using In Silico Directed Evolution and Machine Learning',
+    description: 'A research project focused on enhancing low-activity activation domain sequences through in silico directed evolution and machine learning techniques.',
+    image: protSeqDes.src,
+    tags: ['Python', 'PyTorch', 'Transformers', 'Scikit-learn'],
+    url: 'https://github.com/Qamil-Mirza/compbio146-berkeley/blob/main/ds4bio-sp25/final-group/Augmenting%20Low-Activity%20Activation%20Domain%20Sequences%20Using%20In%20Silico%20Directed%20Evolution%20and%20Machine%20Learning.pdf'
+  },
+  {
+    id: "rocky-mountains",
+    title: "An Exploration of the The Tribes of The Rocky Mountains",
+    description: "A website I built for ESPM50 focused on the tribes of the Rocky Mountains, exploring their history, culture, and impact on the region.",
+    image: yosemite.src,
+    tags: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
+    url: "https://rocky-mountains.vercel.app/"
+  },
   {
     id: "receipt-parsing-service",
     title: "Receipt Parsing With Document Understanding Transformer (DONUT)",
