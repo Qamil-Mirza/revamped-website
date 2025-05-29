@@ -34,11 +34,10 @@ import omyokocho from "@/public/Japan/omyokocho.jpg";
 import fuji from "@/public/Japan/fuji.jpg";
 import osakastreet from "@/public/Japan/osakastreet.jpg";
 
-
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 // List of highlighted countries for styling.
-const highlightedCountries = ["United States of America", "Japan"];
+const highlightedCountries = ["United States of America", "Japan", "China"];
 
 interface CountryData {
   description?: string;
@@ -87,6 +86,31 @@ const countryDetails: { [key: string]: CountryData } = {
       omyokocho.src,
       fuji.src,
       osakastreet.src,
+    ],
+  },
+  "China": {
+    description: "Discovering The Cyberpunk City",
+    images: [
+      "/china/cn-hongya-group.JPEG",
+      "/china/cqxm.JPEG",
+      "/china/honyaselfie.JPEG",
+      "/china/jfb.JPEG",
+      "/china/apt.JPEG",
+      "/china/apt-wide.JPEG",
+      "/china/hongyanight.JPEG",
+      "/china/hycave.JPEG",
+      "/china/skyline.JPEG",
+      "/china/lanternstreet.JPEG",
+      "/china/ancientstreet.JPEG",
+      "/china/cnfood.jpg",
+      "/china/bunker.JPEG",
+      "/china/lgkitty.JPEG",
+      "/china/hkitty.JPEG",
+      "/china/pandas.JPEG",
+      "/china/bbqmountain.JPEG",
+      "/china/mbsclone.JPEG",
+      "/china/stare.JPEG",
+      "/china/meandcar.JPEG",
     ],
   }
 };
