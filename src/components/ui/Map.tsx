@@ -37,7 +37,7 @@ import osakastreet from "@/public/Japan/osakastreet.jpg";
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 // List of highlighted countries for styling.
-const highlightedCountries = ["United States of America", "Japan", "China"];
+const highlightedCountries = ["United States of America", "Japan", "China", "Cambodia"];
 
 interface CountryData {
   description?: string;
@@ -112,6 +112,31 @@ const countryDetails: { [key: string]: CountryData } = {
       "/china/stare.JPEG",
       "/china/meandcar.JPEG",
     ],
+  },
+  "Cambodia": {
+    description: "Exploring The Land Of The Khmer Empire",
+    images: [
+      "/cambodia/airportbuddha.jpeg",
+      "/cambodia/angkor-res-morning.jpeg",
+      "/cambodia/angkorbackshot.jpeg",
+      "/cambodia/angkorcollage.jpeg",
+      "/cambodia/angkorfood.jpeg",
+      "/cambodia/angkorgate.jpeg",
+      "/cambodia/angkortombinside.jpeg",
+      "/cambodia/dino.jpeg",
+      "/cambodia/eletemple.jpeg",
+      "/cambodia/faceontemple.jpeg",
+      "/cambodia/frontshotangkor.jpeg",
+      "/cambodia/headlessbuddha.jpeg",
+      "/cambodia/mecat.jpeg",
+      "/cambodia/mecatjump.jpeg",
+      "/cambodia/nightres.jpeg",
+      "/cambodia/pubstreet.jpeg",
+      "/cambodia/siemreapangkor.jpeg",
+      "/cambodia/templefromabove.jpeg",
+      "/cambodia/tombraidertemple.jpeg",
+      "/cambodia/tuktuk.jpeg",
+    ]
   }
 };
 
