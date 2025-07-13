@@ -20,7 +20,7 @@ const socialLinks = [
   },
   {
     icon: <FaFileAlt size={28} />,
-    href: "https://docs.google.com/document/d/19WATQ6s31JjC-cTm0EEM1rLkfROOngezMz7WTQvRliA/edit?usp=sharing",
+    href: "/documents/QamilMirzaResume2025.pdf",
     label: "Resume",
     hoverColor: "hover:text-primaryText",
     bgColor: "bg-green-500/10",
@@ -35,7 +35,7 @@ const socialLinks = [
   },
 ]
 
-function SocialConnect() {
+function SocialConnect({ onResumeClick }: { onResumeClick?: React.MouseEventHandler<HTMLAnchorElement> }) {
   return (
     <ShineBorder
       className="w-fit bg-transparent backdrop-blur-sm py-4 px-6 rounded-xl"
@@ -70,7 +70,8 @@ function SocialConnect() {
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
               title={link.label}
-              download={link.download}
+              download={link.label === "Resume" ? undefined : link.download}
+              onClick={link.label === "Resume" ? onResumeClick : undefined}
             >
               <motion.div className={`text-iconColor ${link.hoverColor}`}>{link.icon}</motion.div>
             </a>

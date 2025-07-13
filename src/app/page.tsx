@@ -1,4 +1,9 @@
+"use client";
+
 import { GearIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { FaFileAlt } from "react-icons/fa";
 
 // my images
 import qm from "@/public/qm.jpg";
@@ -97,6 +102,27 @@ const features = [
 ];
 
 export default function Home() {
+  const [showResumeDialog, setShowResumeDialog] = useState(false)
+
+  const handleResumeClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setShowResumeDialog(true)
+  }
+
+  const handleDownloadResume = () => {
+    const link = document.createElement('a')
+    link.href = "/documents/QamilMirzaResume2025.pdf"
+    link.download = "QamilMirzaResume2025.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    setShowResumeDialog(false)
+  }
+
+  const handleCancelDownload = () => {
+    setShowResumeDialog(false)
+  }
+
   return (
     <div className="p-3 bg-backgroundColor min-h-fit">
       <NavBar />
@@ -135,10 +161,47 @@ export default function Home() {
 
           {/* Social Dock */}
           <div className="mt-7 flex flex-row justify-center items-center">
-            <SocialConnect />
+            <SocialConnect onResumeClick={handleResumeClick} />
           </div>
         </section>
       </BlurFade>
+
+      {/* Resume Download Confirmation Dialog */}
+      {showResumeDialog && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="w-full h-full flex items-center justify-center p-4"
+          >
+            <div className="bg-gray-900/95 backdrop-blur-lg border border-white/20 rounded-2xl p-8 max-w-md w-full text-center">
+              <div className="mb-6">
+                <FaFileAlt size={64} className="text-green-500 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold text-white mb-3">Download Resume</h3>
+                <p className="text-gray-300 text-base">
+                  Would you like to download a PDF copy of my resume?
+                </p>
+              </div>
+              
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={handleCancelDownload}
+                  className="px-6 py-3 text-base font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDownloadResume}
+                  className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white text-base font-medium rounded-lg transition-colors duration-200"
+                >
+                  Download PDF
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
