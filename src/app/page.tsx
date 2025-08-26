@@ -111,8 +111,8 @@ export default function Home() {
 
   const handleDownloadResume = () => {
     const link = document.createElement('a')
-    link.href = "/documents/QamilMirzaResume2025.pdf"
-    link.download = "QamilMirzaResume2025.pdf"
+    link.href = "/documents/Qamil_Mirza_s_Resume_August_2025.pdf"
+    link.download = "Qamil_Mirza_s_Resume_August_2025.pdf"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
