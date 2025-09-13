@@ -3,7 +3,7 @@ import type {
 } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const base = "https://qamil-miza.com";
+    const base = "https://qamil-mirza.com";
     const paths = [
         "/",
         "/about",
