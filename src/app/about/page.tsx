@@ -84,7 +84,7 @@ export default function AboutMe() {
                     alt="Profile picture"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover"
+                    className="object-cover object-bottom"
                   />
                 </div>
                 <div className="p-6 md:p-8 flex flex-col justify-center">
@@ -93,33 +93,26 @@ export default function AboutMe() {
                       <User className="mr-1 h-3 w-3" /> About Me
                     </div>
                     <h2 className="text-2xl font-bold">
-                      I build AI-driven tools to empower biologists.
+                      I Like To Work On Hard Problems.
                     </h2>
                     <div className="space-y-4">
                       <p className="text-primaryText">
-                        I'm a dedicated full-stack developer with a background
-                        in data science and statistics for quantum chemistry an
-                        computational biology, currently pursuing my degree at
-                        UC Berkeley. My current interest lies at the
-                        intersection of web development, machine learning, and
-                        computational biology.
+                        I'm a full-stack developer with a background in data
+                        science and statistics for quantum chemistry and computational biology,
+                        currently studying at UC Berkeley. I love building useful things at the
+                        intersection of web development, machine learning, and computational biology.
                       </p>
                       <p className="text-primaryText">
-                        I am deeply invested in harnessing machine learning and
-                        deep learning techniques to tackle challenging problems,
-                        particularly in fields like computational biology and
-                        finance. My projects have ranged from toxicity
-                        prediction models using PyTorch to reinforcement
-                        learning algorithms designed for portfolio optimization
-                        and strategic decision-making.
+                        I’m enthusiastic about using machine learning and deep learning to solve
+                        meaningful problems in areas like computational biology and finance. Recent
+                        projects include toxicity prediction models in PyTorch and reinforcement
+                        learning for portfolio optimization and smarter decision making. I enjoy
+                        asking clear questions, running clean experiments, and shipping results.
                       </p>
                       <p className="text-primaryText">
-                        I enjoy collaborative environments where
-                        knowledge-sharing drives innovation. When I'm not
-                        immersed in code, you'll find me exploring the outdoors,
-                        delving into academic research, or experimenting with
-                        exciting new technologies to continually expand my
-                        skillset.
+                        I thrive in collaborative teams where sharing ideas sparks better solutions.
+                        When I’m not coding, I’m outdoors, diving into research, or tinkering with
+                        new tools to stretch my skills and learn something new every day.
                       </p>
                     </div>
                   </div>
@@ -533,7 +526,7 @@ export default function AboutMe() {
                       </div>
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primaryText">
-                          <SiExpress size={30} color="#000000" strokeWidth={0.5}/>
+                          <SiExpress size={30} color="#000000" strokeWidth={0.5} />
                         </div>
                         <div>
                           <p className="font-medium">Express</p>
@@ -564,7 +557,7 @@ export default function AboutMe() {
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primaryText/10">
-                          <SiMongodb size={30} color="#00ED64"/>
+                          <SiMongodb size={30} color="#00ED64" />
                         </div>
                         <div>
                           <p className="font-medium">MongoDB</p>
@@ -572,7 +565,7 @@ export default function AboutMe() {
                       </div>
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                          <SiPostgresql size={25} color="#ffffff" strokeWidth={0.6}/>
+                          <SiPostgresql size={25} color="#ffffff" strokeWidth={0.6} />
                         </div>
                         <div>
                           <p className="font-medium">PostgreSQL</p>
@@ -580,7 +573,7 @@ export default function AboutMe() {
                       </div>
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primaryText">
-                          <SiRedis size={30} color="#D82C20"/>
+                          <SiRedis size={30} color="#D82C20" />
                         </div>
                         <div>
                           <p className="font-medium">Redis</p>
@@ -588,7 +581,7 @@ export default function AboutMe() {
                       </div>
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primaryText/10">
-                          <SiSupabase size={30} color="#3ECF8E"/>
+                          <SiSupabase size={30} color="#3ECF8E" />
                         </div>
                         <div>
                           <p className="font-medium">Supabase</p>
@@ -621,7 +614,7 @@ export default function AboutMe() {
                       </div>
                       <div className="flex items-center rounded-lg border border-gray-700 p-3">
                         <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primaryText">
-                          <FaGithub  size={30} color="#181717" />
+                          <FaGithub size={30} color="#181717" />
                         </div>
                         <div>
                           <p className="font-medium">Git</p>
