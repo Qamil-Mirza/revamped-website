@@ -1,6 +1,13 @@
 import React from "react";
+import { Metadata } from "next";
 
 import uni from "@/public/uni.jpg";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://qamil-mirza.com/projects",
+  },
+};
 import tb from "@/public/tb.jpg";
 import brain from "@/public/brain.png";
 import descent from "@/public/descent.png";

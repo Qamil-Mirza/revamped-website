@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   verification: {
     google: "6JnU6PmG619-vmgNef2xvtkbYnZ_b8jksYJ0H3k0kU8",
   },
+  alternates: {
+    canonical: "https://qamil-mirza.com",
+  },
 };
 
 export default function RootLayout({

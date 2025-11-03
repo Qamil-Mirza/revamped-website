@@ -12,6 +12,13 @@ import Image from "next/image";
 import { AuroraText } from "@/components/ui/aurora-text";
 import { NavBar } from "@/components/ui/nav-bar";
 import qamil from "@/public/qm.jpg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://qamil-mirza.com/about",
+  },
+};
 
 // Icons
 import { FaReact, FaPython, FaDocker, FaAws } from "react-icons/fa";
