@@ -264,25 +264,29 @@ export default function AboutMe() {
                         Machine Learning Research Assistant
                       </h3>
                       <Badge className="mt-2 sm:mt-0 w-fit">
-                        Jan 2025 - Present
+                        Jun 2025 - Present
                       </Badge>
                     </div>
-                    <p className="text-lg text-primaryText mb-2">Merck</p>
+                    <p className="text-lg text-primaryText mb-2">
+                      UC Berkeley PATH (Partners for Advanced Transportation
+                      Technology)
+                    </p>
                     <ul className="list-disc pl-5 text-primaryText mb-3 space-y-1">
                       <li>
-                        Developed Directed Message Passing Neural Networks
-                        (D-MPNNs) for drug potency prediction (IC50/EC50) using
-                        protein-ligand interactions
+                        Built an active-learning CV pipeline (YOLOv12 → frame
+                        triage → Label Studio → retrain) for road-distress
+                        detection (potholes, vertical/lateral cracks, faded
+                        markings, manholes, blurred signage)
                       </li>
                       <li>
-                        Optimized bash scripts for high-performance computing
-                        (HPC), enabling parallel protein-ligand docking for
-                        15.5k ligands
+                        Processed 50,000+ frames; auto-filtered candidate frames
+                        and standardised ontology/QA guidelines, reducing manual
+                        review time by 80% per video
                       </li>
                       <li>
-                        Conducted molecular docking with AutoDock Vina, refining
-                        docking parameters to enhance structure-based drug
-                        design
+                        Achieved 0.994 mAP@0.5 on a 7k image internal validation
+                        set for road-distress detection via iterative retraining
+                        and label-quality improvements
                       </li>
                     </ul>
                     <div className="flex flex-wrap gap-2">
@@ -290,13 +294,150 @@ export default function AboutMe() {
                         variant="outline"
                         className="dark:border-gray-600 dark:text-gray-300"
                       >
-                        High-Performance Computing
+                        Computer Vision
                       </Badge>
                       <Badge
                         variant="outline"
                         className="dark:border-gray-600 dark:text-gray-300"
                       >
-                        Bash Scripting
+                        YOLOv12
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        Active Learning
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        Label Studio
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Job 2 */}
+                  <div className="mb-10 relative">
+                    <div className="absolute -left-[45px] -top-[5px] h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-4 w-4 rounded-full bg-primary"></div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold">
+                        AI Search Optimization Engineer
+                      </h3>
+                      <Badge className="mt-2 sm:mt-0 w-fit">
+                        June 2025 - Aug 2025
+                      </Badge>
+                    </div>
+                    <p className="text-lg text-primaryText mb-2">
+                      Maxis Berhad
+                    </p>
+                    <ul className="list-disc pl-5 text-primaryText mb-3 space-y-1">
+                      <li>
+                        Developed a fully customizable spin-the-wheel React
+                        application, now deployed in 15,200+ Maxis retail stores
+                        nationwide to support customer engagement campaigns
+                      </li>
+                      <li>
+                        Designed and deployed a serverless AWS-based document
+                        storage platform, migrating 1.5 million documents across
+                        multiple departments, eliminating third-party dependency
+                        and reducing annual infrastructure costs by RM100,000+
+                      </li>
+                      <li>
+                        Hardened backend APIs through comprehensive security
+                        audits, remediating high-risk vulnerabilities including
+                        SQL injection points and outdated cryptographic
+                        algorithms (MD5, SHA1)
+                      </li>
+                      <li>
+                        Rewrote document parsing logic and integrated a new
+                        parser into the company's internal AI assistant,
+                        improving dependency injection for scalable self-hosting
+                        and enhancing knowledge access for 3,800+ employees
+                      </li>
+                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        React
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        AWS Lambda
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        Security Audits
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        Document Parsing
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        RAG Pipeline
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Job 3 */}
+                  <div className="mb-10 relative">
+                    <div className="absolute -left-[45px] -top-[5px] h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-4 w-4 rounded-full bg-primary"></div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold">
+                        Machine Learning Research Assistant
+                      </h3>
+                      <Badge className="mt-2 sm:mt-0 w-fit">
+                        Jan 2025 - May 2025
+                      </Badge>
+                    </div>
+                    <p className="text-lg text-primaryText mb-2">Merck Group</p>
+                    <ul className="list-disc pl-5 text-primaryText mb-3 space-y-1">
+                      <li>
+                        Built a modular, end-to-end model development pipeline by
+                        organising the project on GitHub and scripting automated
+                        workflows for data extraction, feature engineering, model
+                        training, and evaluation
+                      </li>
+                      <li>
+                        Engineered Directed Message Passing Neural Networks
+                        (D-MPNNs) to predict drug potency (IC50/EC50), leveraging
+                        protein–ligand interaction fingerprints; results accepted
+                        to the NeurIPS 2025 AI4Science Workshop
+                      </li>
+                      <li>
+                        Streamlined molecular docking workflow for 18,000+
+                        ligands, optimizing docking parameters to reduce protocol
+                        noise by 25% and significantly improving signal quality
+                        in downstream modeling
+                      </li>
+                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        PyTorch
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="dark:border-gray-600 dark:text-gray-300"
+                      >
+                        Graph Neural Networks
                       </Badge>
                       <Badge
                         variant="outline"
@@ -308,12 +449,12 @@ export default function AboutMe() {
                         variant="outline"
                         className="dark:border-gray-600 dark:text-gray-300"
                       >
-                        Graph Neural Networks
+                        High-Performance Computing
                       </Badge>
                     </div>
                   </div>
 
-                  {/* Job 2 */}
+                  {/* Job 4 */}
                   <div className="mb-10 relative">
                     <div className="absolute -left-[45px] -top-[5px] h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
                       <div className="h-4 w-4 rounded-full bg-primary"></div>
@@ -391,7 +532,7 @@ export default function AboutMe() {
                     </div>
                   </div>
 
-                  {/* Job 3 */}
+                  {/* Job 5 */}
                   <div className="relative">
                     <div className="absolute -left-[45px] -top-[5px] h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
                       <div className="h-4 w-4 rounded-full bg-primary"></div>

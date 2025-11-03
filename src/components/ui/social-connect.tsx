@@ -20,7 +20,7 @@ const socialLinks = [
   },
   {
     icon: <FaFileAlt size={28} />,
-    href: "/documents/QamilMirzaResume2025.pdf",
+    href: "/documents/Qamil_Mirza_s_Resume_September_2025.pdf",
     label: "Resume",
     hoverColor: "hover:text-primaryText",
     bgColor: "bg-green-500/10",
