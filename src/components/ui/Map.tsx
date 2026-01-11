@@ -37,7 +37,7 @@ import osakastreet from "@/public/Japan/osakastreet.jpg";
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 // List of highlighted countries for styling.
-const highlightedCountries = ["United States of America", "Japan", "China", "Cambodia"];
+const highlightedCountries = ["United States of America", "Japan", "China", "Cambodia", "Costa Rica", "Mexico"];
 
 interface CountryData {
   description?: string;
@@ -137,7 +137,53 @@ const countryDetails: { [key: string]: CountryData } = {
       "/cambodia/tombraidertemple.jpeg",
       "/cambodia/tuktuk.jpeg",
     ]
-  }
+  },
+  "Costa Rica": {
+    description: "Living Pura Vida",
+    images: [
+      "/costa-rica/IMG_0562.JPG",
+      "/costa-rica/IMG_0621.JPG",
+      "/costa-rica/IMG_0754.jpeg",
+      "/costa-rica/IMG_0773.jpeg",
+      "/costa-rica/IMG_1034.jpeg",
+      "/costa-rica/IMG_1148.jpeg",
+      "/costa-rica/IMG_1259.jpeg",
+      "/costa-rica/IMG_1322.jpeg",
+      "/costa-rica/IMG_1338.jpeg",
+      "/costa-rica/IMG_1363.jpeg",
+      "/costa-rica/IMG_1435.jpeg",
+      "/costa-rica/IMG_1444.jpeg",
+      "/costa-rica/IMG_5271.jpeg",
+      "/costa-rica/IMG_5309.jpeg",
+      "/costa-rica/IMG_5337.jpeg",
+      "/costa-rica/IMG_5359.jpeg",
+    ],
+  },
+  "Mexico": {
+    description: "Living La Buena Vida",
+    images: [
+      "/mexico/IMG_1542.jpeg",
+      "/mexico/IMG_1551.jpeg",
+      "/mexico/IMG_1611.jpeg",
+      "/mexico/IMG_1627.jpeg",
+      "/mexico/IMG_1667.jpeg",
+      "/mexico/IMG_1686.jpeg",
+      "/mexico/IMG_1705.jpeg",
+      "/mexico/IMG_1712.jpeg",
+      "/mexico/IMG_1724.jpeg",
+      "/mexico/IMG_1767.jpeg",
+      "/mexico/IMG_1769.jpeg",
+      "/mexico/IMG_1787.jpeg",
+      "/mexico/IMG_1806.jpeg",
+      "/mexico/IMG_1838.jpeg",
+      "/mexico/IMG_1863.jpeg",
+      "/mexico/IMG_1885.jpeg",
+      "/mexico/IMG_1892.jpeg",
+      "/mexico/IMG_1899.jpeg",
+      "/mexico/IMG_1939.jpeg",
+      "/mexico/incollage_save.jpg",
+    ],
+  },
 };
 
 export default function Map() {
