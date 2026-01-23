@@ -27,13 +27,39 @@ import expenseDashboard from "@/public/expenseDashboard.png";
 import donut from "@/public/donut.png";
 import protSeqDes from "@/public/protein-sequence-design.png"
 import yosemite from "@/public/yosemite.jpg";
-
+import team from "@/public/team.jpeg";
+import ecoli from "@/public/e-coli-2x.webp";
+import graph from "@/public/graph.gif";
 import RetroGrid from "@/components/ui/retro-grid";
 import { ProjectCard } from "@/components/ui/project-card";
 import { NavBar } from "@/components/ui/nav-bar";
 
 // Features to moddify Bento Grid
 const projects = [
+  {
+    id: "predicting-drug-target-affinities-with-graph-neural-networks",
+    title: "Predicting Drug Target Affinities with Graph Neural Networks",
+    description: "A research project focused on predicting drug target affinities using Directed Message Passing Neural Networks augmented with molecular descriptors and protein-ligand interactions.",
+    image: graph.src,
+    tags: ["Graph Neural Networks", "Machine Learning", "Drug Discovery"],
+    url: "/documents/Drug_discovery_through_deep_learning_and_3D_protein_ligand_modeling.pdf",
+  },
+  {
+    id: "directed-evolution-engineering-ecoli-to-detoxify-reactive-intermediates",
+    title: "Directed Evolution Engineering E. coli to Detoxify Reactive Intermediates",
+    description: "A research project focused on engineering E. coli to detoxify reactive intermediates using directed evolution.",
+    image: ecoli.src,
+    tags: ["Synthetic Biology", "Genetic Engineering", "Directed Evolution", "Machine Learning"],
+    url: "https://medium.com/@qamilmirza/directed-evolution-engineering-e-coli-to-detoxify-reactive-intermediates-32e369466919",
+  },
+  {
+    id: "optimizing-equity-derivative-hedging-strategies",
+    title: "Optimizing Equity Derivative Hedging Strategies",
+    description: "Bay Area Decision Science Challenge 2025: Mixed Integer Linear Program to hedge options exposure for a portfolio of stocks.",
+    image: team.src,
+    tags: ["Python", "PyTorch", "Scikit-learn", "Mixed Integer Linear Programming"],
+    url: "https://github.com/Qamil-Mirza/My-Data-Projects/blob/main/Bay-Area-Decision-Science-Challenge-2025/optimizing-equity-derivative-hedging-strategies.ipynb",
+  },
   {
     id: 'in-silico-directed-evolution',
     title: 'Augmenting Low-Activity Activation Domain Sequences Using In Silico Directed Evolution and Machine Learning',

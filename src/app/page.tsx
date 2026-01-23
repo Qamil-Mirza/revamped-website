@@ -7,7 +7,7 @@ import { FaFileAlt } from "react-icons/fa";
 
 // my images
 import qm from "@/public/qm.jpg";
-import graph from "@/public/graph.gif";
+import cmatrix from "@/public/cmatrix.gif";
 import temp from "@/public/temp.png";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
@@ -40,15 +40,15 @@ const features = [
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
   },
   {
-    name: "Predicting Drug Target Affinities with Graph Neural Networks",
+    name: "Building Something Every Month Of 2026",
     description: "",
-    href: "/moonshot",
+    href: "/challenges",
     cta: "Learn more",
     iconColor: "text-white",
     primaryTextColor: "text-white",
     background: (
       <img
-        src={graph.src}
+        src={cmatrix.src}
         className="absolute inset-0 w-full h-full object-cover opacity-100"
       />
     ),
@@ -57,8 +57,8 @@ const features = [
   {
     Icon: GearIcon,
     hideIcon: true,
-    name: "Passionate Builder and Innovator",
-    description: "Checkout Some of The Projects I've Worked On Below",
+    name: "Building For The Fun Of It!",
+    description: "Checkout Some of The Projects I've Worked On Here",
     href: "/projects",
     cta: "Learn more",
     background: (

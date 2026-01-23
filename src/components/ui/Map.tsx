@@ -211,11 +211,20 @@ export default function Map() {
             geographies.map((geo) => {
               const countryName: string = geo.properties.name;
               const isHighlighted = highlightedCountries.includes(countryName);
+              const isSelected = countryName === selectedCountryName;
+              
+              // Determine fill color: selected (orange) > highlighted (green) > default (white)
+              const getFillColor = () => {
+                if (isSelected) return "#FF8A65";
+                if (isHighlighted) return "#4ade80";
+                return "#ffffff";
+              };
+              
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={isHighlighted ? "#4ade80" : "#ffffff"}
+                  fill={getFillColor()}
                   stroke="#EAEAEC"
                   style={{
                     default: { outline: "none" },

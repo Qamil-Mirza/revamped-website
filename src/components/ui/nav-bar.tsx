@@ -15,7 +15,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Moonshot", href: "/moonshot" },
+  { label: "Challenges", href: "/challenges" },
   { label: "Projects", href: "/projects" },
   { label: "Sidequests", href: "/sidequests" },
   { label: "Contact", href: "/contact" },
