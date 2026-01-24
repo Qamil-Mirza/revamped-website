@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FaFileAlt } from "react-icons/fa";
 
 // my images
-import qm from "@/public/qm.jpg";
+import qm from "@/public/solobadds.jpeg";
 import cmatrix from "@/public/cmatrix.gif";
 import temp from "@/public/temp.png";
 
@@ -34,7 +34,7 @@ const features = [
     background: (
       <img
         src={qm.src}
-        className="absolute inset-0 w-full h-full object-cover object-right-bottom opacity-100 brightness-75 scale-150 -translate-y-1/4"
+        className="absolute inset-0 w-full h-full object-cover object-right-top opacity-100 brightness-75 scale-150 translate-y-[-20%]"
       />
     ),
     className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
