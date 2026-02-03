@@ -15,6 +15,7 @@ interface MonthChallenge {
   status: "completed" | "in-progress" | "coming-soon";
   tags?: string[];
   link?: string;
+  videoLink?: string;
   highlights?: string[];
 }
 
@@ -24,9 +25,10 @@ const challenges: MonthChallenge[] = [
     year: 2026,
     title: "The Daily Brief - AI Finance Newsletter Bot",
     description: "A fully automated daily finance/economics email bot that pulls news, summarizes with local LLM, generates audio podcasts, and sends beautifully formatted emails.",
-    status: "in-progress",
+    status: "completed",
     tags: ["Python", "Ollama", "Coqui TTS", "Docker", "MarketAux API"],
     link: "https://github.com/Qamil-Mirza/Wallstreet-PA",
+    videoLink: "https://www.tiktok.com/t/ZThyTW4sn/",
     highlights: [
       "Multi-feed financial news aggregation from MarketAux",
       "Local LLM summarization with analyst-style voice",
@@ -192,19 +194,34 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
               ))}
             </ul>
           )}
-          {challenge.link && (
-            <a
-              href={challenge.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors text-sm font-medium"
-            >
-              View Project
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          )}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {challenge.link && (
+              <a
+                href={challenge.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors text-sm font-medium"
+              >
+                View Project
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+            {challenge.videoLink && (
+              <a
+                href={challenge.videoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-400 rounded-lg hover:bg-pink-500/30 transition-colors text-sm font-medium"
+              >
+                Watch Demo
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.18a8.27 8.27 0 004.77 1.51V7.24a4.83 4.83 0 01-1-.55z" />
+                </svg>
+              </a>
+            )}
+          </div>
         </CardContent>
       </Card>
     </BlurFade>
