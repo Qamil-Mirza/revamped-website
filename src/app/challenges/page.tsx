@@ -39,9 +39,18 @@ const challenges: MonthChallenge[] = [
   {
     month: "February",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the February challenge!",
-    status: "coming-soon",
+    title: "Socratic Reader - Intentional Reading Through Questions",
+    description: "An AI-assisted reading companion that scans text, highlights key ideas, and generates Socratic questions to encourage deeper, more intentional engagement.",
+    status: "in-progress",
+    tags: ["TypeScript", "Chrome Extension", "Ollama", "NLP"],
+    link: "https://github.com/Qamil-Mirza/socratic-reader",
+    videoLink: "",
+    highlights: [
+      "Automatic key-claim and argument detection",
+      "Socratic question generation for active reading",
+      "Inline highlights and sidebar reflection UI via a Chrome extension",
+      "Designed for philosophy, essays, and long-form content",
+    ],
   },
   {
     month: "March",
