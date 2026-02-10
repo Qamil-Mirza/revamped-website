@@ -36,6 +36,8 @@ const BentoCard = ({
   secondaryTextColor,
   iconColor,
   hideIcon,
+  useHyperspace,
+  onHyperspaceClick,
 }: {
   name: string;
   className: string;
@@ -49,6 +51,8 @@ const BentoCard = ({
   primaryTextColor?: string;
   secondaryTextColor?: string;
   iconColor?: string;
+  useHyperspace?: boolean;
+  onHyperspaceClick?: (e: React.MouseEvent, href: string) => void;
 }) => (
   <div
     key={name}
@@ -78,11 +82,24 @@ const BentoCard = ({
         "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
       )}
     >
-      <Button variant="ghost" asChild size="sm" className="pointer-events-auto">
-        <a href={href} className={`${primaryTextColor}`}>
-          {cta}
-          <ArrowRightIcon className="ml-2 h-4 w-4" />
-        </a>
+      <Button
+        variant="ghost"
+        asChild={!useHyperspace}
+        size="sm"
+        className="pointer-events-auto group/button"
+        onClick={useHyperspace ? (e) => onHyperspaceClick?.(e, href) : undefined}
+      >
+        {useHyperspace ? (
+          <span className={`inline-flex items-center ${primaryTextColor} group-hover/button:text-black transition-colors`}>
+            {cta}
+            <ArrowRightIcon className="ml-2 h-4 w-4" />
+          </span>
+        ) : (
+          <a href={href} className={`${primaryTextColor} group-hover/button:text-black transition-colors`}>
+            {cta}
+            <ArrowRightIcon className="ml-2 h-4 w-4" />
+          </a>
+        )}
       </Button>
     </div>
     }

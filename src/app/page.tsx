@@ -26,7 +26,7 @@ const features = [
   {
     name: "Full-Stack Developer & Machine Learning Researcher",
     description: "San Francisco, CA",
-    href: `/about`,
+    href: `/hyperspace`,
     cta: "About Me",
     disable: false,
     primaryTextColor: "text-white",
@@ -183,7 +183,7 @@ export default function Home() {
                   Would you like to download a PDF copy of my resume?
                 </p>
               </div>
-              
+
               <div className="flex gap-4 justify-center">
                 <button
                   onClick={handleCancelDownload}
