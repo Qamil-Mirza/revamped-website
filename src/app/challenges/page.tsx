@@ -7,6 +7,29 @@ import { Badge } from "@/components/ui/badge";
 import { LockClosedIcon, CheckCircledIcon, RocketIcon } from "@radix-ui/react-icons";
 import Particles from "@/components/ui/particles";
 
+interface BonusBuild {
+  title: string;
+  description: string;
+  occasion: string;
+  tags: string[];
+  link?: string;
+  liveLink?: string;
+  videoLink?: string;
+}
+
+const bonusBuilds: BonusBuild[] = [
+  {
+    title: "BloomNote - 3D Valentine Gift Creator",
+    description:
+      "A free web app to create and send personalized 3D Valentine gifts. Pick a gift, write your message, and share a link — no signup required.",
+    occasion: "Valentine's Day 2026",
+    tags: ["Next.js", "React Three Fiber", "Supabase", "TypeScript", "Tailwind CSS"],
+    link: "https://github.com/Qamil-Mirza/bloom-note",
+    liveLink: "https://bloom-note-pink.vercel.app/",
+    videoLink: "https://www.tiktok.com/@therealqamil/video/7606803923474631950?_r=1&_t=ZT-93zIWcciGty",
+  },
+];
+
 interface MonthChallenge {
   month: string;
   year: number;
@@ -237,6 +260,86 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
   );
 }
 
+function BonusBuildCard({ build, index }: { build: BonusBuild; index: number }) {
+  return (
+    <BlurFade delay={0.1 + index * 0.05} inView>
+      <Card className="relative overflow-hidden transition-all duration-300 h-full bg-gray-900/80 border-gray-700 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/10">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-pink-400">
+              {build.occasion}
+            </span>
+            <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/30 hover:bg-pink-500/30">
+              Bonus
+            </Badge>
+          </div>
+          <CardTitle className="text-xl text-white">{build.title}</CardTitle>
+          <CardDescription className="text-gray-400">
+            {build.description}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {build.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {build.tags.map((tag) => (
+                <Badge
+                  key={tag}
+                  variant="outline"
+                  className="text-xs bg-pink-500/10 text-pink-300 border-pink-500/30"
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {build.link && (
+              <a
+                href={build.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors text-sm font-medium"
+              >
+                View Code
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+            {build.liveLink && (
+              <a
+                href={build.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-400 rounded-lg hover:bg-pink-500/30 transition-colors text-sm font-medium"
+              >
+                Try It
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </a>
+            )}
+            {build.videoLink && (
+              <a
+                href={build.videoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-400 rounded-lg hover:bg-pink-500/30 transition-colors text-sm font-medium"
+              >
+                Watch Demo
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.18a8.27 8.27 0 004.77 1.51V7.24a4.83 4.83 0 01-1-.55z" />
+                </svg>
+              </a>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </BlurFade>
+  );
+}
+
 export default function ChallengesPage() {
   const completedCount = challenges.filter((c) => c.status === "completed").length;
   const inProgressCount = challenges.filter((c) => c.status === "in-progress").length;
@@ -293,6 +396,27 @@ export default function ChallengesPage() {
           ))}
         </div>
       </div>
+
+      {/* Bonus Builds Section */}
+      {bonusBuilds.length > 0 && (
+        <div className="max-w-6xl mx-auto px-4 pb-16">
+          <BlurFade delay={0.1} inView>
+            <div className="mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                Bonus Builds
+              </h2>
+              <p className="text-gray-400">
+                Extra projects built outside the monthly challenge
+              </p>
+            </div>
+          </BlurFade>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bonusBuilds.map((build, index) => (
+              <BonusBuildCard key={build.title} build={build} index={index} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
