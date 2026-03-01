@@ -76,8 +76,8 @@ const challenges: MonthChallenge[] = [
   {
     month: "March",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the March challenge!",
+    title: "CoachGPT",
+    description: "Midterms are underway at Berkeley, and sometimes you just need someone to yell at you to get you to study.",
     status: "coming-soon",
   },
   {
