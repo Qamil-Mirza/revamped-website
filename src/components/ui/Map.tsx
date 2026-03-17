@@ -1,206 +1,27 @@
 import React, { useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import Gallery from "@/components/ui/Gallery";
-import sf from "@/public/USA/sf.jpg";
-import wharf from "@/public/USA/wharf.jpg";
-import ggbridge from "@/public/USA/goldengate.jpg";
-import santamonica from "@/public/USA/santamonica.jpg";
-import griffith from "@/public/USA/griffith.jpg";
-import hollywood from "@/public/USA/hollywood.jpg";
-import tunnel from "@/public/USA/tunnel.jpg";
-import croc from "@/public/USA/croc.jpg";
-import everglades from "@/public/USA/everglades.jpg";
-import heli from "@/public/USA/heli.jpg";
-import kwest from "@/public/USA/kwest.jpg";
-import miami from "@/public/USA/miami.jpg";
-import warmuseum from "@/public/USA/warmuseum.jpg";
-import jazzclub from "@/public/USA/jazzclub.jpg";
-import gunrange from "@/public/USA/gunrange.jpg";
-import mjprofile from "@/public/Japan/mjprofile.jpg";
-import nbyokocho from "@/public/Japan/nbyokocho.jpg";
-import tsukiji from "@/public/Japan/tsukiji.jpg";
-import deer from "@/public/Japan/deer.jpg";
-import akihabara from "@/public/Japan/akihabara.jpg";
-import nintendo from "@/public/Japan/nintendo.jpg";
-import torii from "@/public/Japan/torii.jpg";
-import kyoto from "@/public/Japan/kyoto.jpg";
-import harry from "@/public/Japan/harry.jpg";
-import lantern from "@/public/Japan/lantern.jpg";
-import castle from "@/public/Japan/castle.jpg";
-import tokyo from "@/public/Japan/tokyo.jpg";
-import gov from "@/public/Japan/gov.jpg";
-import street from "@/public/Japan/street.jpg";
-import omyokocho from "@/public/Japan/omyokocho.jpg";
-import fuji from "@/public/Japan/fuji.jpg";
-import osakastreet from "@/public/Japan/osakastreet.jpg";
+import {
+  countries,
+  highlightedGeoCountries,
+  getCountryByGeoName,
+  type CountryData,
+} from "@/data/travels";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-// List of highlighted countries for styling.
-const highlightedCountries = ["United States of America", "Japan", "China", "Cambodia", "Costa Rica", "Mexico"];
-
-interface CountryData {
-  description?: string;
-  images?: string[];
-}
-
-// Dictionary mapping country names to details.
-const countryDetails: { [key: string]: CountryData } = {
-  "United States of America": {
-    description: "Adventures In The Land Of The Free",
-    images: [
-      sf.src,
-      wharf.src,
-      ggbridge.src,
-      santamonica.src,
-      griffith.src,
-      hollywood.src,
-      tunnel.src,
-      croc.src,
-      everglades.src,
-      heli.src,
-      kwest.src,
-      miami.src,
-      warmuseum.src,
-      jazzclub.src,
-      gunrange.src,
-    ],
-  },
-  "Japan": {
-    description: "Exploring The Land Of The Rising Sun",
-    images: [
-      mjprofile.src,
-      nbyokocho.src,
-      tsukiji.src,
-      deer.src,
-      akihabara.src,
-      nintendo.src,
-      torii.src,
-      kyoto.src,
-      harry.src,
-      lantern.src,
-      castle.src,
-      tokyo.src,
-      gov.src,
-      street.src,
-      omyokocho.src,
-      fuji.src,
-      osakastreet.src,
-    ],
-  },
-  "China": {
-    description: "Discovering The Cyberpunk City",
-    images: [
-      "/china/cn-hongya-group.JPEG",
-      "/china/cqxm.JPEG",
-      "/china/honyaselfie.JPEG",
-      "/china/jfb.JPEG",
-      "/china/apt.JPEG",
-      "/china/apt-wide.JPEG",
-      "/china/hongyanight.JPEG",
-      "/china/hycave.JPEG",
-      "/china/skyline.JPEG",
-      "/china/lanternstreet.JPEG",
-      "/china/ancientstreet.JPEG",
-      "/china/cnfood.jpg",
-      "/china/bunker.JPEG",
-      "/china/lgkitty.JPEG",
-      "/china/hkitty.JPEG",
-      "/china/pandas.JPEG",
-      "/china/bbqmountain.JPEG",
-      "/china/mbsclone.JPEG",
-      "/china/stare.JPEG",
-      "/china/meandcar.JPEG",
-    ],
-  },
-  "Cambodia": {
-    description: "Exploring The Land Of The Khmer Empire",
-    images: [
-      "/cambodia/airportbuddha.jpeg",
-      "/cambodia/angkor-res-morning.jpeg",
-      "/cambodia/angkorbackshot.jpeg",
-      "/cambodia/angkorcollage.jpeg",
-      "/cambodia/angkorfood.jpeg",
-      "/cambodia/angkorgate.jpeg",
-      "/cambodia/angkortombinside.jpeg",
-      "/cambodia/dino.jpeg",
-      "/cambodia/eletemple.jpeg",
-      "/cambodia/faceontemple.jpeg",
-      "/cambodia/frontshotangkor.jpeg",
-      "/cambodia/headlessbuddha.jpeg",
-      "/cambodia/mecat.jpeg",
-      "/cambodia/mecatjump.jpeg",
-      "/cambodia/nightres.jpeg",
-      "/cambodia/pubstreet.jpeg",
-      "/cambodia/siemreapangkor.jpeg",
-      "/cambodia/templefromabove.jpeg",
-      "/cambodia/tombraidertemple.jpeg",
-      "/cambodia/tuktuk.jpeg",
-    ]
-  },
-  "Costa Rica": {
-    description: "Living Pura Vida",
-    images: [
-      "/costa-rica/IMG_0562.JPG",
-      "/costa-rica/IMG_0621.JPG",
-      "/costa-rica/IMG_0754.jpeg",
-      "/costa-rica/IMG_0773.jpeg",
-      "/costa-rica/IMG_1034.jpeg",
-      "/costa-rica/IMG_1148.jpeg",
-      "/costa-rica/IMG_1259.jpeg",
-      "/costa-rica/IMG_1322.jpeg",
-      "/costa-rica/IMG_1338.jpeg",
-      "/costa-rica/IMG_1363.jpeg",
-      "/costa-rica/IMG_1435.jpeg",
-      "/costa-rica/IMG_1444.jpeg",
-      "/costa-rica/IMG_5271.jpeg",
-      "/costa-rica/IMG_5309.jpeg",
-      "/costa-rica/IMG_5337.jpeg",
-      "/costa-rica/IMG_5359.jpeg",
-    ],
-  },
-  "Mexico": {
-    description: "Living La Buena Vida",
-    images: [
-      "/mexico/IMG_1542.jpeg",
-      "/mexico/IMG_1551.jpeg",
-      "/mexico/IMG_1611.jpeg",
-      "/mexico/IMG_1627.jpeg",
-      "/mexico/IMG_1667.jpeg",
-      "/mexico/IMG_1686.jpeg",
-      "/mexico/IMG_1705.jpeg",
-      "/mexico/IMG_1712.jpeg",
-      "/mexico/IMG_1724.jpeg",
-      "/mexico/IMG_1767.jpeg",
-      "/mexico/IMG_1769.jpeg",
-      "/mexico/IMG_1787.jpeg",
-      "/mexico/IMG_1806.jpeg",
-      "/mexico/IMG_1838.jpeg",
-      "/mexico/IMG_1863.jpeg",
-      "/mexico/IMG_1885.jpeg",
-      "/mexico/IMG_1892.jpeg",
-      "/mexico/IMG_1899.jpeg",
-      "/mexico/IMG_1939.jpeg",
-      "/mexico/incollage_save.jpg",
-    ],
-  },
-};
-
 export default function Map() {
-  // State to keep track of the selected country name and its details.
-  const [selectedCountryName, setSelectedCountryName] = useState<string>("");
-  const [selectedCountryData, setSelectedCountryData] =
-    useState<CountryData | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(null);
+  const [selectedCitySlug, setSelectedCitySlug] = useState<string | null>(null);
 
-  // When a country is clicked, look it up in the dictionary.
   const handleCountryClick = (countryName: string) => {
-    setSelectedCountryName(countryName);
-    if (countryDetails[countryName]) {
-      setSelectedCountryData(countryDetails[countryName]);
+    const country = getCountryByGeoName(countryName);
+    setSelectedCountry(country);
+    if (country && country.cities.length > 0) {
+      setSelectedCitySlug(country.cities[0].slug);
     } else {
-      setSelectedCountryData(null);
+      setSelectedCitySlug(null);
     }
-    console.log("Country clicked:", countryName);
   };
 
   return (
@@ -210,8 +31,8 @@ export default function Map() {
           {({ geographies }) =>
             geographies.map((geo) => {
               const countryName: string = geo.properties.name;
-              const isHighlighted = highlightedCountries.includes(countryName);
-              const isSelected = countryName === selectedCountryName;
+              const isHighlighted = highlightedGeoCountries.includes(countryName);
+              const isSelected = selectedCountry?.geoName === countryName;
               
               // Determine fill color: selected (orange) > highlighted (green) > default (white)
               const getFillColor = () => {
@@ -242,17 +63,52 @@ export default function Map() {
           }
         </Geographies>
       </ComposableMap>
-      {/* Display the details for the selected country */}
-      {selectedCountryData && (
-        <div>
+      {selectedCountry && (
+        <div className="mt-8">
           <h1 className="text-primaryText text-center text-4xl font-bold mb-2">
-            {selectedCountryName}
+            {selectedCountry.name}
           </h1>
-          <p className="text-primaryText text-center text-xl mb-6">{selectedCountryData.description}</p>
-          <Gallery
-            images={selectedCountryData.images || []}
-            description={selectedCountryData.description || ""}
-          />
+          <p className="text-primaryText text-center text-xl mb-6">
+            {selectedCountry.description}
+          </p>
+
+          {selectedCountry.cities.length > 0 && (
+            <>
+              <div className="flex flex-wrap justify-center gap-3 mb-6">
+                {selectedCountry.cities.map((city) => {
+                  const isActive = city.slug === selectedCitySlug;
+                  return (
+                    <button
+                      key={city.slug}
+                      type="button"
+                      onClick={() => setSelectedCitySlug(city.slug)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                        isActive
+                          ? "bg-green-500/20 border-green-400 text-green-300"
+                          : "bg-transparent border-gray-600 text-gray-300 hover:border-green-400 hover:text-green-200"
+                      }`}
+                    >
+                      {city.name}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {selectedCitySlug && (
+                <div className="space-y-8">
+                  {selectedCountry.cities
+                    .filter((city) => city.slug === selectedCitySlug)
+                    .map((city) => (
+                      <Gallery
+                        key={city.slug}
+                        city={city.name}
+                        images={city.images}
+                      />
+                    ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
     </div>
