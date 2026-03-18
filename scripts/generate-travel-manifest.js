@@ -1,5 +1,3 @@
-// Simple Node script (no TS types at runtime) to generate
-// a manifest of travel photos from `public/travels`.
 const fs = require("fs");
 const path = require("path");
 
@@ -29,6 +27,7 @@ function getImageFiles(dir) {
 }
 
 function generateManifest() {
+  /** @type {Record<string, Record<string, string[]>>} */
   const manifest = {};
 
   if (!fs.existsSync(TRAVELS_ROOT)) {
@@ -73,4 +72,3 @@ function main() {
 }
 
 main();
-
