@@ -76,16 +76,37 @@ const challenges: MonthChallenge[] = [
   {
     month: "March",
     year: 2026,
-    title: "CoachGPT",
-    description: "Midterms are underway at Berkeley, and sometimes you just need someone to yell at you to get you to study.",
-    status: "coming-soon",
+    title: "Runekeeper - Chat-Style Weekly Planner (Part 1)",
+    description:
+      "A chat-style weekly planner that turns natural conversation into time-blocked calendar events and trackable tasks. Built with a \"Living Manuscript\" aesthetic — sepia tones, editorial typography, and the personality of an enchanted archivist.",
+    status: "completed",
+    tags: [
+      "Next.js 15",
+      "TypeScript",
+      "NextAuth",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Gemini 2.5 Flash",
+      "Tailwind CSS",
+      "Docker",
+    ],
+    link: "https://github.com/Qamil-Mirza/runekeeper",
+    videoLink: "https://www.tiktok.com/t/ZTkuUoEbS/",
+    highlights: [
+      "Natural-language chat that plans realistic week schedules from goals and deadlines",
+      "Conflict detection against Google Calendar with writes on confirmation",
+      "Task tracking with reschedule and undo via Google Tasks API",
+      "Self-hosted with Docker + Tailscale Funnel for public HTTPS",
+    ],
   },
   {
     month: "April",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the April challenge!",
-    status: "coming-soon",
+    title: "OMI Dev Kit + WebSockets (Teaser)",
+    description:
+      "Experimenting with the OMI Dev Kit and wiring it up over WebSockets for real-time audio streaming and on-device interactions. More soon.",
+    status: "in-progress",
+    tags: ["OMI Dev Kit", "WebSockets", "Real-time"],
   },
   {
     month: "May",
