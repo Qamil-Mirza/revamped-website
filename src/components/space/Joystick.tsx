@@ -61,7 +61,7 @@ export default function Joystick({ onChange }: JoystickProps) {
       onPointerMove={onPointerMove}
       onPointerUp={reset}
       onPointerCancel={reset}
-      className="absolute bottom-6 left-6 z-30 touch-none rounded-full border border-white/20 bg-white/5 backdrop-blur-md"
+      className="absolute bottom-6 right-6 z-30 touch-none rounded-full border border-white/20 bg-white/5 backdrop-blur-md"
       style={{ width: BASE, height: BASE }}
       aria-label="Steering joystick"
     >
