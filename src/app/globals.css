@@ -74,3 +74,106 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ----------------------------------------------------------------------------
+   CRT terminal effects (used by the space-scene node panels)
+   Phosphor color is supplied per-node via the --phosphor CSS variable.
+---------------------------------------------------------------------------- */
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  4% { opacity: 0.92; }
+  8% { opacity: 0.98; }
+  12% { opacity: 0.9; }
+  16% { opacity: 0.99; }
+  50% { opacity: 0.97; }
+  100% { opacity: 0.98; }
+}
+
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+@keyframes phosphor-pulse {
+  0%, 100% { text-shadow: 0 0 4px var(--phosphor, #40ff94), 0 0 10px rgba(255,255,255,0.15); }
+  50% { text-shadow: 0 0 7px var(--phosphor, #40ff94), 0 0 16px rgba(255,255,255,0.25); }
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Scrolling scanline overlay; apply to an absolutely-positioned ::before host. */
+.crt-scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.28) 3px,
+    rgba(0, 0, 0, 0.28) 4px
+  );
+  background-size: 100% 4px;
+  animation: scanline-scroll 6s linear infinite;
+  z-index: 2;
+}
+
+/* Soft moving glare to sell the curved-glass look. */
+.crt-glare::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 80% at 50% -10%,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0) 60%
+  );
+  z-index: 2;
+}
+
+.crt-flicker {
+  animation: crt-flicker 4s infinite steps(1);
+}
+
+.crt-text {
+  color: var(--phosphor, #40ff94);
+  text-shadow: 0 0 4px var(--phosphor, #40ff94), 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.crt-border {
+  border-color: color-mix(in srgb, var(--phosphor, #40ff94) 38%, transparent);
+}
+
+.crt-border-strong {
+  border-color: color-mix(in srgb, var(--phosphor, #40ff94) 70%, transparent);
+}
+
+.crt-hoverable {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.crt-hoverable:hover {
+  border-color: color-mix(in srgb, var(--phosphor, #40ff94) 70%, transparent);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.crt-cursor {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-scanlines::before {
+    animation: none;
+  }
+  .crt-flicker {
+    animation: none;
+  }
+  .crt-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
