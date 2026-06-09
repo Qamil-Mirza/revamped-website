@@ -35,6 +35,8 @@ const BOOST_MULT = 1.8;
 const FRICTION = 1.15;
 const MAX_SPEED = 470;
 const MAX_BOOST_SPEED = 770;
+/** Seconds the "drop out of hyperspace" arrival animation plays on mount. */
+const ARRIVAL_DURATION = 1.3;
 
 interface ShipState {
   x: number;
@@ -60,6 +62,10 @@ interface GameRef {
   dead: boolean;
   /** Seconds elapsed since destruction; drives the explosion + respawn timer. */
   deathTimer: number;
+  /** Whether the hyperspace-arrival animation is still playing. */
+  arriving: boolean;
+  /** Seconds elapsed in the arrival animation. */
+  arrivalT: number;
 }
 
 interface SpaceSceneProps {
@@ -83,13 +89,16 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
     dockCooldownId: null,
     dead: false,
     deathTimer: 0,
+    arriving: true,
+    arrivalT: 0,
   });
 
   const [activeNode, setActiveNode] = useState<SpaceNode | null>(null);
   const [nearbyNode, setNearbyNode] = useState<SpaceNode | null>(null);
   const [hudShip, setHudShip] = useState({ x: 0, y: 0, angle: -Math.PI / 2 });
   const [isTouch, setIsTouch] = useState(false);
-  const [showHint, setShowHint] = useState(true);
+  const [showHint, setShowHint] = useState(false);
+  const [arriving, setArriving] = useState(true);
   const [isDead, setIsDead] = useState(false);
   const [danger, setDanger] = useState(0);
   const dangerRef = useRef(0);
@@ -98,7 +107,7 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
   activeNodeRef.current = activeNode;
   const nearbyRef = useRef<PanelKey | null>(null);
 
-  const { controls, setAim } = useShipControls(activeNode === null);
+  const { controls, setAim } = useShipControls(activeNode === null && !arriving);
 
   const openNode = useCallback((node: SpaceNode) => {
     setActiveNode(node);
@@ -132,11 +141,23 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Auto-dismiss the intro hint.
+  // Reduced-motion users skip the warp arrival and start in calm space.
   useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce && game.current.arriving) {
+      game.current.arriving = false;
+      game.current.arrivalT = ARRIVAL_DURATION;
+      setArriving(false);
+    }
+  }, []);
+
+  // Show the intro hint once the arrival finishes, then auto-dismiss it.
+  useEffect(() => {
+    if (arriving) return;
+    setShowHint(true);
     const t = setTimeout(() => setShowHint(false), 6000);
     return () => clearTimeout(t);
-  }, []);
+  }, [arriving]);
 
   // Press "E" to dock at the node currently in range.
   useEffect(() => {
@@ -196,8 +217,20 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
       const boost = controls.current.boost;
       let thrustAmount = 0;
       const proximity = new Map<PanelKey, number>();
+      let warp = 0;
 
-      if (g.dead) {
+      if (g.arriving) {
+        // --- Dropping out of hyperspace: decelerate streaks, hold center. ---
+        g.arrivalT += dt;
+        const p = Math.min(1, g.arrivalT / ARRIVAL_DURATION);
+        warp = Math.pow(1 - p, 1.7);
+        ship.vx = 0;
+        ship.vy = 0;
+        if (g.arrivalT >= ARRIVAL_DURATION) {
+          g.arriving = false;
+          setArriving(false);
+        }
+      } else if (g.dead) {
         // --- Destruction sequence: hold position, then respawn at origin. ---
         g.deathTimer += dt;
         ship.vx = 0;
@@ -332,7 +365,7 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
       ctx.fillStyle = "#05060d";
       ctx.fillRect(0, 0, w, h);
 
-      drawStarfield(ctx, g.layers, ship, g.time);
+      drawStarfield(ctx, g.layers, ship, g.time, warp);
 
       const cx = w / 2;
       const cy = h / 2;
@@ -360,6 +393,22 @@ export default function SpaceScene({ onClassicView }: SpaceSceneProps) {
           g.trail,
           ship
         );
+      }
+
+      // --- Hyperspace arrival overlay: warp-blue tint + drop-out flash. ---
+      if (warp > 0.001) {
+        ctx.fillStyle = `rgba(31, 58, 157, ${warp * 0.3})`;
+        ctx.fillRect(0, 0, w, h);
+      }
+      if (g.arriving) {
+        const at = g.arrivalT;
+        let flash = 0;
+        if (at < 0.15) flash = (at / 0.15) * 0.85;
+        else if (at < 0.6) flash = Math.max(0, 1 - (at - 0.15) / 0.45) * 0.85;
+        if (flash > 0.001) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${flash})`;
+          ctx.fillRect(0, 0, w, h);
+        }
       }
 
       // --- Throttled HUD update for the radar (~14fps) ---

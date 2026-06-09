@@ -66,12 +66,36 @@ export function drawStarfield(
   ctx: CanvasRenderingContext2D,
   layers: StarLayer[],
   camera: Vec2,
-  time: number
+  time: number,
+  /** 0 = calm dots, 1 = full hyperspace streaks radiating from center. */
+  warp = 0
 ) {
+  const warping = warp > 0.01;
+  if (warping) ctx.lineCap = "round";
+
   for (const layer of layers) {
+    const cx = layer.tileW / 2;
+    const cy = layer.tileH / 2;
     for (const star of layer.stars) {
       const x = mod(star.x - camera.x * layer.factor, layer.tileW);
       const y = mod(star.y - camera.y * layer.factor, layer.tileH);
+
+      if (warping) {
+        // Streak radially outward from the vanishing point at screen center;
+        // outer/faster layers and farther stars get longer tails.
+        const dx = x - cx;
+        const dy = y - cy;
+        const dist = Math.hypot(dx, dy) || 1;
+        const len = warp * (dist * 0.55 + 22) * (0.5 + layer.factor);
+        ctx.strokeStyle = rgba(star.color, Math.min(1, star.alpha + warp * 0.5));
+        ctx.lineWidth = star.size * (1 + warp * 0.8);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + (dx / dist) * len, y + (dy / dist) * len);
+        ctx.stroke();
+        continue;
+      }
+
       // Gentle twinkle on the brightest layer only.
       const twinkle =
         layer.factor > 0.8
