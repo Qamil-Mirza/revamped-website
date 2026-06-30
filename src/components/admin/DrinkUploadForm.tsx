@@ -13,8 +13,14 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
   const [error, setError] = useState<string | null>(null);
 
   async function refresh() {
-    const data = await (await fetch("/api/drinks")).json();
-    setDrinks(data.drinks);
+    try {
+      const res = await fetch("/api/drinks");
+      if (!res.ok) return;
+      const data = await res.json();
+      setDrinks(Array.isArray(data.drinks) ? data.drinks : []);
+    } catch {
+      // network blip — keep the current list
+    }
   }
 
   useEffect(() => {
@@ -51,7 +57,11 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
 
   async function remove(id: string) {
     if (!confirm("Delete this drink?")) return;
-    await fetch(`/api/drinks/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/drinks/${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError("Failed to delete drink");
+      return;
+    }
     await refresh();
   }
 

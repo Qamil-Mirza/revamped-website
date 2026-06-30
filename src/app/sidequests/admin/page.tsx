@@ -11,8 +11,13 @@ export default function AdminPage() {
   );
 
   async function loadSession() {
-    const data = await (await fetch("/api/admin/session")).json();
-    setState(data);
+    try {
+      const res = await fetch("/api/admin/session");
+      const data = await res.json();
+      setState(data);
+    } catch {
+      setState({ authenticated: false, hasCredential: false });
+    }
   }
 
   useEffect(() => {
