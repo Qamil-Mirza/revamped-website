@@ -35,7 +35,7 @@ export default function DrinkCard({
           {formatDate(drink.date)}
         </p>
         <h3 className="mt-1 text-lg font-semibold text-primaryText">{drink.name}</h3>
-        {featured && (
+        {featured && drink.note && (
           <p className="mt-1 text-sm text-primaryText/80">{drink.note}</p>
         )}
       </div>

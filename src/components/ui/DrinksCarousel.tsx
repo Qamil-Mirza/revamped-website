@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DrinkCard from "@/components/ui/DrinkCard";
 import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
@@ -8,6 +8,7 @@ import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
 export default function DrinksCarousel() {
   const [drinks, setDrinks] = useState<Drink[] | null>(null);
   const [center, setCenter] = useState(0);
+  const drinksRef = useRef<Drink[] | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -17,24 +18,24 @@ export default function DrinksCarousel() {
         if (!active) return;
         const { ordered, featuredIndex } = selectFeatured(data.drinks, todayInOwnerTz());
         setDrinks(ordered);
+        drinksRef.current = ordered;
         setCenter(featuredIndex < 0 ? 0 : featuredIndex);
       })
-      .catch(() => active && setDrinks([]));
+      .catch(() => {
+        if (!active) return;
+        drinksRef.current = [];
+        setDrinks([]);
+      });
     return () => {
       active = false;
     };
   }, []);
 
-  const move = useCallback(
-    (dir: -1 | 1) => {
-      setDrinks((d) => {
-        if (!d || d.length === 0) return d;
-        setCenter((c) => Math.min(Math.max(c + dir, 0), d.length - 1));
-        return d;
-      });
-    },
-    [],
-  );
+  const move = useCallback((dir: -1 | 1) => {
+    const d = drinksRef.current;
+    if (!d || d.length === 0) return;
+    setCenter((c) => Math.min(Math.max(c + dir, 0), d.length - 1));
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -85,6 +86,14 @@ export default function DrinksCarousel() {
                 className={isCenter ? "w-64 sm:w-72 z-10" : "hidden w-48 sm:block"}
                 onClick={() => !isCenter && setCenter(i)}
                 style={{ cursor: isCenter ? "default" : "pointer" }}
+                role={isCenter ? undefined : "button"}
+                tabIndex={isCenter ? undefined : 0}
+                onKeyDown={(e) => {
+                  if (!isCenter && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault();
+                    setCenter(i);
+                  }
+                }}
               >
                 <DrinkCard drink={drinks[i]} featured={isCenter} />
               </motion.div>
