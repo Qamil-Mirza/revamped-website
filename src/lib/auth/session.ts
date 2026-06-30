@@ -16,7 +16,7 @@ export async function signSession(): Promise<string> {
 export async function verifySession(token: string | undefined): Promise<boolean> {
   if (!token) return false;
   try {
-    await jwtVerify(token, jwtSecret());
+    await jwtVerify(token, jwtSecret(), { subject: "owner" });
     return true;
   } catch {
     return false;
