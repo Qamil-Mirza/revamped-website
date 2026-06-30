@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   }
   const credential = (await getCredentials()).find((c) => c.credentialID === body.response.id);
   if (!credential) {
-    return NextResponse.json({ error: "unknown credential" }, { status: 401 });
+    return NextResponse.json({ error: "authentication failed" }, { status: 401 });
   }
   const { verified, newCounter } = await verifyAuthentication(body.response, expectedChallenge, credential);
   if (!verified) {
