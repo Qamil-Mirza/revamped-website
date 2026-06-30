@@ -1,3 +1,6 @@
+import { readJson, writeJson } from "@/lib/blob-store";
+import { randomUUID } from "crypto";
+
 export type Drink = {
   id: string;
   date: string; // YYYY-MM-DD
@@ -69,4 +72,40 @@ export function selectFeatured(
   if (ordered.length === 0) return { ordered, featuredIndex: -1 };
   const todayIndex = ordered.findIndex((d) => d.date === today);
   return { ordered, featuredIndex: todayIndex >= 0 ? todayIndex : 0 };
+}
+
+export const DRINKS_KEY = "drinks/index.json";
+
+export async function getDrinks(): Promise<Drink[]> {
+  const drinks = await readJson<Drink[]>(DRINKS_KEY, []);
+  return sortDrinks(drinks);
+}
+
+export async function addDrink(
+  input: DrinkInput & { imageUrl: string; width: number; height: number },
+): Promise<Drink> {
+  const drinks = await readJson<Drink[]>(DRINKS_KEY, []);
+  const drink: Drink = {
+    id: randomUUID(),
+    date: input.date,
+    name: input.name,
+    note: input.note,
+    imageUrl: input.imageUrl,
+    width: input.width,
+    height: input.height,
+    createdAt: new Date().toISOString(),
+  };
+  await writeJson(DRINKS_KEY, [...drinks, drink]);
+  return drink;
+}
+
+export async function deleteDrink(id: string): Promise<Drink | null> {
+  const drinks = await readJson<Drink[]>(DRINKS_KEY, []);
+  const removed = drinks.find((d) => d.id === id) ?? null;
+  if (!removed) return null;
+  await writeJson(
+    DRINKS_KEY,
+    drinks.filter((d) => d.id !== id),
+  );
+  return removed;
 }
