@@ -48,6 +48,20 @@ describe("validateDrinkInput", () => {
     const r = validateDrinkInput({ date: "06/29/2026", name: "x", note: "y" });
     expect(r.ok).toBe(false);
   });
+
+  it("accepts a name of exactly 80 chars", () => {
+    expect(validateDrinkInput({ date: "2026-06-29", name: "a".repeat(80), note: "x" }).ok).toBe(true);
+  });
+  it("rejects a name of 81 chars", () => {
+    expect(validateDrinkInput({ date: "2026-06-29", name: "a".repeat(81), note: "x" }).ok).toBe(false);
+  });
+  it("accepts a note of exactly 140 chars", () => {
+    expect(validateDrinkInput({ date: "2026-06-29", name: "x", note: "a".repeat(140) }).ok).toBe(true);
+  });
+
+  it("rejects entirely empty input (all fields undefined)", () => {
+    expect(validateDrinkInput({}).ok).toBe(false);
+  });
 });
 
 describe("sortDrinks", () => {

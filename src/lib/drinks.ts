@@ -39,6 +39,7 @@ export function validateDrinkInput(raw: {
   const name = (raw.name ?? "").trim();
   const note = (raw.note ?? "").trim();
 
+  // Date.parse on a YYYY-MM-DD string interprets it as UTC midnight; we only use it to reject invalid calendar dates (NaN).
   if (!DATE_RE.test(date) || Number.isNaN(Date.parse(date))) {
     errors.push("date must be a valid YYYY-MM-DD");
   }
