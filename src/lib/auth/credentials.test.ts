@@ -32,10 +32,12 @@ describe("credentials store", () => {
   it("updates the counter for a credential", async () => {
     readJson.mockResolvedValue([
       { credentialID: "id", publicKey: "pk", counter: 0, createdAt: "2026-06-29T00:00:00Z" },
+      { credentialID: "other", publicKey: "pk2", counter: 3, createdAt: "2026-06-29T00:00:00Z" },
     ]);
     await updateCounter("id", 5);
     expect(writeJson).toHaveBeenCalledWith("auth/credentials.json", [
       { credentialID: "id", publicKey: "pk", counter: 5, createdAt: "2026-06-29T00:00:00Z" },
+      { credentialID: "other", publicKey: "pk2", counter: 3, createdAt: "2026-06-29T00:00:00Z" },
     ]);
   });
 });
