@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import type { ListBlobResult, ListBlobResultBlob, PutBlobResult } from "@vercel/blob";
 
 vi.mock("@vercel/blob", () => ({
   list: vi.fn(),
@@ -21,15 +22,15 @@ beforeEach(() => {
 
 describe("readJson", () => {
   it("returns the fallback when no blob matches the pathname", async () => {
-    list.mockResolvedValue({ blobs: [] });
+    list.mockResolvedValue({ blobs: [] } as unknown as ListBlobResult);
     const result = await readJson("drinks/index.json", []);
     expect(result).toEqual([]);
   });
 
   it("fetches and parses the matching blob", async () => {
     list.mockResolvedValue({
-      blobs: [{ pathname: "drinks/index.json", url: "https://x/drinks/index.json" }],
-    });
+      blobs: [{ pathname: "drinks/index.json", url: "https://x/drinks/index.json" } as unknown as ListBlobResultBlob],
+    } as unknown as ListBlobResult);
     const fetchMock = vi
       .spyOn(globalThis, "fetch")
       .mockResolvedValue(new Response(JSON.stringify([{ id: "a" }])));
@@ -41,7 +42,7 @@ describe("readJson", () => {
 
 describe("writeJson", () => {
   it("writes a stable, public, overwritable JSON blob", async () => {
-    put.mockResolvedValue({ url: "https://x/drinks/index.json" });
+    put.mockResolvedValue({ url: "https://x/drinks/index.json" } as unknown as PutBlobResult);
     await writeJson("drinks/index.json", [{ id: "a" }]);
     expect(put).toHaveBeenCalledWith(
       "drinks/index.json",
@@ -58,7 +59,7 @@ describe("writeJson", () => {
 
 describe("putImage", () => {
   it("uploads bytes and returns the public url", async () => {
-    put.mockResolvedValue({ url: "https://x/drinks/images/abc.webp" });
+    put.mockResolvedValue({ url: "https://x/drinks/images/abc.webp" } as unknown as PutBlobResult);
     const url = await putImage("drinks/images/abc.webp", Buffer.from("x"), "image/webp");
     expect(url).toBe("https://x/drinks/images/abc.webp");
     expect(put).toHaveBeenCalledWith(
