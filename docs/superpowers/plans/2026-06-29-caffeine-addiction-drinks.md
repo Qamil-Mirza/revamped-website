@@ -624,12 +624,14 @@ git commit -m "feat: add drinks Blob-backed data access"
 ### Task 5: Session tokens + auth guard
 
 **Files:**
+- Create: `src/lib/auth/jwt-secret.ts` (shared JWT signing key, used by session + challenge)
 - Create: `src/lib/auth/session.ts`
 - Test: `src/lib/auth/session.test.ts`
 
 **Interfaces:**
 - Consumes: `jose`, `next/headers` `cookies()`.
 - Produces:
+  - `jwtSecret(): Uint8Array` (in `jwt-secret.ts`; reads `SESSION_SECRET`, throws if unset)
   - `SESSION_COOKIE = "ca_session"`
   - `signSession(): Promise<string>`
   - `verifySession(token: string | undefined): Promise<boolean>`
@@ -668,19 +670,24 @@ describe("session tokens", () => {
 Run: `npx vitest run src/lib/auth/session.test.ts`
 Expected: FAIL — cannot find module `@/lib/auth/session`.
 
-- [ ] **Step 3: Write the implementation**
+- [ ] **Step 3: Write the shared JWT secret helper `src/lib/auth/jwt-secret.ts`**
 
 ```ts
-import { SignJWT, jwtVerify } from "jose";
-import { cookies } from "next/headers";
-
-export const SESSION_COOKIE = "ca_session";
-
-function secret(): Uint8Array {
+export function jwtSecret(): Uint8Array {
   const value = process.env.SESSION_SECRET;
   if (!value) throw new Error("SESSION_SECRET is not set");
   return new TextEncoder().encode(value);
 }
+```
+
+- [ ] **Step 4: Write the implementation `src/lib/auth/session.ts`**
+
+```ts
+import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
+import { jwtSecret } from "@/lib/auth/jwt-secret";
+
+export const SESSION_COOKIE = "ca_session";
 
 export async function signSession(): Promise<string> {
   return new SignJWT({})
@@ -688,13 +695,13 @@ export async function signSession(): Promise<string> {
     .setSubject("owner")
     .setIssuedAt()
     .setExpirationTime("14d")
-    .sign(secret());
+    .sign(jwtSecret());
 }
 
 export async function verifySession(token: string | undefined): Promise<boolean> {
   if (!token) return false;
   try {
-    await jwtVerify(token, secret());
+    await jwtVerify(token, jwtSecret());
     return true;
   } catch {
     return false;
@@ -716,15 +723,15 @@ export async function requireAuth(): Promise<boolean> {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [ ] **Step 5: Run test to verify it passes**
 
 Run: `npx vitest run src/lib/auth/session.test.ts`
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add src/lib/auth/session.ts src/lib/auth/session.test.ts
+git add src/lib/auth/jwt-secret.ts src/lib/auth/session.ts src/lib/auth/session.test.ts
 git commit -m "feat: add signed session tokens + requireAuth guard"
 ```
 
@@ -739,7 +746,7 @@ git commit -m "feat: add signed session tokens + requireAuth guard"
 - Test: `src/lib/auth/registration-token.test.ts`
 
 **Interfaces:**
-- Consumes: `jose`; node `crypto.timingSafeEqual`.
+- Consumes: `jose`; `jwtSecret` from `@/lib/auth/jwt-secret` (Task 5); node `crypto.timingSafeEqual`.
 - Produces:
   - `CHALLENGE_COOKIE = "ca_challenge"`
   - `signChallenge(challenge: string): Promise<string>` (5-minute expiry)
@@ -805,27 +812,22 @@ Expected: FAIL — modules not found.
 
 ```ts
 import { SignJWT, jwtVerify } from "jose";
+import { jwtSecret } from "@/lib/auth/jwt-secret";
 
 export const CHALLENGE_COOKIE = "ca_challenge";
-
-function secret(): Uint8Array {
-  const value = process.env.SESSION_SECRET;
-  if (!value) throw new Error("SESSION_SECRET is not set");
-  return new TextEncoder().encode(value);
-}
 
 export async function signChallenge(challenge: string): Promise<string> {
   return new SignJWT({ challenge })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("5m")
-    .sign(secret());
+    .sign(jwtSecret());
 }
 
 export async function verifyChallenge(token: string | undefined): Promise<string | null> {
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret());
+    const { payload } = await jwtVerify(token, jwtSecret());
     return typeof payload.challenge === "string" ? payload.challenge : null;
   } catch {
     return null;
