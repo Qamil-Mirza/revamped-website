@@ -5,6 +5,7 @@ import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button
 import Map from "@/components/ui/Map";
 import Image from "next/image";
 import { NavBar } from "@/components/ui/nav-bar";
+import DrinksCarousel from "@/components/ui/DrinksCarousel";
 
 import team from "@/public/team.jpeg";
 import solo from "@/public/solobadds.jpeg";
@@ -28,6 +29,17 @@ function Page() {
         <h1 className="relative z-20 text-center text-4xl font-bold tracking-tighter text-primaryText md:text-5xl lg:text-7xl">
           Life's Too Short For Just One Adventure
         </h1>
+      </section>
+
+      {/* Caffeine Addiction Section */}
+      <section className="max-w-4xl mx-auto px-4 py-8">
+        <h2 className="text-5xl md:text-7xl text-primaryText font-bold text-center mb-3">
+          Caffeine Addiction
+        </h2>
+        <p className="text-center text-lg text-primaryText mb-6">
+          Small-batch experiments from my kitchen counter.
+        </p>
+        <DrinksCarousel />
       </section>
 
       {/* Exploring The World Section */}

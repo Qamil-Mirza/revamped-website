@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Caffeine Addiction (drink-of-the-day) admin
+
+The `/sidequests` page has a "Caffeine Addiction" carousel backed by Vercel Blob and secured with a WebAuthn passkey (Face ID / Touch ID).
+
+### Environment variables
+
+See `.env.example`. Required in Vercel (and `.env.local` for dev):
+
+- `BLOB_READ_WRITE_TOKEN` — auto-injected once a Blob store is linked to the project.
+- `SESSION_SECRET` — `openssl rand -base64 32`.
+- `ADMIN_REGISTRATION_TOKEN` — `openssl rand -base64 32`. Keep it in a password manager; it's the break-glass key for enrolling devices.
+- `RP_ID=qamil-mirza.com`, `RP_ORIGIN=https://qamil-mirza.com` (production).
+
+### One-time passkey enrollment (after deploy)
+
+1. Set the env vars in Vercel and redeploy.
+2. On your iPhone, open Safari to `https://qamil-mirza.com/sidequests/admin` (must be the real domain — passkeys bind to it; a `*.vercel.app` preview passkey won't work on the live site).
+3. Tap "Enroll this device", paste `ADMIN_REGISTRATION_TOKEN`, complete Face ID.
+4. Thereafter: open `/sidequests/admin` → "Sign in with Face ID" → upload a drink.
+
+Passkeys sync across your Apple devices via iCloud Keychain. To enroll a new/non-synced device, use the token again.
