@@ -61,5 +61,23 @@ describe("putImage", () => {
     put.mockResolvedValue({ url: "https://x/drinks/images/abc.webp" });
     const url = await putImage("drinks/images/abc.webp", Buffer.from("x"), "image/webp");
     expect(url).toBe("https://x/drinks/images/abc.webp");
+    expect(put).toHaveBeenCalledWith(
+      "drinks/images/abc.webp",
+      Buffer.from("x"),
+      expect.objectContaining({
+        access: "public",
+        contentType: "image/webp",
+        allowOverwrite: true,
+        addRandomSuffix: false,
+      }),
+    );
+  });
+});
+
+describe("deleteByUrl", () => {
+  it("deletes a blob by its url", async () => {
+    del.mockResolvedValue();
+    await deleteByUrl("https://x/y");
+    expect(del).toHaveBeenCalledWith("https://x/y");
   });
 });
