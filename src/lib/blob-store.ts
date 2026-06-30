@@ -5,7 +5,9 @@ export async function readJson<T>(pathname: string, fallback: T): Promise<T> {
   const match = blobs.find((b) => b.pathname === pathname);
   if (!match) return fallback;
   const res = await fetch(match.url, { cache: "no-store" });
-  if (!res.ok) return fallback;
+  if (!res.ok) {
+    throw new Error(`Failed to read blob ${pathname}: ${res.status}`);
+  }
   return (await res.json()) as T;
 }
 
@@ -15,6 +17,7 @@ export async function writeJson<T>(pathname: string, value: T): Promise<void> {
     contentType: "application/json",
     allowOverwrite: true,
     addRandomSuffix: false,
+    cacheControlMaxAge: 60,
   });
 }
 

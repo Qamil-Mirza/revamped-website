@@ -66,7 +66,11 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
   }
 
   async function logout() {
-    await fetch("/api/admin/session", { method: "DELETE" });
+    const res = await fetch("/api/admin/session", { method: "DELETE" });
+    if (!res.ok) {
+      setError("Failed to log out");
+      return;
+    }
     onLogout();
   }
 

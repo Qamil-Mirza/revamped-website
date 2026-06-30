@@ -7,6 +7,7 @@ import {
   type AuthenticationResponseJSON,
   type PublicKeyCredentialCreationOptionsJSON,
   type PublicKeyCredentialRequestOptionsJSON,
+  type AuthenticatorTransportFuture,
 } from "@simplewebauthn/server";
 import type { StoredCredential } from "@/lib/auth/credentials";
 
@@ -29,7 +30,7 @@ export async function buildRegistrationOptions(
     attestationType: "none",
     excludeCredentials: existing.map((c) => ({
       id: c.credentialID,
-      transports: c.transports as never,
+      transports: c.transports as AuthenticatorTransportFuture[] | undefined,
     })),
     authenticatorSelection: {
       residentKey: "preferred",
@@ -75,7 +76,7 @@ export async function buildAuthenticationOptions(
     userVerification: "required",
     allowCredentials: existing.map((c) => ({
       id: c.credentialID,
-      transports: c.transports as never,
+      transports: c.transports as AuthenticatorTransportFuture[] | undefined,
     })),
   });
 }
@@ -96,7 +97,7 @@ export async function verifyAuthentication(
       id: credential.credentialID,
       publicKey: Buffer.from(credential.publicKey, "base64url"),
       counter: credential.counter,
-      transports: credential.transports as never,
+      transports: credential.transports as AuthenticatorTransportFuture[] | undefined,
     },
   });
   return {

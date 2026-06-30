@@ -20,7 +20,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const form = await request.formData();
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    return NextResponse.json({ error: "invalid form data" }, { status: 400 });
+  }
   const file = form.get("image");
   const validation = validateDrinkInput({
     date: form.get("date")?.toString(),
