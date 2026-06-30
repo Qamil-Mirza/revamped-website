@@ -1474,7 +1474,7 @@ git commit -m "feat: add WebAuthn register/authenticate/session API routes"
 - Create: `src/components/ui/DrinksCarousel.tsx`
 
 **Interfaces:**
-- Consumes: `GET /api/drinks`; `Drink` type, `selectFeatured`, `todayInOwnerTz` from `@/lib/drinks`; framer-motion; next/image.
+- Consumes: `GET /api/drinks`; `Drink` type, `selectFeatured`, `todayInOwnerTz` from `@/lib/drinks-logic` (client-safe pure module — NOT `@/lib/drinks`, which pulls in server-only `@vercel/blob` + node `crypto`); framer-motion; next/image.
 - Produces: `<DrinksCarousel />` (default export) for the sidequests page; `<DrinkCard drink position />`.
 
 - [ ] **Step 1: Write `src/components/ui/DrinkCard.tsx`**
@@ -1483,7 +1483,7 @@ git commit -m "feat: add WebAuthn register/authenticate/session API routes"
 "use client";
 
 import Image from "next/image";
-import type { Drink } from "@/lib/drinks";
+import type { Drink } from "@/lib/drinks-logic";
 
 function formatDate(date: string): string {
   const d = new Date(date + "T00:00:00");
@@ -1534,7 +1534,7 @@ export default function DrinkCard({
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DrinkCard from "@/components/ui/DrinkCard";
-import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks";
+import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
 
 export default function DrinksCarousel() {
   const [drinks, setDrinks] = useState<Drink[] | null>(null);
@@ -1799,7 +1799,7 @@ export default function AdminAuth({
 "use client";
 
 import { useEffect, useState } from "react";
-import { todayInOwnerTz, type Drink } from "@/lib/drinks";
+import { todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
 
 export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) {
   const [drinks, setDrinks] = useState<Drink[]>([]);
