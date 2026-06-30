@@ -5,7 +5,7 @@ import {
   sortDrinks,
   selectFeatured,
   type Drink,
-} from "@/lib/drinks";
+} from "@/lib/drinks-logic";
 
 function drink(partial: Partial<Drink>): Drink {
   return {
