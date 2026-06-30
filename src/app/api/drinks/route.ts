@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 import { getDrinks, addDrink, validateDrinkInput } from "@/lib/drinks";
-import { putImage } from "@/lib/blob-store";
+import { putImage, deleteByUrl } from "@/lib/blob-store";
 import { requireAuth } from "@/lib/auth/session";
 import { randomUUID } from "crypto";
 
@@ -50,12 +50,19 @@ export async function POST(request: Request) {
 
   const imageUrl = await putImage(`drinks/images/${id}.webp`, data, "image/webp");
 
-  const drink = await addDrink({
-    ...input,
-    imageUrl,
-    width: info.width,
-    height: info.height,
-  });
+  let drink;
+  try {
+    drink = await addDrink({
+      ...input,
+      imageUrl,
+      width: info.width,
+      height: info.height,
+    });
+  } catch (err) {
+    // Metadata write failed after the image was stored — clean up the orphaned blob.
+    await deleteByUrl(imageUrl).catch(() => {});
+    throw err;
+  }
 
   return NextResponse.json({ drink }, { status: 201 });
 }
