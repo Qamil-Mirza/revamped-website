@@ -4,7 +4,8 @@ export async function readJson<T>(pathname: string, fallback: T): Promise<T> {
   const { blobs } = await list({ prefix: pathname });
   const match = blobs.find((b) => b.pathname === pathname);
   if (!match) return fallback;
-  const res = await fetch(match.url, { cache: "no-store" });
+  const bust = match.url.includes("?") ? "&" : "?";
+  const res = await fetch(`${match.url}${bust}_=${Date.now()}`, { cache: "no-store" });
   if (!res.ok) {
     throw new Error(`Failed to read blob ${pathname}: ${res.status}`);
   }

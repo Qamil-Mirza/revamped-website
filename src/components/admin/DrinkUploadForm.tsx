@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
+import { sortDrinks, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
 
 export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) {
   const [drinks, setDrinks] = useState<Drink[]>([]);
@@ -42,12 +42,18 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
       body.set("name", name);
       body.set("note", note);
       const res = await fetch("/api/drinks", { method: "POST", body });
-      if (!res.ok) throw new Error((await res.json()).error ?? "upload failed");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "upload failed");
+      // Blob reads lag writes by several seconds, so update the list from the
+      // authoritative POST response rather than re-fetching (which would show
+      // stale data and make the new drink appear to be missing).
+      setDrinks((prev) =>
+        sortDrinks([data.drink, ...prev.filter((d) => d.id !== data.drink.id)]),
+      );
       setName("");
       setNote("");
       setFile(null);
       (e.target as HTMLFormElement).reset();
-      await refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "upload failed");
     } finally {
@@ -57,12 +63,17 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
 
   async function remove(id: string) {
     if (!confirm("Delete this drink?")) return;
+    const prev = drinks;
+    // Optimistically drop it: Blob reads lag writes, so re-fetching would still
+    // show the just-deleted drink. Update from the user's action directly.
+    setDrinks((cur) => cur.filter((d) => d.id !== id));
     const res = await fetch(`/api/drinks/${id}`, { method: "DELETE" });
-    if (!res.ok) {
+    // 404 means it was already gone (a lagging read) — treat as success.
+    // Only restore + warn on a genuine failure (e.g. 401/500).
+    if (!res.ok && res.status !== 404) {
+      setDrinks(prev);
       setError("Failed to delete drink");
-      return;
     }
-    await refresh();
   }
 
   async function logout() {
