@@ -27,7 +27,11 @@ export async function putImage(
   data: Buffer,
   contentType: string,
 ): Promise<string> {
-  const { url } = await put(pathname, data, {
+  // Defensive copy into regular (non-shared) memory before uploading: sharp's
+  // output Buffer can be backed by a SharedArrayBuffer in Vercel's serverless
+  // runtime, and the fetch used by put() rejects it ("SharedArrayBuffer is not
+  // allowed"). This doesn't surface under `next dev`, only in production.
+  const { url } = await put(pathname, Buffer.from(data), {
     access: "public",
     contentType,
     allowOverwrite: true,
