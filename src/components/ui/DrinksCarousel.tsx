@@ -17,9 +17,13 @@ export default function DrinksCarousel() {
       .then((data: { drinks: Drink[] }) => {
         if (!active) return;
         const { ordered, featuredIndex } = selectFeatured(data.drinks, todayInOwnerTz());
-        setDrinks(ordered);
-        drinksRef.current = ordered;
-        setCenter(featuredIndex < 0 ? 0 : featuredIndex);
+        // Display oldest -> newest, left to right (the featured / most-recent
+        // drink sits on the right). `ordered` is newest-first, so reverse it
+        // and remap the featured position into the reversed array.
+        const displayed = [...ordered].reverse();
+        setDrinks(displayed);
+        drinksRef.current = displayed;
+        setCenter(featuredIndex < 0 ? 0 : displayed.length - 1 - featuredIndex);
       })
       .catch(() => {
         if (!active) return;
