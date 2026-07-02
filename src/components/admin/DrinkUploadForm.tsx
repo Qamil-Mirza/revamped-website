@@ -95,10 +95,11 @@ export default function DrinkUploadForm({ onLogout }: { onLogout: () => void }) 
       </div>
 
       <form onSubmit={submit} className="space-y-4">
+        {/* No `capture` attribute: on mobile this lets you pick from the photo
+            library OR take a new photo, instead of forcing the camera. */}
         <input
           type="file"
           accept="image/*"
-          capture="environment"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           className="w-full text-primaryText"
         />
