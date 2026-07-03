@@ -6,6 +6,7 @@ import {
   AnimatePresence,
   useReducedMotion,
   type Variants,
+  type PanInfo,
 } from "framer-motion";
 import DrinkCard from "@/components/ui/DrinkCard";
 import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
@@ -19,6 +20,10 @@ const SLOTS = [-1, 0, 1] as const;
 
 // Refined ease-out (no bounce).
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Touch/drag paging thresholds: a short drag OR a quick flick pages.
+const SWIPE_DISTANCE = 50; // px
+const SWIPE_VELOCITY = 400; // px/s
 
 export default function DrinksCarousel() {
   const [drinks, setDrinks] = useState<Drink[] | null>(null);
@@ -59,6 +64,16 @@ export default function DrinksCarousel() {
     setCenter((c) => Math.min(Math.max(c + dir, 0), d.length - 1));
   }, []);
 
+  // Swipe left -> newer (next), swipe right -> older (previous).
+  const onDragEnd = useCallback(
+    (_e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const { offset, velocity } = info;
+      if (offset.x < -SWIPE_DISTANCE || velocity.x < -SWIPE_VELOCITY) move(1);
+      else if (offset.x > SWIPE_DISTANCE || velocity.x > SWIPE_VELOCITY) move(-1);
+    },
+    [move],
+  );
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") move(-1);
@@ -92,10 +107,15 @@ export default function DrinksCarousel() {
 
   return (
     <div className="relative flex flex-col items-center">
-      <div
-        className="flex items-center justify-center gap-4 py-6"
+      <motion.div
+        className="flex items-center justify-center gap-4 py-6 touch-pan-y"
         role="group"
-        aria-label="Drink carousel"
+        aria-label="Drink carousel (swipe to browse)"
+        drag="x"
+        dragSnapToOrigin
+        dragElastic={0.18}
+        dragConstraints={{ left: 0, right: 0 }}
+        onDragEnd={onDragEnd}
       >
         {SLOTS.map((pos) => {
           const i = center + pos;
@@ -145,7 +165,7 @@ export default function DrinksCarousel() {
             </div>
           );
         })}
-      </div>
+      </motion.div>
 
       <div className="flex items-center gap-6">
         <button
