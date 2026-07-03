@@ -38,10 +38,10 @@ export default function DrinkCard({
           {drink.name}
         </h3>
         {featured && (
-          // Reserve a constant height (2 lines) and clamp, so the featured card
+          // Reserve a constant height (3 lines) and clamp, so the featured card
           // — which drives the carousel's height — stays the same size for every
           // drink. Otherwise varying note length shifts the section below.
-          <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm text-primaryText/80">
+          <p className="mt-1 line-clamp-3 min-h-[3.75rem] text-sm text-primaryText/80">
             {drink.note}
           </p>
         )}
