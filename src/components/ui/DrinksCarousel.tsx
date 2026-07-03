@@ -1,14 +1,36 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type Variants,
+  type PanInfo,
+} from "framer-motion";
 import DrinkCard from "@/components/ui/DrinkCard";
 import { selectFeatured, todayInOwnerTz, type Drink } from "@/lib/drinks-logic";
+
+// Fixed slots around the centered card. Side slots are hidden on mobile and
+// appear from the `sm` breakpoint up. Keeping the slots fixed — rather than
+// re-keying cards by id across a flex row with `layout` — is what keeps paging
+// smooth: only a slot's *contents* cross-fade/slide, so nothing is projected
+// across a display:none box, which is what caused the old diagonal "snap".
+const SLOTS = [-1, 0, 1] as const;
+
+// Refined ease-out (no bounce).
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Touch/drag paging thresholds: a short drag OR a quick flick pages.
+const SWIPE_DISTANCE = 50; // px
+const SWIPE_VELOCITY = 400; // px/s
 
 export default function DrinksCarousel() {
   const [drinks, setDrinks] = useState<Drink[] | null>(null);
   const [center, setCenter] = useState(0);
+  const [direction, setDirection] = useState(0);
   const drinksRef = useRef<Drink[] | null>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     let active = true;
@@ -35,11 +57,22 @@ export default function DrinksCarousel() {
     };
   }, []);
 
-  const move = useCallback((dir: -1 | 1) => {
+  const move = useCallback((dir: number) => {
     const d = drinksRef.current;
     if (!d || d.length === 0) return;
+    setDirection(dir >= 0 ? 1 : -1);
     setCenter((c) => Math.min(Math.max(c + dir, 0), d.length - 1));
   }, []);
+
+  // Swipe left -> newer (next), swipe right -> older (previous).
+  const onDragEnd = useCallback(
+    (_e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const { offset, velocity } = info;
+      if (offset.x < -SWIPE_DISTANCE || velocity.x < -SWIPE_VELOCITY) move(1);
+      else if (offset.x > SWIPE_DISTANCE || velocity.x > SWIPE_VELOCITY) move(-1);
+    },
+    [move],
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -62,49 +95,77 @@ export default function DrinksCarousel() {
     );
   }
 
-  const visible = [center - 1, center, center + 1].filter(
-    (i) => i >= 0 && i < drinks.length,
-  );
+  // Content slides in from the direction of travel and out the opposite side,
+  // with a fade. Reduced-motion users get a plain, quick cross-fade.
+  const cardVariants: Variants = reduce
+    ? { enter: { opacity: 0 }, center: { opacity: 1 }, exit: { opacity: 0 } }
+    : {
+        enter: (dir: number) => ({ opacity: 0, x: dir >= 0 ? 48 : -48 }),
+        center: { opacity: 1, x: 0 },
+        exit: (dir: number) => ({ opacity: 0, x: dir >= 0 ? -48 : 48 }),
+      };
 
   return (
     <div className="relative flex flex-col items-center">
-      <div
-        className="flex items-center justify-center gap-4 py-6"
+      <motion.div
+        className="flex items-center justify-center gap-4 py-6 touch-pan-y"
         role="group"
-        aria-label="Drink carousel"
+        aria-label="Drink carousel (swipe to browse)"
+        drag="x"
+        dragSnapToOrigin
+        dragElastic={0.18}
+        dragConstraints={{ left: 0, right: 0 }}
+        onDragEnd={onDragEnd}
       >
-        <AnimatePresence initial={false} mode="popLayout">
-          {visible.map((i) => {
-            const isCenter = i === center;
-            return (
-              <motion.div
-                key={drinks[i].id}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: isCenter ? 1 : 0.45,
-                  scale: isCenter ? 1 : 0.8,
-                }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ type: "spring", stiffness: 260, damping: 30 }}
-                className={isCenter ? "w-64 sm:w-72 z-10" : "hidden w-48 sm:block"}
-                onClick={() => !isCenter && setCenter(i)}
-                style={{ cursor: isCenter ? "default" : "pointer" }}
-                role={isCenter ? undefined : "button"}
-                tabIndex={isCenter ? undefined : 0}
-                onKeyDown={(e) => {
-                  if (!isCenter && (e.key === "Enter" || e.key === " ")) {
-                    e.preventDefault();
-                    setCenter(i);
-                  }
-                }}
-              >
-                <DrinkCard drink={drinks[i]} featured={isCenter} />
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
+        {SLOTS.map((pos) => {
+          const i = center + pos;
+          const isCenter = pos === 0;
+          const drink = i >= 0 && i < drinks.length ? drinks[i] : null;
+          return (
+            // Fixed-width slot: size + dim are static per slot (coverflow depth),
+            // so the layout never shifts. Empty end slots reserve their width to
+            // keep the featured card perfectly centered.
+            <div
+              key={pos}
+              className={
+                isCenter
+                  ? "relative w-64 sm:w-72 z-10"
+                  : "relative hidden w-48 opacity-50 sm:block"
+              }
+            >
+              <AnimatePresence custom={direction} initial={false} mode="popLayout">
+                {drink && (
+                  <motion.div
+                    key={drink.id}
+                    custom={direction}
+                    variants={cardVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: reduce ? 0.15 : 0.42, ease: EASE }}
+                    onClick={isCenter ? undefined : () => move(pos)}
+                    style={{ cursor: isCenter ? "default" : "pointer" }}
+                    role={isCenter ? undefined : "button"}
+                    tabIndex={isCenter ? undefined : 0}
+                    onKeyDown={
+                      isCenter
+                        ? undefined
+                        : (e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              move(pos);
+                            }
+                          }
+                    }
+                  >
+                    <DrinkCard drink={drink} featured={isCenter} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </motion.div>
 
       <div className="flex items-center gap-6">
         <button
