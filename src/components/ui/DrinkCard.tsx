@@ -34,9 +34,16 @@ export default function DrinkCard({
         <p className="text-xs uppercase tracking-wider text-primaryText/60">
           {formatDate(drink.date)}
         </p>
-        <h3 className="mt-1 text-lg font-semibold text-primaryText">{drink.name}</h3>
-        {featured && drink.note && (
-          <p className="mt-1 text-sm text-primaryText/80">{drink.note}</p>
+        <h3 className="mt-1 line-clamp-1 text-lg font-semibold text-primaryText">
+          {drink.name}
+        </h3>
+        {featured && (
+          // Reserve a constant height (2 lines) and clamp, so the featured card
+          // — which drives the carousel's height — stays the same size for every
+          // drink. Otherwise varying note length shifts the section below.
+          <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm text-primaryText/80">
+            {drink.note}
+          </p>
         )}
       </div>
     </div>
