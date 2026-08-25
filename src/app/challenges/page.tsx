@@ -4,7 +4,7 @@ import { NavBar } from "@/components/ui/nav-bar";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LockClosedIcon, CheckCircledIcon, RocketIcon } from "@radix-ui/react-icons";
+import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon } from "@radix-ui/react-icons";
 import Particles from "@/components/ui/particles";
 
 interface BonusBuild {
@@ -35,9 +35,10 @@ interface MonthChallenge {
   year: number;
   title: string;
   description: string;
-  status: "completed" | "in-progress" | "coming-soon";
+  status: "completed" | "in-progress" | "coming-soon" | "private";
   tags?: string[];
   link?: string;
+  liveLink?: string;
   videoLink?: string;
   highlights?: string[];
 }
@@ -102,32 +103,64 @@ const challenges: MonthChallenge[] = [
   {
     month: "April",
     year: 2026,
-    title: "OMI Dev Kit + WebSockets (Teaser)",
+    title: "SQL Visualizer - Step-by-Step Query Execution",
     description:
-      "Experimenting with the OMI Dev Kit and wiring it up over WebSockets for real-time audio streaming and on-device interactions. More soon.",
-    status: "in-progress",
-    tags: ["OMI Dev Kit", "WebSockets", "Real-time"],
+      "An educational SQL visualizer that shows how a query is evaluated in logical execution order. Define your own in-memory tables, run a query, and step through each transformation with before-and-after tables. Share links encode the whole workspace in the URL — no backend required.",
+    status: "completed",
+    tags: ["Vite", "React", "TypeScript", "SQL", "Vercel"],
+    link: "https://github.com/Qamil-Mirza/SQL-Tutor",
+    liveLink: "https://csm-c88c-sql-tutor.vercel.app",
+    highlights: [
+      "Parses a focused SQL subset: SELECT, JOIN, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and aggregates",
+      "Step-by-step trace of each logical transformation with before/after tables",
+      "User-defined tables via CREATE TABLE and INSERT, with starter data included",
+      "Read-only share links encode a compressed workspace snapshot entirely in the URL",
+    ],
   },
   {
     month: "May",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the May challenge!",
-    status: "coming-soon",
+    title: "Runekeeper - Goggins-Mode Call Reminders (Part 2)",
+    description:
+      "An extension of Runekeeper that calls my phone every day at 3:30pm with Twilio and delivers a rude, David Goggins-style reminder of what I said I'd get done. No snoozing a phone call.",
+    status: "completed",
+    tags: ["Twilio", "Next.js", "TypeScript", "Cron", "Text-to-Speech"],
+    videoLink: "https://youtube.com/shorts/woK4TLzcEfs?feature=share",
+    highlights: [
+      "Automated daily voice call at 3:30pm via Twilio",
+      "Goggins-style drill-sergeant reminders generated from planned tasks",
+      "Builds on the Runekeeper planner from March",
+    ],
   },
   {
     month: "June",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the June challenge!",
-    status: "coming-soon",
+    title: "Digital Vinyl Jukebox - Gesture Control + Projector",
+    description:
+      "A projection-table vinyl jukebox with Spotify playback and webcam gesture controls for play, pause, and skip. Built with few-shot prompting via Claude Code.",
+    status: "completed",
+    tags: ["Next.js", "TypeScript", "Spotify API", "Framer Motion", "Tailwind CSS"],
+    link: "https://github.com/Qamil-Mirza/jukebox",
+    videoLink: "https://youtube.com/shorts/YCfT2ZgV2PY?feature=share",
+    highlights: [
+      "Projection mode for a tabletop vinyl display",
+      "Webcam pinch gestures for previous, play/pause, and next",
+      "Spotify Web Playback SDK for live album art and playback",
+    ],
   },
   {
     month: "July",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the July challenge!",
-    status: "coming-soon",
+    title: "E2E Encrypted File System - CS161",
+    description:
+      "An end-to-end encrypted file system built for CS161. The implementation stays private per class policy.",
+    status: "private",
+    tags: ["CS161", "Cryptography", "File Systems"],
+    highlights: [
+      "End-to-end encryption for files at rest",
+      "Course project for CS161",
+      "Source kept private per class policy",
+    ],
   },
   {
     month: "August",
@@ -180,6 +213,13 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
         <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 hover:bg-yellow-500/30">
           <RocketIcon className="w-3 h-3 mr-1" />
           In Progress
+        </Badge>
+      );
+    case "private":
+      return (
+        <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 hover:bg-amber-500/30">
+          <EyeNoneIcon className="w-3 h-3 mr-1" />
+          Private
         </Badge>
       );
     case "coming-soon":
@@ -256,6 +296,20 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
                 View Project
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+            {challenge.liveLink && (
+              <a
+                href={challenge.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors text-sm font-medium"
+              >
+                Try It
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </a>
             )}
@@ -360,7 +414,9 @@ function BonusBuildCard({ build, index }: { build: BonusBuild; index: number }) 
 }
 
 export default function ChallengesPage() {
-  const completedCount = challenges.filter((c) => c.status === "completed").length;
+  const completedCount = challenges.filter(
+    (c) => c.status === "completed" || c.status === "private"
+  ).length;
   const inProgressCount = challenges.filter((c) => c.status === "in-progress").length;
 
   return (
