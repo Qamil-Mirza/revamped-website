@@ -120,9 +120,17 @@ const challenges: MonthChallenge[] = [
   {
     month: "May",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the May challenge!",
-    status: "coming-soon",
+    title: "Runekeeper - Goggins-Mode Call Reminders (Part 2)",
+    description:
+      "An extension of Runekeeper that calls my phone every day at 3:30pm with Twilio and delivers a rude, David Goggins-style reminder of what I said I'd get done. No snoozing a phone call.",
+    status: "completed",
+    tags: ["Twilio", "Next.js", "TypeScript", "Cron", "Text-to-Speech"],
+    videoLink: "https://youtube.com/shorts/woK4TLzcEfs?feature=share",
+    highlights: [
+      "Automated daily voice call at 3:30pm via Twilio",
+      "Goggins-style drill-sergeant reminders generated from planned tasks",
+      "Builds on the Runekeeper planner from March",
+    ],
   },
   {
     month: "June",
