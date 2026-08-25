@@ -135,9 +135,18 @@ const challenges: MonthChallenge[] = [
   {
     month: "June",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the June challenge!",
-    status: "coming-soon",
+    title: "Digital Vinyl Jukebox - Gesture Control + Projector",
+    description:
+      "A projection-table vinyl jukebox with Spotify playback and webcam gesture controls for play, pause, and skip. Built with few-shot prompting via Claude Code.",
+    status: "completed",
+    tags: ["Next.js", "TypeScript", "Spotify API", "Framer Motion", "Tailwind CSS"],
+    link: "https://github.com/Qamil-Mirza/jukebox",
+    videoLink: "https://youtube.com/shorts/YCfT2ZgV2PY?feature=share",
+    highlights: [
+      "Projection mode for a tabletop vinyl display",
+      "Webcam pinch gestures for previous, play/pause, and next",
+      "Spotify Web Playback SDK for live album art and playback",
+    ],
   },
   {
     month: "July",
