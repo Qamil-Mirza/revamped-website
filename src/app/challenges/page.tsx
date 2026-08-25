@@ -4,7 +4,7 @@ import { NavBar } from "@/components/ui/nav-bar";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LockClosedIcon, CheckCircledIcon, RocketIcon } from "@radix-ui/react-icons";
+import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon } from "@radix-ui/react-icons";
 import Particles from "@/components/ui/particles";
 
 interface BonusBuild {
@@ -35,7 +35,7 @@ interface MonthChallenge {
   year: number;
   title: string;
   description: string;
-  status: "completed" | "in-progress" | "coming-soon";
+  status: "completed" | "in-progress" | "coming-soon" | "private";
   tags?: string[];
   link?: string;
   liveLink?: string;
@@ -151,9 +151,16 @@ const challenges: MonthChallenge[] = [
   {
     month: "July",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the July challenge!",
-    status: "coming-soon",
+    title: "E2E Encrypted File System - CS161",
+    description:
+      "An end-to-end encrypted file system built for CS161. The implementation stays private per class policy.",
+    status: "private",
+    tags: ["CS161", "Cryptography", "File Systems"],
+    highlights: [
+      "End-to-end encryption for files at rest",
+      "Course project for CS161",
+      "Source kept private per class policy",
+    ],
   },
   {
     month: "August",
@@ -206,6 +213,13 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
         <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 hover:bg-yellow-500/30">
           <RocketIcon className="w-3 h-3 mr-1" />
           In Progress
+        </Badge>
+      );
+    case "private":
+      return (
+        <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 hover:bg-amber-500/30">
+          <EyeNoneIcon className="w-3 h-3 mr-1" />
+          Private
         </Badge>
       );
     case "coming-soon":
@@ -400,7 +414,9 @@ function BonusBuildCard({ build, index }: { build: BonusBuild; index: number }) 
 }
 
 export default function ChallengesPage() {
-  const completedCount = challenges.filter((c) => c.status === "completed").length;
+  const completedCount = challenges.filter(
+    (c) => c.status === "completed" || c.status === "private"
+  ).length;
   const inProgressCount = challenges.filter((c) => c.status === "in-progress").length;
 
   return (
