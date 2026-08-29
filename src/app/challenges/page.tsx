@@ -28,6 +28,14 @@ const bonusBuilds: BonusBuild[] = [
     liveLink: "https://bloom-note-pink.vercel.app/",
     videoLink: "https://www.tiktok.com/@therealqamil/video/7606803923474631950?_r=1&_t=ZT-93zIWcciGty",
   },
+  {
+    title: "Stern Hall Duty Bot",
+    description:
+      "A scheduled bot that reads the Stern Hall duty rotation from Google Sheets and posts who's on duty to Slack. Built with Claude.",
+    occasion: "Summer 2026",
+    tags: ["Python", "Slack", "Google Sheets", "Docker"],
+    link: "https://github.com/Qamil-Mirza/stern-duty-bot",
+  },
 ];
 
 interface MonthChallenge {
