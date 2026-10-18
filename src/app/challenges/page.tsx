@@ -117,7 +117,7 @@ const challenges: MonthChallenge[] = [
     status: "completed",
     tags: ["Vite", "React", "TypeScript", "SQL", "Vercel"],
     link: "https://github.com/Qamil-Mirza/SQL-Tutor",
-    liveLink: "https://csm-c88c-sql-tutor.vercel.app",
+    liveLink: "https://visualizer.qamil-mirza.com",
     highlights: [
       "Parses a focused SQL subset: SELECT, JOIN, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and aggregates",
       "Step-by-step trace of each logical transformation with before/after tables",
