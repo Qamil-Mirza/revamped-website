@@ -2,27 +2,18 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import logo from "@/public/logo.png"
+import camelLogo from "@/public/logo-camel-dark.png"
 import Image from "next/image"
+import { navItems } from "./nav-items"
 
-interface NavItem {
-  label: string
-  href: string
-}
-
-const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Challenges", href: "/challenges" },
-  { label: "Projects", href: "/projects" },
-  { label: "Sidequests", href: "/sidequests" },
-  { label: "Contact", href: "/contact" },
-]
-
-export function NavBar() {
+export function NavBar({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isLight = variant === "light"
 
   // Close mobile menu when screen size changes to desktop
   useEffect(() => {
@@ -50,30 +41,55 @@ export function NavBar() {
   }, [mobileMenuOpen])
 
   return (
-    <div className="sticky top-0 z-50 bg-backgroundColor px-4 py-2 dark:bg-backgroundDark shadow-sm">
+    <div
+      className={
+        isLight
+          ? "sticky top-0 z-50 bg-[#f5f4ee] px-4 py-2 border-b border-[#dcdbd2]"
+          : "sticky top-0 z-50 bg-backgroundColor px-4 py-2 dark:bg-backgroundDark shadow-sm"
+      }
+    >
       <div className="container mx-auto flex h-16 items-center justify-between">
         <Link href="/" className="flex-shrink-0">
           <div className="flex items-center space-x-3">
-            <Image
-              src={logo}
-              alt="Logo"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-            <span className="text-lg font-bold text-primaryText dark:text-white">
+            {isLight ? (
+              <Image src={camelLogo} alt="Logo" height={28} className="h-7 w-auto" />
+            ) : (
+              <Image
+                src={logo}
+                alt="Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            )}
+            <span
+              className={
+                isLight
+                  ? "text-lg font-bold text-[#1c1f1a]"
+                  : "text-lg font-bold text-primaryText dark:text-white"
+              }
+            >
               Qamil Mirza
             </span>
           </div>
         </Link>
-        
+
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="px-3 py-2 text-sm font-medium text-primaryText/80 transition-colors hover:text-primaryText dark:text-white/80 dark:hover:text-white"
+              className={
+                isLight
+                  ? cn(
+                      "px-3 py-2 text-sm font-medium transition-colors",
+                      pathname === item.href
+                        ? "text-[#15803d] shadow-[inset_0_-2px_0_#22c55e]"
+                        : "text-[#1c1f1a]/70 hover:text-[#1c1f1a]",
+                    )
+                  : "px-3 py-2 text-sm font-medium text-primaryText/80 transition-colors hover:text-primaryText dark:text-white/80 dark:hover:text-white"
+              }
             >
               {item.label}
             </Link>
@@ -87,9 +103,9 @@ export function NavBar() {
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? (
-            <X className="h-6 w-6 text-primaryText dark:text-white" />
+            <X className={isLight ? "h-6 w-6 text-[#1c1f1a]" : "h-6 w-6 text-primaryText dark:text-white"} />
           ) : (
-            <Menu className="h-6 w-6 text-primaryText dark:text-white" />
+            <Menu className={isLight ? "h-6 w-6 text-[#1c1f1a]" : "h-6 w-6 text-primaryText dark:text-white"} />
           )}
         </button>
       </div>
@@ -97,7 +113,8 @@ export function NavBar() {
       {/* Mobile navigation with transition */}
       <div
         className={cn(
-          "fixed inset-0 top-[4rem] z-40 bg-backgroundColor dark:bg-backgroundDark md:hidden transition-all duration-300 ease-in-out",
+          "fixed inset-0 top-[4rem] z-40 md:hidden transition-all duration-300 ease-in-out",
+          isLight ? "bg-[#f5f4ee]" : "bg-backgroundColor dark:bg-backgroundDark",
           mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none",
         )}
       >
@@ -106,7 +123,14 @@ export function NavBar() {
             <Link
               key={item.href}
               href={item.href}
-              className="w-full text-center py-3 text-lg font-medium text-primaryText dark:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-md transition-colors"
+              className={
+                isLight
+                  ? cn(
+                      "w-full text-center py-3 text-lg font-medium hover:bg-black/5 rounded-md transition-colors",
+                      pathname === item.href ? "text-[#15803d]" : "text-[#1c1f1a]",
+                    )
+                  : "w-full text-center py-3 text-lg font-medium text-primaryText dark:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-md transition-colors"
+              }
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.label}
