@@ -1,0 +1,209 @@
+/* Shared styles for the research page's lab animation and the home-page card. */
+
+/* Soft edges so tokens fade in and out instead of popping at a box edge. */
+.riverX {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+
+.riverY {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+/* The lab's river is vertical on phones and horizontal from md up. */
+.labRiver {
+  composes: riverY;
+}
+
+@media (min-width: 768px) {
+  .labRiver {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  }
+}
+
+/* Layer lines: horizontal hairlines on phones, vertical from md up. */
+.layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--pos);
+  height: 1px;
+  background: #dcdbd2;
+}
+
+.layerLabel {
+  position: absolute;
+  right: 0;
+  top: var(--pos);
+  transform: translateY(-120%);
+  font-size: 9px;
+  color: #a3a29a;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .layer {
+    left: var(--pos);
+    right: auto;
+    top: 22px;
+    bottom: 34px;
+    width: 1px;
+    height: auto;
+  }
+
+  .layerLabel {
+    left: var(--pos);
+    right: auto;
+    top: auto;
+    bottom: 12px;
+    transform: translateX(-50%);
+    font-size: 10px;
+  }
+}
+
+.token {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  background: #e9e8e0;
+  color: #6b7067;
+  will-change: transform;
+}
+
+.tokenEvidence {
+  background: #eef8f1;
+  border: 1px dashed #9fd9b0;
+  color: #15803d;
+}
+
+/* Where the answer token rests when motion is reduced. */
+.tokenSpent {
+  background: #ecebe4;
+  color: #c4c3bb;
+  border-color: transparent;
+}
+
+.caret {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  background: #22c55e;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.shimmer {
+  height: 9px;
+  border-radius: 4px;
+  margin: 7px 0;
+  background: linear-gradient(90deg, #e3efe6 0%, #cfe9d6 50%, #e3efe6 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* CSS-only loop used by the home-page card. */
+.flowX {
+  animation: flowX 6s linear infinite;
+}
+
+.flowXAnswer {
+  animation:
+    flowX 6s linear infinite,
+    answerGlow 6s linear infinite;
+}
+
+/* Travel is relative to the strip (a size container), so tokens always exit
+   through the faded right edge however wide the card is. */
+@keyframes flowX {
+  from {
+    transform: translateX(-110px);
+  }
+  to {
+    transform: translateX(calc(100cqw + 20px));
+  }
+}
+
+@keyframes answerGlow {
+  0%,
+  22% {
+    background: #eef8f1;
+    color: #15803d;
+    box-shadow: none;
+  }
+  36%,
+  52% {
+    background: #22c55e;
+    color: #fff;
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.55);
+  }
+  70%,
+  100% {
+    background: #ecebe4;
+    color: #c4c3bb;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowX,
+  .flowXAnswer,
+  .caret,
+  .shimmer {
+    animation: none;
+  }
+}
+
+/* Home-page card strip. On short cards only the evidence lane shows, centred,
+   so the glowing answer is never cut in half. */
+.cardStrip {
+  container-type: size;
+}
+
+.cardLaneQuestion {
+  top: 14%;
+}
+
+.cardLaneEvidence {
+  top: 56%;
+}
+
+@container (max-height: 61px) {
+  .cardLaneQuestion {
+    display: none;
+  }
+
+  .cardLaneEvidence {
+    top: calc(50% - 13px);
+  }
+}
+
+/* Home-page card tokens start off-card and loop; with reduced motion they rest in view. */
+.cardToken {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardToken {
+    left: var(--rest);
+  }
+}
