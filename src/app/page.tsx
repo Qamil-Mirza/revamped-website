@@ -14,12 +14,11 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import TypingAnimation from "@/components/ui/typing-animation";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Meteors from "@/components/ui/meteors";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import { NavBar } from "@/components/ui/nav-bar";
 
-import { cn } from "@/lib/utils";
 import SocialConnect from "@/components/ui/social-connect";
 import { AuroraText } from "@/components/ui/aurora-text";
+import { ResearchCardBackground } from "@/components/research/ResearchCardBackground";
 
 // Adjust Bento Content here
 const features = [
@@ -69,19 +68,14 @@ const features = [
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
   },
   {
-    name: "Sharing Knowledge, Fueling Growth",
-    description: "Checkout My Blog On Medium For More!",
-    href: "https://medium.com/@qamilmirza",
-    cta: "Learn more",
-    background: (
-      <div className="absolute flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-        <DotPattern
-          className={cn(
-            "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
-          )}
-        />
-      </div>
-    ),
+    name: "Why do small models refuse answers they've already been given?",
+    label: "Research",
+    labelColor: "text-[#15803d]",
+    href: "/research",
+    cta: "Research",
+    ctaColor: "text-[#15803d]",
+    primaryTextColor: "text-[#1c1f1a]",
+    background: <ResearchCardBackground />,
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
   },
   {

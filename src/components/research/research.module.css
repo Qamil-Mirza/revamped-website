@@ -170,3 +170,14 @@
     animation: none;
   }
 }
+
+/* Home-page card tokens start off-card and loop; with reduced motion they rest in view. */
+.cardToken {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardToken {
+    left: var(--rest);
+  }
+}

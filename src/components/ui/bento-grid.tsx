@@ -36,6 +36,9 @@ const BentoCard = ({
   secondaryTextColor,
   iconColor,
   hideIcon,
+  label,
+  labelColor,
+  ctaColor,
   useHyperspace,
   onHyperspaceClick,
 }: {
@@ -44,7 +47,10 @@ const BentoCard = ({
   background: ReactNode;
   Icon?: any;
   hideIcon?: boolean;
-  description: string;
+  description?: string;
+  label?: string;
+  labelColor?: string;
+  ctaColor?: string;
   href: string;
   cta: string;
   disable?: boolean;
@@ -70,10 +76,15 @@ const BentoCard = ({
       {Icon &&
       <Icon className={`${hideIcon ? 'opacity-0' : 'opacity-100'} h-12 w-12 origin-left transform-gpu ${iconColor || "text-black"} transition-all duration-300 ease-in-out ${!disable ? 'group-hover:scale-75' : ''}`} />
       }
+      {label && (
+        <span className={`font-[family-name:var(--font-geist-mono)] text-[10px] font-semibold uppercase tracking-[0.14em] ${labelColor || "text-black"}`}>
+          {label}
+        </span>
+      )}
       <h3 className={`text-xl font-semibold ${primaryTextColor || "text-black"} dark:text-neutral-300`}>
         {name}
       </h3>
-      <p className={`max-w-lg ${secondaryTextColor || "text-black"}`}>{description}</p>
+      {description && <p className={`max-w-lg ${secondaryTextColor || "text-black"}`}>{description}</p>}
     </div>
     
     {!disable &&
@@ -90,12 +101,12 @@ const BentoCard = ({
         onClick={useHyperspace ? (e) => onHyperspaceClick?.(e, href) : undefined}
       >
         {useHyperspace ? (
-          <span className={`inline-flex items-center ${primaryTextColor} group-hover/button:text-black transition-colors`}>
+          <span className={`inline-flex items-center ${ctaColor || primaryTextColor} group-hover/button:text-black transition-colors`}>
             {cta}
             <ArrowRightIcon className="ml-2 h-4 w-4" />
           </span>
         ) : (
-          <a href={href} className={`${primaryTextColor} group-hover/button:text-black transition-colors`}>
+          <a href={href} className={`${ctaColor || primaryTextColor} group-hover/button:text-black transition-colors`}>
             {cta}
             <ArrowRightIcon className="ml-2 h-4 w-4" />
           </a>
