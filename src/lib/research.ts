@@ -55,10 +55,11 @@ export type FlowToken = {
 
 const TOKEN_STAGGER_MS = 320;
 const EVIDENCE_OFFSET_MS = 160;
-// Question words ride lanes 0-1, evidence lanes 2-3. The answer always gets
-// lane 2 so it sits in the same spot every loop.
+// Question words ride lanes 0-1. The answer gets lane 2 to itself so nothing
+// covers it while it glows; the other evidence words take lanes 3-4.
 const QUESTION_LANES = [0, 1, 0];
-const EVIDENCE_LANES = [3, 2, 3];
+const ANSWER_LANE = 2;
+const EVIDENCE_LANES = [3, 4];
 
 export function tokensFor(example: LabExample): FlowToken[] {
   const answer = example.evidence[1];
@@ -69,13 +70,14 @@ export function tokensFor(example: LabExample): FlowToken[] {
     lane: QUESTION_LANES[i % QUESTION_LANES.length],
     delayMs: i * TOKEN_STAGGER_MS,
   }));
+  let others = 0;
   const evidence = example.evidenceTokens.map<FlowToken>((text, i) => {
     const isAnswer = text === answer;
     return {
       text,
       kind: "evidence",
       isAnswer,
-      lane: isAnswer ? 2 : EVIDENCE_LANES[i % EVIDENCE_LANES.length],
+      lane: isAnswer ? ANSWER_LANE : EVIDENCE_LANES[others++ % EVIDENCE_LANES.length],
       delayMs: EVIDENCE_OFFSET_MS + i * TOKEN_STAGGER_MS,
     };
   });

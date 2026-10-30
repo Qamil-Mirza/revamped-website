@@ -20,8 +20,8 @@ const LAYERS = [
 ];
 
 // Desktop lanes are px from the top of the river; mobile lanes are % from the left.
-const LANES_X = [58, 102, 168, 212];
-const LANES_Y = ["2%", "24%", "52%", "60%"];
+const LANES_X = [44, 86, 140, 190, 236];
+const LANES_Y = ["2%", "24%", "40%", "56%", "62%"];
 // Falling tokens cover less distance than drifting ones, so space them further apart
 // in time or they stack on top of each other.
 const STAGGER_Y = 2.2;

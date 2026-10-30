@@ -132,12 +132,14 @@
     answerGlow 6s linear infinite;
 }
 
+/* Travel is relative to the strip (a size container), so tokens always exit
+   through the faded right edge however wide the card is. */
 @keyframes flowX {
   from {
     transform: translateX(-110px);
   }
   to {
-    transform: translateX(460px);
+    transform: translateX(calc(100cqw + 20px));
   }
 }
 
@@ -168,6 +170,30 @@
   .caret,
   .shimmer {
     animation: none;
+  }
+}
+
+/* Home-page card strip. On short cards only the evidence lane shows, centred,
+   so the glowing answer is never cut in half. */
+.cardStrip {
+  container-type: size;
+}
+
+.cardLaneQuestion {
+  top: 14%;
+}
+
+.cardLaneEvidence {
+  top: 56%;
+}
+
+@container (max-height: 61px) {
+  .cardLaneQuestion {
+    display: none;
+  }
+
+  .cardLaneEvidence {
+    top: calc(50% - 13px);
   }
 }
 

@@ -40,6 +40,27 @@ describe("lab examples", () => {
     }
   });
 
+  it("never puts two tokens in one lane close enough to overlap", () => {
+    for (const ex of LAB_EXAMPLES) {
+      const tokens = tokensFor(ex);
+      for (const a of tokens) {
+        for (const b of tokens) {
+          if (a !== b && a.lane === b.lane) {
+            expect(Math.abs(a.delayMs - b.delayMs), `${a.text} / ${b.text}`).toBeGreaterThanOrEqual(640);
+          }
+        }
+      }
+    }
+  });
+
+  it("gives the answer a lane of its own", () => {
+    for (const ex of LAB_EXAMPLES) {
+      const tokens = tokensFor(ex);
+      const answer = tokens.find((t) => t.isAnswer)!;
+      expect(tokens.filter((t) => t.lane === answer.lane)).toHaveLength(1);
+    }
+  });
+
   it("keeps question tokens in the upper lanes", () => {
     for (const ex of LAB_EXAMPLES) {
       for (const t of tokensFor(ex).filter((t) => t.kind === "question")) {
