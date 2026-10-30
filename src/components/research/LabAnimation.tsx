@@ -20,8 +20,11 @@ const LAYERS = [
 ];
 
 // Desktop lanes are px from the top of the river; mobile lanes are % from the left.
-const LANES_X = [34, 74, 134, 184];
-const LANES_Y = ["2%", "18%", "54%", "62%"];
+const LANES_X = [58, 102, 168, 212];
+const LANES_Y = ["2%", "24%", "52%", "60%"];
+// Falling tokens cover less distance than drifting ones, so space them further apart
+// in time or they stack on top of each other.
+const STAGGER_Y = 2.2;
 
 const FLOW_X_MS = 4400;
 const FLOW_Y_MS = 4200;
@@ -96,7 +99,8 @@ export function LabAnimation() {
         river.appendChild(el);
 
         const duration = horizontal ? FLOW_X_MS : FLOW_Y_MS;
-        const timing = { duration, delay: token.delayMs, fill: "both" as const };
+        const delay = horizontal ? token.delayMs : token.delayMs * STAGGER_Y;
+        const timing = { duration, delay, fill: "both" as const };
         const motion = el.animate(
           horizontal
             ? [{ transform: "translateX(-140px)" }, { transform: `translateX(${river.clientWidth + 20}px)` }]
@@ -131,7 +135,7 @@ export function LabAnimation() {
       >
         {/* Inputs */}
         <div className="flex flex-col gap-2.5 md:gap-3">
-          <div className="h-[72px] overflow-hidden rounded-[14px] border border-[#dcdbd2] bg-white px-3.5 py-2.5 text-[13px] leading-[1.45] md:text-[12px] lg:text-[13px]">
+          <div data-lab-box className="h-[72px] md:h-[80px] overflow-hidden rounded-[14px] border border-[#dcdbd2] bg-white px-3.5 py-2.5 text-[13px] leading-[1.45] md:text-[12px] lg:text-[13px]">
             <Label>Question</Label>
             <div>
               {frame?.question}
@@ -140,6 +144,7 @@ export function LabAnimation() {
           </div>
 
           <div
+            data-lab-box
             className={cn(
               "h-[96px] overflow-hidden rounded-[14px] border border-dashed border-[#9fd9b0] bg-[#f3fbf5] px-3.5 py-2.5 text-[13px] leading-[1.45] text-[#3f443c] transition-all duration-400 md:text-[12px] lg:text-[13px]",
               frame?.evidenceVisible ? "translate-y-0 opacity-100" : "translate-y-1.5 opacity-0",
@@ -198,7 +203,7 @@ export function LabAnimation() {
         </div>
 
         {/* Reply */}
-        <div className="h-[60px] overflow-hidden rounded-[14px] bg-[#1c1f1a] px-3.5 py-2.5 text-[13px] leading-[1.45] text-[#f5f4ee] md:h-[72px] md:text-[12px] lg:text-[13px]">
+        <div data-lab-box className="h-[60px] overflow-hidden rounded-[14px] bg-[#1c1f1a] px-3.5 py-2.5 text-[13px] leading-[1.45] text-[#f5f4ee] md:h-[80px] md:text-[12px] lg:h-[72px] lg:text-[13px]">
           <Label className="text-[#9aa096]">Model</Label>
           <div>
             {frame?.reply}
