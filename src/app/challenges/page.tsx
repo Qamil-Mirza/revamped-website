@@ -4,7 +4,7 @@ import { NavBar } from "@/components/ui/nav-bar";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon } from "@radix-ui/react-icons";
+import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import Particles from "@/components/ui/particles";
 
 interface BonusBuild {
@@ -36,6 +36,14 @@ const bonusBuilds: BonusBuild[] = [
     tags: ["Python", "Slack", "Google Sheets", "Docker"],
     link: "https://github.com/Qamil-Mirza/stern-duty-bot",
   },
+  {
+    title: "PitStop - Drift Detection for AI Agents",
+    description:
+      "Drift detection and GEPA-powered prompt correction for agent workflows. PitStop catches agents that go off-task or quietly degrade, blocks bad tool calls before they run, and steers them back.",
+    occasion: "Crusoe Hackathon, October 2026",
+    tags: ["Python", "GEPA", "Crusoe Inference", "OpenAI Agents SDK", "LangChain", "OpenTelemetry"],
+    link: "https://github.com/Qamil-Mirza/pitstop",
+  },
 ];
 
 interface MonthChallenge {
@@ -43,7 +51,7 @@ interface MonthChallenge {
   year: number;
   title: string;
   description: string;
-  status: "completed" | "in-progress" | "coming-soon" | "private";
+  status: "completed" | "in-progress" | "coming-soon" | "private" | "missed";
   tags?: string[];
   link?: string;
   liveLink?: string;
@@ -173,23 +181,41 @@ const challenges: MonthChallenge[] = [
   {
     month: "August",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the August challenge!",
-    status: "coming-soon",
+    title: "Missed",
+    description: "Dropped the ball this month and didn't ship anything. Back on track in September.",
+    status: "missed",
   },
   {
     month: "September",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the September challenge!",
-    status: "coming-soon",
+    title: "The Lab - Autonomous AI Research Lab Manager",
+    description:
+      "The execution and lifecycle service for The Lab, an autonomous AI research laboratory operated from Runekeeper. It provisions and supervises Claude Code research agents, runs bounded jobs, records approvals, and persists research state. Deterministic infrastructure that does no scientific reasoning of its own.",
+    status: "completed",
+    tags: ["Node.js", "TypeScript", "SQLite", "Claude Code", "OpenAPI", "Docker"],
+    link: "https://github.com/Qamil-Mirza/The-Lab",
+    highlights: [
+      "HTTP API over a Unix socket with SQLite state, approvals, events, and recovery",
+      "Agent worker that launches and supervises Claude Code from validated job specs",
+      "OpenAPI contract shared with Runekeeper as the human-facing control centre",
+      "Unit, end-to-end, and contract tests, plus OS isolation tests in a throwaway Linux container",
+    ],
   },
   {
     month: "October",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the October challenge!",
-    status: "coming-soon",
+    title: "GhostLoop - AI Usability Testers (Cal Hacks 13.0)",
+    description:
+      "Your first users, before your first real user. Built at Cal Hacks 13.0 with Hanna, Jaclyn, and Emma. AI testers use your app in a real browser, GhostLoop shows where they get stuck, proposes small design fixes for you to approve, and retests to see whether the fix helped.",
+    status: "completed",
+    tags: ["TypeScript", "React", "Playwright", "Claude", "SpacetimeDB", "Figma"],
+    link: "https://github.com/Qamil-Mirza/GhostLoop",
+    highlights: [
+      "Playwright agents driven by a vision model that get the task, never the success criteria",
+      "Trusted goal checker verifies saved run state instead of trusting the agent's claims",
+      "Claude proposes typed design patches; prices, consent, and validation can never be patched",
+      "Every approved version is written back to Figma as an editable frame and verified",
+    ],
   },
   {
     month: "November",
@@ -230,6 +256,13 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
           Private
         </Badge>
       );
+    case "missed":
+      return (
+        <Badge className="bg-red-500/20 text-red-400 border-red-500/30 hover:bg-red-500/30">
+          <CrossCircledIcon className="w-3 h-3 mr-1" />
+          Missed
+        </Badge>
+      );
     case "coming-soon":
       return (
         <Badge className="bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30">
@@ -242,6 +275,7 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
 
 function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index: number }) {
   const isLocked = challenge.status === "coming-soon";
+  const isMissed = challenge.status === "missed";
 
   return (
     <BlurFade delay={0.1 + index * 0.05} inView>
@@ -249,6 +283,8 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
         className={`relative overflow-hidden transition-all duration-300 h-full ${
           isLocked
             ? "bg-gray-900/50 border-gray-700/50 opacity-60"
+            : isMissed
+            ? "bg-gray-900/50 border-red-500/20 opacity-70"
             : "bg-gray-900/80 border-gray-700 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10"
         }`}
       >
