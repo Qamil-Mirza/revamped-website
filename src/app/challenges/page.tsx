@@ -4,7 +4,7 @@ import { NavBar } from "@/components/ui/nav-bar";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon } from "@radix-ui/react-icons";
+import { LockClosedIcon, CheckCircledIcon, RocketIcon, EyeNoneIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import Particles from "@/components/ui/particles";
 
 interface BonusBuild {
@@ -36,6 +36,14 @@ const bonusBuilds: BonusBuild[] = [
     tags: ["Python", "Slack", "Google Sheets", "Docker"],
     link: "https://github.com/Qamil-Mirza/stern-duty-bot",
   },
+  {
+    title: "PitStop - Drift Detection for AI Agents",
+    description:
+      "Drift detection and GEPA-powered prompt correction for agent workflows. PitStop catches agents that go off-task or quietly degrade, blocks bad tool calls before they run, and steers them back.",
+    occasion: "Crusoe Hackathon, October 2026",
+    tags: ["Python", "GEPA", "Crusoe Inference", "OpenAI Agents SDK", "LangChain", "OpenTelemetry"],
+    link: "https://github.com/Qamil-Mirza/pitstop",
+  },
 ];
 
 interface MonthChallenge {
@@ -43,7 +51,7 @@ interface MonthChallenge {
   year: number;
   title: string;
   description: string;
-  status: "completed" | "in-progress" | "coming-soon" | "private";
+  status: "completed" | "in-progress" | "coming-soon" | "private" | "missed";
   tags?: string[];
   link?: string;
   liveLink?: string;
@@ -173,23 +181,41 @@ const challenges: MonthChallenge[] = [
   {
     month: "August",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the August challenge!",
-    status: "coming-soon",
+    title: "Missed",
+    description: "Dropped the ball this month and didn't ship anything. Back on track in September.",
+    status: "missed",
   },
   {
     month: "September",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the September challenge!",
-    status: "coming-soon",
+    title: "The Lab - Autonomous AI Research Lab Manager",
+    description:
+      "The execution and lifecycle service for The Lab, an autonomous AI research laboratory operated from Runekeeper. It provisions and supervises Claude Code research agents, runs bounded jobs, records approvals, and persists research state. Deterministic infrastructure that does no scientific reasoning of its own.",
+    status: "completed",
+    tags: ["Node.js", "TypeScript", "SQLite", "Claude Code", "OpenAPI", "Docker"],
+    link: "https://github.com/Qamil-Mirza/The-Lab",
+    highlights: [
+      "HTTP API over a Unix socket with SQLite state, approvals, events, and recovery",
+      "Agent worker that launches and supervises Claude Code from validated job specs",
+      "OpenAPI contract shared with Runekeeper as the human-facing control centre",
+      "Unit, end-to-end, and contract tests, plus OS isolation tests in a throwaway Linux container",
+    ],
   },
   {
     month: "October",
     year: 2026,
-    title: "Coming Soon",
-    description: "Stay tuned for the October challenge!",
-    status: "coming-soon",
+    title: "GhostLoop - AI Usability Testers (Cal Hacks 13.0)",
+    description:
+      "Your first users, before your first real user. Built at Cal Hacks 13.0 with Hanna, Jaclyn, and Emma. AI testers use your app in a real browser, GhostLoop shows where they get stuck, proposes small design fixes for you to approve, and retests to see whether the fix helped.",
+    status: "completed",
+    tags: ["TypeScript", "React", "Playwright", "Claude", "SpacetimeDB", "Figma"],
+    link: "https://github.com/Qamil-Mirza/GhostLoop",
+    highlights: [
+      "Playwright agents driven by a vision model that get the task, never the success criteria",
+      "Trusted goal checker verifies saved run state instead of trusting the agent's claims",
+      "Claude proposes typed design patches; prices, consent, and validation can never be patched",
+      "Every approved version is written back to Figma as an editable frame and verified",
+    ],
   },
   {
     month: "November",
@@ -206,6 +232,32 @@ const challenges: MonthChallenge[] = [
     status: "coming-soon",
   },
 ];
+
+function VideoIcon({ url }: { url: string }) {
+  const host = new URL(url).hostname;
+
+  if (host.endsWith("tiktok.com")) {
+    return (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.18a8.27 8.27 0 004.77 1.51V7.24a4.83 4.83 0 01-1-.55z" />
+      </svg>
+    );
+  }
+
+  if (host.endsWith("youtube.com") || host === "youtu.be") {
+    return (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  );
+}
 
 function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
   switch (status) {
@@ -230,6 +282,13 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
           Private
         </Badge>
       );
+    case "missed":
+      return (
+        <Badge className="bg-red-500/20 text-red-400 border-red-500/30 hover:bg-red-500/30">
+          <CrossCircledIcon className="w-3 h-3 mr-1" />
+          Missed
+        </Badge>
+      );
     case "coming-soon":
       return (
         <Badge className="bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30">
@@ -242,6 +301,7 @@ function StatusBadge({ status }: { status: MonthChallenge["status"] }) {
 
 function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index: number }) {
   const isLocked = challenge.status === "coming-soon";
+  const isMissed = challenge.status === "missed";
 
   return (
     <BlurFade delay={0.1 + index * 0.05} inView>
@@ -249,6 +309,8 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
         className={`relative overflow-hidden transition-all duration-300 h-full ${
           isLocked
             ? "bg-gray-900/50 border-gray-700/50 opacity-60"
+            : isMissed
+            ? "bg-gray-900/50 border-red-500/20 opacity-70"
             : "bg-gray-900/80 border-gray-700 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10"
         }`}
       >
@@ -329,9 +391,7 @@ function ChallengeCard({ challenge, index }: { challenge: MonthChallenge; index:
                 className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-400 rounded-lg hover:bg-pink-500/30 transition-colors text-sm font-medium"
               >
                 Watch Demo
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.18a8.27 8.27 0 004.77 1.51V7.24a4.83 4.83 0 01-1-.55z" />
-                </svg>
+                <VideoIcon url={challenge.videoLink} />
               </a>
             )}
           </div>
@@ -409,9 +469,7 @@ function BonusBuildCard({ build, index }: { build: BonusBuild; index: number }) 
                 className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-400 rounded-lg hover:bg-pink-500/30 transition-colors text-sm font-medium"
               >
                 Watch Demo
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.18a8.27 8.27 0 004.77 1.51V7.24a4.83 4.83 0 01-1-.55z" />
-                </svg>
+                <VideoIcon url={build.videoLink} />
               </a>
             )}
           </div>
