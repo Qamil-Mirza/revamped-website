@@ -6,6 +6,8 @@ import {
   staticFrame,
   tokensFor,
   type FlowToken,
+  type LabExample,
+  type LabFrame,
 } from "./research";
 
 const tiny = {
@@ -48,6 +50,7 @@ describe("lab examples", () => {
 
   it("static frame is fully filled in", () => {
     expect(staticFrame(LAB_EXAMPLES[0])).toEqual({
+      example: LAB_EXAMPLES[0],
       question: "What is the capital of Australia?",
       evidenceVisible: true,
       evidenceLoading: false,
@@ -89,10 +92,18 @@ describe("runSequence", () => {
   it("cycles through examples in order", async () => {
     vi.useFakeTimers();
     const flows: FlowToken[][] = [];
+    const examplesAtFlow: LabExample[] = [];
+    let lastFrame: LabFrame | undefined;
     const controller = new AbortController();
     const done = runSequence(
       LAB_EXAMPLES,
-      { onFrame: () => {}, onFlow: (t) => flows.push(t) },
+      {
+        onFrame: (f) => (lastFrame = f),
+        onFlow: (t) => {
+          flows.push(t);
+          examplesAtFlow.push(lastFrame!.example);
+        },
+      },
       controller.signal,
       tiny,
     );
@@ -105,5 +116,7 @@ describe("runSequence", () => {
     expect(flows[0]).toEqual(order[0]);
     expect(flows[1]).toEqual(order[1]);
     expect(flows[LAB_EXAMPLES.length]).toEqual(order[0]);
+    // each frame says which example it belongs to, so the UI can show its evidence
+    expect(examplesAtFlow[1]).toBe(LAB_EXAMPLES[1]);
   });
 });

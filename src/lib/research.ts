@@ -83,6 +83,7 @@ export function tokensFor(example: LabExample): FlowToken[] {
 }
 
 export type LabFrame = {
+  example: LabExample;
   question: string;
   evidenceVisible: boolean;
   evidenceLoading: boolean;
@@ -91,6 +92,7 @@ export type LabFrame = {
 
 export function staticFrame(example: LabExample): LabFrame {
   return {
+    example,
     question: example.question,
     evidenceVisible: true,
     evidenceLoading: false,
@@ -147,12 +149,10 @@ export async function runSequence(
   timing: Partial<Timing> = {},
 ): Promise<void> {
   const t = { ...DEFAULT_TIMING, ...timing };
-  const empty: LabFrame = { question: "", evidenceVisible: false, evidenceLoading: false, reply: "" };
-
   try {
     for (let n = 0; ; n = (n + 1) % examples.length) {
       const ex = examples[n];
-      let frame = { ...empty };
+      let frame: LabFrame = { example: ex, question: "", evidenceVisible: false, evidenceLoading: false, reply: "" };
       const show = (next: Partial<LabFrame>) => {
         if (signal.aborted) return;
         frame = { ...frame, ...next };
