@@ -16,6 +16,10 @@ import { LogitLensFigure } from "@/components/article/figures/LogitLens";
 import { LensFigure } from "@/components/article/figures/Lens";
 import { SpiderAntFigure } from "@/components/article/figures/SpiderAnt";
 import { RelationalChainFigure } from "@/components/article/figures/RelationalChain";
+import { EvidenceControlFigure } from "@/components/article/figures/EvidenceControl";
+import { LensGatesFigure } from "@/components/article/figures/LensGates";
+import { InterventionTradeoffFigure } from "@/components/article/figures/InterventionTradeoff";
+import { ThreeQuestionsFigure } from "@/components/article/figures/ThreeQuestions";
 
 export const metadata: Metadata = {
   title: "More Than Reasoning | Qamil Mirza",
@@ -48,6 +52,19 @@ export default function MoreThanReasoningPage() {
         <div className="mt-6 border-b border-[#dcdbd2] pb-6 font-[family-name:var(--font-geist-mono)] text-[11px] uppercase tracking-[0.08em] text-[#6b7067]">
           Qamil Mirza · October 30, 2026
         </div>
+
+        <aside className="mt-8 rounded-2xl border border-[#9fd9b0] bg-[#f3fbf5] px-5 py-4">
+          <div className="mb-1.5 font-[family-name:var(--font-geist-mono)] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#15803d]">
+            TL;DR
+          </div>
+          <p className="text-[16px] leading-[1.65] text-[#2b2f29]">
+            I set out to make AI agents better at managing their memory. Picking the right evidence once the question is known
+            helped: roughly ten points more accurate with about a third of the tokens. But along the way, a small model wrote the
+            right answer into its own note and then said “unknown.” Having the right information isn’t the same as using it. My
+            honors thesis now uses interpretability tools like the logit lens and the J-lens to look at what happens between
+            reading the evidence and producing an answer, while being careful about what those tools can and can’t prove.
+          </p>
+        </aside>
 
         <P>Why do agents suck sometimes?</P>
         <P>That was pretty much the question I started with.</P>
@@ -681,6 +698,16 @@ export default function MoreThanReasoningPage() {
           In other words, some of the words we thought might indicate successful reasoning were still appearing even when the
           model no longer had the necessary information.
         </P>
+
+        <Figure
+          caption={
+            <>
+              <Strong>Figure 11.</Strong> The control, drawn schematically. With the supporting evidence removed, much of the apparent answer presence in the lens read-out survives. Which layers light up here is illustrative.
+            </>
+          }
+        >
+          <EvidenceControlFigure />
+        </Figure>
         <P>That’s a pretty important warning sign.</P>
         <P>
           A model might associate certain concepts with a question because they’re statistically plausible, not because it
@@ -706,6 +733,16 @@ export default function MoreThanReasoningPage() {
           comparison.
         </P>
         <P>Other small models passed their respective evaluation gates.</P>
+
+        <Figure
+          caption={
+            <>
+              <Strong>Figure 12.</Strong> How the lens methods fared on the smaller models. For Qwen 3B, the Jacobian lens passed the answer-rank test but failed the aggregate intermediate-recovery comparison.
+            </>
+          }
+        >
+          <LensGatesFigure />
+        </Figure>
         <P>
           So while some readouts were useful, we couldn’t simply conclude that smaller models were incapable of representing
           abstract intermediate concepts.
@@ -713,6 +750,16 @@ export default function MoreThanReasoningPage() {
         <P>We also experimented with changing instructions and steering model activations.</P>
         <P>Some interventions recovered correct answers, which was encouraging.</P>
         <P>Unfortunately, they also introduced new errors.</P>
+
+        <Figure
+          caption={
+            <>
+              <Strong>Figure 13.</Strong> Interventions cut both ways: some recovered correct answers, others broke answers that were already right. Schematic, not to scale.
+            </>
+          }
+        >
+          <InterventionTradeoffFigure />
+        </Figure>
         <P>
           We went on to explore activation patching<Cite id="meng2022" /> and evidence substitution, trying to determine whether
           particular representations had evidence-specific causal effects on the final answer.
@@ -739,6 +786,16 @@ export default function MoreThanReasoningPage() {
             its causal role in the computation.
           </li>
         </List>
+
+        <Figure
+          caption={
+            <>
+              <Strong>Figure 14.</Strong> Three different questions, and the inference that doesn’t follow from each.
+            </>
+          }
+        >
+          <ThreeQuestionsFigure />
+        </Figure>
         <P>These might sound similar, but they’re not interchangeable.</P>
         <P>A model can answer correctly without exposing an expected intermediate through our lens.</P>
         <P>A lens can expose an answer-related token without showing that the model derived it from the evidence.</P>
@@ -788,7 +845,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 11.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
+              <Strong>Figure 15.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
               Changing one fact (Leeds → Bristol) should change the intermediate result and the answer with it.
             </>
           }
@@ -861,6 +918,15 @@ export default function MoreThanReasoningPage() {
           After all, <Strong>having access to the right information and successfully using that information are two different things.</Strong>
         </P>
         <P>And understanding the gap between the two is what I hope to investigate next.</P>
+
+        <aside className="mt-12 rounded-2xl border border-dashed border-[#9fd9b0] bg-white px-5 py-4 text-[16px] leading-[1.65] text-[#2b2f29]">
+          <span className="font-semibold text-[#15803d]">P.S.</span> Psst… have thoughts? Think I’m being dumb, or have
+          feedback? Hit me up at{" "}
+          <a href="mailto:qamilmirza@berkeley.edu" className="font-medium text-[#15803d] underline decoration-[#9fd9b0] underline-offset-2 hover:decoration-[#15803d]">
+            qamilmirza@berkeley.edu
+          </a>
+          ! Feedback is a gift :)
+        </aside>
 
         <section className="mt-16 border-t border-[#dcdbd2] pt-8">
           <h2 className="mb-4 font-[family-name:var(--font-geist-mono)] text-[12px] font-semibold uppercase tracking-[0.14em] text-[#6b7067]">
