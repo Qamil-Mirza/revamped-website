@@ -18,7 +18,6 @@ import { SpiderAntFigure } from "@/components/article/figures/SpiderAnt";
 import { RelationalChainFigure } from "@/components/article/figures/RelationalChain";
 import { EvidenceControlFigure } from "@/components/article/figures/EvidenceControl";
 import { LensGatesFigure } from "@/components/article/figures/LensGates";
-import { InterventionTradeoffFigure } from "@/components/article/figures/InterventionTradeoff";
 import { ThreeQuestionsFigure } from "@/components/article/figures/ThreeQuestions";
 
 export const metadata: Metadata = {
@@ -756,16 +755,6 @@ export default function MoreThanReasoningPage() {
         <P>We also experimented with changing instructions and steering model activations.</P>
         <P>Some interventions recovered correct answers, which was encouraging.</P>
         <P>Unfortunately, they also introduced new errors.</P>
-
-        <Figure
-          caption={
-            <>
-              <Strong>Figure 13.</Strong> Interventions cut both ways: some recovered correct answers, others broke answers that were already right. Schematic, not to scale.
-            </>
-          }
-        >
-          <InterventionTradeoffFigure />
-        </Figure>
         <P>
           We went on to explore activation patching<Cite id="meng2022" /> and evidence substitution, trying to determine whether
           particular representations had evidence-specific causal effects on the final answer.
@@ -796,7 +785,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 14.</Strong> Three different questions, and the inference that doesn’t follow from each.
+              <Strong>Figure 13.</Strong> Three different questions, and the inference that doesn’t follow from each.
             </>
           }
         >
@@ -851,7 +840,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 15.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
+              <Strong>Figure 14.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
               Changing one fact (Leeds → Bristol) should change the intermediate result and the answer with it.
             </>
           }
