@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/moonshot",
         "/projects",
         "/research",
+        "/research/more-than-reasoning",
         "/sidequests",
         "/contact",
     ]

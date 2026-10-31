@@ -186,6 +186,26 @@ export async function runSequence(
   }
 }
 
+export type JournalEntry = {
+  number: number;
+  date: string;
+  title: string;
+  summary: string;
+  href: string;
+};
+
+// Newest first. Each write-up gets the next number.
+export const JOURNAL: JournalEntry[] = [
+  {
+    number: 1,
+    date: "October 30, 2026",
+    title: "More Than Reasoning: What Memory Experiments Taught Me About Language Models",
+    summary:
+      "How a project about managing an AI agent's memory turned into an investigation of what language models actually do with the information we give them.",
+    href: "/research/more-than-reasoning",
+  },
+];
+
 export type ResearchItem = {
   when: string;
   title: string;
@@ -221,6 +241,6 @@ export const HERO = {
   lede:
     "I'm tracing how small language models work their way to an answer, and why they still abstain when retrieval has put the answer right in front of them. This grew out of my earlier work on memory and retrieval in LLMs.",
   meta: "Honors thesis · Fall 2026",
-  repoLabel: "llm-memctl on GitHub ↗",
-  repoHref: "https://github.com/Qamil-Mirza/llm-memctl",
+  linkLabel: "Read the write-up: More Than Reasoning →",
+  linkHref: "/research/more-than-reasoning",
 };
