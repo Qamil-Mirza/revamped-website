@@ -57,13 +57,18 @@ export default function MoreThanReasoningPage() {
           <div className="mb-1.5 font-[family-name:var(--font-geist-mono)] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#15803d]">
             TL;DR
           </div>
-          <p className="text-[16px] leading-[1.65] text-[#2b2f29]">
-            I set out to make AI agents better at managing their memory. Picking the right evidence once the question is known
-            helped: roughly ten points more accurate with about a third of the tokens. But along the way, a small model wrote the
-            right answer into its own note and then said “unknown.” Having the right information isn’t the same as using it. My
-            honors thesis now uses interpretability tools like the logit lens and the J-lens to look at what happens between
-            reading the evidence and producing an answer, while being careful about what those tools can and can’t prove.
-          </p>
+          <ul className="list-disc space-y-1.5 pl-5 text-[16px] leading-[1.6] text-[#2b2f29] marker:text-[#15803d]">
+            <li>
+              I set out to make AI agents better at managing their memory. Picking the right evidence once the question is known
+              helped: roughly ten points more accurate with about a third of the tokens.
+            </li>
+            <li>But a small model wrote the right answer into its own note and then said “unknown.”</li>
+            <li>Having the right information isn’t the same as using it.</li>
+            <li>
+              My honors thesis now uses interpretability tools like the logit lens and the J-lens to look at what happens between
+              reading the evidence and producing an answer, while being careful about what those tools can and can’t prove.
+            </li>
+          </ul>
         </aside>
 
         <P>Why do agents suck sometimes?</P>
