@@ -221,6 +221,6 @@ export const HERO = {
   lede:
     "I'm tracing how small language models work their way to an answer, and why they still abstain when retrieval has put the answer right in front of them. This grew out of my earlier work on memory and retrieval in LLMs.",
   meta: "Honors thesis · Fall 2026",
-  repoLabel: "llm-memctl on GitHub ↗",
-  repoHref: "https://github.com/Qamil-Mirza/llm-memctl",
+  linkLabel: "Read the write-up: More Than Reasoning →",
+  linkHref: "/research/more-than-reasoning",
 };

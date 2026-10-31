@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import logo from "@/public/logo.png"
 import camelLogo from "@/public/logo-camel-dark.png"
 import Image from "next/image"
-import { navItems } from "./nav-items"
+import { isActive, navItems } from "./nav-items"
 
 export function NavBar({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -84,7 +84,7 @@ export function NavBar({ variant = "dark" }: { variant?: "dark" | "light" }) {
                 isLight
                   ? cn(
                       "px-3 py-2 text-sm font-medium transition-colors",
-                      pathname === item.href
+                      isActive(item.href, pathname)
                         ? "text-[#15803d] shadow-[inset_0_-2px_0_#22c55e]"
                         : "text-[#1c1f1a]/70 hover:text-[#1c1f1a]",
                     )
@@ -127,7 +127,7 @@ export function NavBar({ variant = "dark" }: { variant?: "dark" | "light" }) {
                 isLight
                   ? cn(
                       "w-full text-center py-3 text-lg font-medium hover:bg-black/5 rounded-md transition-colors",
-                      pathname === item.href ? "text-[#15803d]" : "text-[#1c1f1a]",
+                      isActive(item.href, pathname) ? "text-[#15803d]" : "text-[#1c1f1a]",
                     )
                   : "w-full text-center py-3 text-lg font-medium text-primaryText dark:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-md transition-colors"
               }

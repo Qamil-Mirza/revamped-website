@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import {
   LAB_EXAMPLES,
+  HERO,
   PREVIOUS_RESEARCH,
   runSequence,
   staticFrame,
@@ -88,6 +89,13 @@ describe("previous research", () => {
       "https://github.com/Qamil-Mirza/badss-2025-options-alpha-strategy",
     ]);
     expect(PREVIOUS_RESEARCH[0].when).toBe("NeurIPS 2025 · AI4Science");
+  });
+});
+
+describe("hero", () => {
+  it("links to the memory write-up instead of the repo", () => {
+    expect(HERO.linkHref).toBe("/research/more-than-reasoning");
+    expect(HERO.linkLabel).toBe("Read the write-up: More Than Reasoning →");
   });
 });
 

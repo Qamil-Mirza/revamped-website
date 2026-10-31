@@ -1,11 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { isResearchPath } from "./nav-items";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  // The research page is light-themed, so its footer is too
-  const isLight = usePathname() === "/research";
+  // Research pages are light-themed, so their footer is too
+  const isLight = isResearchPath(usePathname());
 
   return (
     <footer

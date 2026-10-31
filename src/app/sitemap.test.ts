@@ -5,4 +5,8 @@ describe("sitemap", () => {
   it("includes the research page", () => {
     expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research");
   });
+
+  it("includes the memory write-up", () => {
+    expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/more-than-reasoning");
+  });
 });

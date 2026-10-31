@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { NavBar } from "@/components/ui/nav-bar";
 import { LabAnimation } from "@/components/research/LabAnimation";
 import { PreviousResearch } from "@/components/research/PreviousResearch";
@@ -31,9 +32,9 @@ export default function ResearchPage() {
 
       <div className="mx-auto flex max-w-[1200px] justify-between gap-7 px-[18px] pt-3.5 font-[family-name:var(--font-geist-mono)] text-[10px] text-[#6b7067] md:justify-start md:px-9 md:pb-0 md:pt-4 md:text-[11px]">
         <span>{HERO.meta}</span>
-        <a href={HERO.repoHref} target="_blank" rel="noopener noreferrer" className="text-[#15803d] hover:underline">
-          {HERO.repoLabel}
-        </a>
+        <Link href={HERO.linkHref} className="text-[#15803d] hover:underline">
+          {HERO.linkLabel}
+        </Link>
       </div>
 
       <PreviousResearch />
