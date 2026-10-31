@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { NavBar } from "@/components/ui/nav-bar";
-import { BlockQuote, Cite, Figure, H2, H3, List, P, Quote, Strong, Table, Tex } from "@/components/article/prose";
+import { articleFontVariable, BlockQuote, BODY_FONT, Cite, Figure, H2, H3, List, P, Quote, Strong, Table, Tex } from "@/components/article/prose";
 import { EQUATIONS } from "@/lib/article-math";
 import { REFERENCES } from "@/lib/article-refs";
 import { SnaggletoothFigure } from "@/components/article/figures/Snaggletooth";
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function MoreThanReasoningPage() {
   return (
-    <div className="min-h-screen bg-[#f5f4ee] font-[family-name:var(--font-geist-sans)] text-[#1c1f1a]">
+    <div className={`${articleFontVariable} min-h-screen bg-[#f5f4ee] font-[family-name:var(--font-geist-sans)] text-[#1c1f1a]`}>
       <NavBar variant="light" />
 
       <article className="mx-auto max-w-[680px] px-[18px] pb-24 pt-10 md:px-0 md:pt-16">
@@ -56,7 +56,7 @@ export default function MoreThanReasoningPage() {
           <div className="mb-1.5 font-[family-name:var(--font-geist-mono)] text-[11px] font-semibold uppercase tracking-[0.14em] text-[#15803d]">
             TL;DR
           </div>
-          <ul className="list-disc space-y-1.5 pl-5 text-[16px] leading-[1.6] text-[#2b2f29] marker:text-[#15803d]">
+          <ul className={`${BODY_FONT} list-disc space-y-1.5 pl-5 text-[17px] leading-[1.55] text-[#2b2f29] marker:text-[#15803d]`}>
             <li>
               I set out to make AI agents better at managing their memory. Picking the right evidence once the question is known
               helped: roughly ten points more accurate with about a third of the tokens.
@@ -914,7 +914,7 @@ export default function MoreThanReasoningPage() {
         </P>
         <P>And understanding the gap between the two is what I hope to investigate next.</P>
 
-        <aside className="mt-12 rounded-2xl border border-dashed border-[#9fd9b0] bg-white px-5 py-4 text-[16px] leading-[1.65] text-[#2b2f29]">
+        <aside className={`${BODY_FONT} mt-12 rounded-2xl border border-dashed border-[#9fd9b0] bg-white px-5 py-4 text-[17px] leading-[1.6] text-[#2b2f29]`}>
           <span className="font-semibold text-[#15803d]">P.S.</span> Psst… have thoughts? Think I’m being dumb, or have
           feedback? Hit me up at{" "}
           <a href="mailto:qamilmirza@berkeley.edu" className="font-medium text-[#15803d] underline decoration-[#9fd9b0] underline-offset-2 hover:decoration-[#15803d]">

@@ -1,10 +1,16 @@
 // Building blocks for long-form research write-ups on the light research theme.
+import { Source_Serif_4 } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { renderTex } from "@/lib/article-math";
 import { referenceNumber } from "@/lib/article-refs";
 
+// Body text for long reading; headings, labels and figures stay in Geist.
+const serif = Source_Serif_4({ subsets: ["latin"], variable: "--font-article-serif", display: "swap" });
+export const articleFontVariable = serif.variable;
+export const BODY_FONT = "font-[family-name:var(--font-article-serif)]";
+
 export function P({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <p className={cn("my-5 text-[17px] leading-[1.75] text-[#2b2f29] md:text-[18px]", className)}>{children}</p>;
+  return <p className={cn(BODY_FONT, "my-5 text-[18px] leading-[1.7] text-[#2b2f29] md:text-[19px]", className)}>{children}</p>;
 }
 
 export function H2({ id, children }: { id: string; children: React.ReactNode }) {
@@ -84,7 +90,8 @@ export function List({ ordered = false, children }: { ordered?: boolean; childre
   return (
     <Tag
       className={cn(
-        "my-5 space-y-2 pl-6 text-[17px] leading-[1.7] text-[#2b2f29] marker:text-[#15803d] md:text-[18px]",
+        BODY_FONT,
+        "my-5 space-y-2 pl-6 text-[18px] leading-[1.65] text-[#2b2f29] marker:text-[#15803d] md:text-[19px]",
         ordered ? "list-decimal" : "list-disc",
       )}
     >
@@ -135,7 +142,9 @@ export function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][
 // A pull quote for the ideas the piece hinges on.
 export function BlockQuote({ children }: { children: React.ReactNode }) {
   return (
-    <blockquote className="my-8 border-l-[3px] border-[#22c55e] py-1 pl-5 text-[21px] font-medium leading-[1.5] tracking-[-0.01em] text-[#1c1f1a] md:pl-6 md:text-[24px]">
+    <blockquote
+      className={cn(BODY_FONT, "my-8 border-l-[3px] border-[#22c55e] py-1 pl-5 text-[22px] italic leading-[1.45] text-[#1c1f1a] md:pl-6 md:text-[26px]")}
+    >
       {children}
     </blockquote>
   );
