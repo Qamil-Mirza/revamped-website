@@ -29,6 +29,23 @@ export function useStepper(ref: RefObject<Element | null>, count: number, interv
   return reduced ? restAt : step;
 }
 
+// Steps through `count` states once, the first time the figure scrolls into
+// view, then stays on the last state. With reduced motion it starts there.
+export function useStepOnce(ref: RefObject<Element | null>, count: number, intervalMs: number): number {
+  const inView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const reduced = useReducedAfterMount();
+  const [step, setStep] = useState(0);
+  const last = count - 1;
+
+  useEffect(() => {
+    if (reduced || !inView || step >= last) return;
+    const id = setTimeout(() => setStep((s) => Math.min(s + 1, last)), intervalMs);
+    return () => clearTimeout(id);
+  }, [reduced, inView, step, last, intervalMs]);
+
+  return reduced ? last : step;
+}
+
 // Types `text` out one character at a time, holds, then starts over.
 // Returns how many characters are visible.
 export function useTypedLoop(ref: RefObject<Element | null>, text: string, charMs = 35, holdMs = 3200): number {

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useStepper } from "./hooks";
+import { useStepOnce } from "./hooks";
 
 // Schematic: which layers light up is illustrative. The point is that the answer
 // token keeps appearing in the read-out after the supporting evidence is removed.
@@ -16,7 +16,7 @@ const RUNS = [
 export function EvidenceControlFigure() {
   const ref = useRef<HTMLDivElement>(null);
   // 0: nothing yet. 1: read-out with evidence. 2: evidence removed. 3: read-out without it.
-  const step = useStepper(ref, 4, 1700, 3);
+  const step = useStepOnce(ref, 4, 1700);
 
   return (
     <div ref={ref} className="flex flex-col gap-3 p-4 md:p-6">
