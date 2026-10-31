@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NavBar } from "@/components/ui/nav-bar";
 import { LabAnimation } from "@/components/research/LabAnimation";
 import { PreviousResearch } from "@/components/research/PreviousResearch";
+import { ResearchJournal } from "@/components/research/ResearchJournal";
 import { HERO } from "@/lib/research";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function ResearchPage() {
         </Link>
       </div>
 
+      <ResearchJournal />
       <PreviousResearch />
     </div>
   );

@@ -2,6 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import {
   LAB_EXAMPLES,
   HERO,
+  JOURNAL,
   PREVIOUS_RESEARCH,
   runSequence,
   staticFrame,
@@ -89,6 +90,23 @@ describe("previous research", () => {
       "https://github.com/Qamil-Mirza/badss-2025-options-alpha-strategy",
     ]);
     expect(PREVIOUS_RESEARCH[0].when).toBe("NeurIPS 2025 · AI4Science");
+  });
+});
+
+describe("research journal", () => {
+  it("starts with the memory write-up as entry 1", () => {
+    expect(JOURNAL[0]).toMatchObject({
+      number: 1,
+      date: "October 30, 2026",
+      title: "More Than Reasoning: What Memory Experiments Taught Me About Language Models",
+      href: "/research/more-than-reasoning",
+    });
+  });
+
+  it("lists entries newest first with unique, increasing numbers", () => {
+    const numbers = JOURNAL.map((e) => e.number);
+    expect(numbers).toEqual([...numbers].sort((a, b) => b - a));
+    expect(new Set(numbers).size).toBe(numbers.length);
   });
 });
 

@@ -186,6 +186,26 @@ export async function runSequence(
   }
 }
 
+export type JournalEntry = {
+  number: number;
+  date: string;
+  title: string;
+  summary: string;
+  href: string;
+};
+
+// Newest first. Each write-up gets the next number.
+export const JOURNAL: JournalEntry[] = [
+  {
+    number: 1,
+    date: "October 30, 2026",
+    title: "More Than Reasoning: What Memory Experiments Taught Me About Language Models",
+    summary:
+      "How a project about managing an AI agent's memory turned into an investigation of what language models actually do with the information we give them.",
+    href: "/research/more-than-reasoning",
+  },
+];
+
 export type ResearchItem = {
   when: string;
   title: string;
