@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { NavBar } from "@/components/ui/nav-bar";
-import { Cite, Figure, H2, H3, List, P, Quote, Strong, Table, Tex } from "@/components/article/prose";
+import { BlockQuote, Cite, Figure, H2, H3, List, P, Quote, Strong, Table, Tex } from "@/components/article/prose";
 import { EQUATIONS } from "@/lib/article-math";
 import { REFERENCES } from "@/lib/article-refs";
 import { SnaggletoothFigure } from "@/components/article/figures/Snaggletooth";
@@ -822,10 +822,10 @@ export default function MoreThanReasoningPage() {
         <P>But in the process, we also discovered that memory selection was only part of the problem.</P>
         <P>Even when the evidence was available, the language model could still fail to answer correctly.</P>
         <P>That observation led me toward a different research question:</P>
-        <Quote>
+        <BlockQuote>
           Can we identify the intermediate computation that connects available evidence to an answer, and understand how that
           computation differs when the model fails?
-        </Quote>
+        </BlockQuote>
         <P>This is the direction I’m now exploring for my undergraduate honors thesis.</P>
 
         <H3>Starting with simpler, controlled questions</H3>

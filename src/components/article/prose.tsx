@@ -131,3 +131,12 @@ export function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][
     </div>
   );
 }
+
+// A pull quote for the ideas the piece hinges on.
+export function BlockQuote({ children }: { children: React.ReactNode }) {
+  return (
+    <blockquote className="my-8 border-l-[3px] border-[#22c55e] py-1 pl-5 text-[21px] font-medium leading-[1.5] tracking-[-0.01em] text-[#1c1f1a] md:pl-6 md:text-[24px]">
+      {children}
+    </blockquote>
+  );
+}
