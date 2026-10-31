@@ -1,9 +1,4 @@
-"use client";
-
-import { useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useStepper } from "./hooks";
 
 type StageTone = "original" | "changed" | "kept" | "regenerated";
 type Stage = { tag: string; tone: StageTone; body: React.ReactNode };
@@ -88,62 +83,46 @@ const CASES: { question: string; kind: string; runs: Run[] }[] = [
   },
 ];
 
-const RUN_COUNT = CASES.reduce((n, c) => n + c.runs.length, 0);
-
+// Two cards side by side, one per example. Each run reads top to bottom:
+// the condition and its answer, then how the instructions and note changed.
 export function InterventionsFigure() {
-  const ref = useRef<HTMLDivElement>(null);
-  const active = useStepper(ref, RUN_COUNT, 2600, -1);
-  let runIndex = 0;
-
   return (
-    <div ref={ref} className="flex flex-col gap-4 p-4 md:p-6">
-      {CASES.map((c) => (
-        <div key={c.question}>
+    <div className="grid p-4 md:grid-cols-2 md:p-5">
+      {CASES.map((c, i) => (
+        <div
+          key={c.question}
+          className={cn(
+            "flex flex-col",
+            // a rule between the two examples: vertical side by side, horizontal when stacked
+            i === 0 ? "pb-4 md:pb-0 md:pr-5" : "border-t border-[#dcdbd2] pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0",
+          )}
+        >
           <div className="text-[14px] font-medium leading-snug text-[#1c1f1a]">{c.question}</div>
-          <div className="mb-2.5 mt-0.5 text-[12px] text-[#6b7067]">{c.kind}</div>
-          <div className="mb-1.5 hidden grid-cols-[1.25fr_1.15fr_0.6fr] gap-2 px-3 font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067] md:grid">
-            <span>Instructions</span>
-            <span>Note</span>
-            <span className="text-right">Answer</span>
-          </div>
-          <div className="flex flex-col gap-2">
-            {c.runs.map((run) => {
-              const i = runIndex++;
-              const lit = active === -1 || active === i;
-              return (
-                <motion.div
-                  key={run.condition}
-                  animate={{ opacity: lit ? 1 : 0.5 }}
-                  className={cn(
-                    "rounded-xl border p-3",
-                    active === i ? "border-[#9fd9b0] bg-[#f3fbf5]" : "border-[#dcdbd2] bg-[#faf9f5]",
-                  )}
-                >
-                  <div className="mb-2 text-[13px] font-semibold text-[#1c1f1a]">{run.condition}</div>
-                  <div className="grid gap-2 md:grid-cols-[1.25fr_1.15fr_0.6fr] md:items-stretch">
-                    <StageBox label="Instructions" stage={run.instructions} />
-                    <StageBox label="Note" stage={run.note} />
-                    <div className="flex items-center justify-between gap-2 rounded-lg bg-[#1c1f1a] px-3 py-2 md:flex-col md:items-end md:justify-center">
-                      <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#9aa096] md:hidden">
-                        Answer
-                      </span>
-                      <span className="flex items-center gap-1.5 text-right font-[family-name:var(--font-geist-mono)] text-[13px] font-semibold text-[#f5f4ee]">
-                        {run.output}
-                        <span
-                          aria-label={run.ok ? "correct" : "incorrect"}
-                          className={cn(
-                            "grid h-4 w-4 shrink-0 place-items-center rounded-full text-[10px]",
-                            run.ok ? "bg-[#22c55e] text-white" : "bg-[#f5f4ee] text-[#1c1f1a]",
-                          )}
-                        >
-                          {run.ok ? "✓" : "✕"}
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="mb-3 mt-0.5 text-[12px] text-[#6b7067]">{c.kind}</div>
+          <div className="flex flex-1 flex-col gap-2">
+            {c.runs.map((run) => (
+              <div key={run.condition} className="rounded-xl border border-[#dcdbd2] bg-[#faf9f5] p-2.5">
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="text-[13px] font-semibold text-[#1c1f1a]">{run.condition}</span>
+                  <span className="flex shrink-0 items-center gap-1.5 rounded-lg bg-[#1c1f1a] px-2 py-1 font-[family-name:var(--font-geist-mono)] text-[12px] font-semibold text-[#f5f4ee]">
+                    {run.output}
+                    <span
+                      aria-label={run.ok ? "correct" : "incorrect"}
+                      className={cn(
+                        "grid h-4 w-4 place-items-center rounded-full text-[10px]",
+                        run.ok ? "bg-[#22c55e] text-white" : "bg-[#f5f4ee] text-[#1c1f1a]",
+                      )}
+                    >
+                      {run.ok ? "✓" : "✕"}
+                    </span>
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <StageBox label="Instructions" stage={run.instructions} />
+                  <StageBox label="Note" stage={run.note} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ))}
@@ -163,7 +142,7 @@ function StageBox({ label, stage }: { label: string; stage: Stage }) {
   return (
     <div className={cn("rounded-lg border px-2.5 py-2 text-[12.5px] leading-snug", tone.box)}>
       <div className="mb-1 flex items-center gap-1.5">
-        <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067] md:hidden">
+        <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067]">
           {label}
         </span>
         <span className={cn("rounded px-1.5 py-[1px] font-[family-name:var(--font-geist-mono)] text-[9.5px] uppercase tracking-[0.06em]", tone.tag)}>

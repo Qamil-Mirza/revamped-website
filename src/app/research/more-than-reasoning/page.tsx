@@ -531,6 +531,7 @@ export default function MoreThanReasoningPage() {
         </P>
 
         <Figure
+          wide
           caption={
             <>
               <Strong>Figure 7.</Strong> How each prompt was changed. Keeping the model’s own note and adding one final instruction
