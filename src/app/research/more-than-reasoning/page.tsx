@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import "katex/dist/katex.min.css";
 import { NavBar } from "@/components/ui/nav-bar";
-import { Cite, Figure, H2, H3, List, P, Quote, Strong, Tex } from "@/components/article/prose";
+import { Cite, Figure, H2, H3, List, P, Quote, Strong, Table, Tex } from "@/components/article/prose";
 import { EQUATIONS } from "@/lib/article-math";
 import { REFERENCES } from "@/lib/article-refs";
 import { SnaggletoothFigure } from "@/components/article/figures/Snaggletooth";
@@ -12,6 +12,7 @@ import { ControllerReaderFigure } from "@/components/article/figures/ControllerR
 import { TeacherResultFigure } from "@/components/article/figures/TeacherResult";
 import { QuerySelectionFigure } from "@/components/article/figures/QuerySelection";
 import { InterventionsFigure } from "@/components/article/figures/Interventions";
+import { LogitLensFigure } from "@/components/article/figures/LogitLens";
 import { LensFigure } from "@/components/article/figures/Lens";
 import { SpiderAntFigure } from "@/components/article/figures/SpiderAnt";
 import { RelationalChainFigure } from "@/components/article/figures/RelationalChain";
@@ -486,19 +487,33 @@ export default function MoreThanReasoningPage() {
         <P>This time, though, there’s an important difference.</P>
         <P>In the Snaggletooth example, the answer was already explicitly present in the model’s note.</P>
         <P>Here, the note contains the two numbers, but the model still needs to perform an addition.</P>
-        <P>We repeated our earlier intervention, preserving the note and asking the model not to respond with “unknown.”</P>
-        <P>It answered:</P>
-        <Quote label="Model output" tone="model">$65</Quote>
-        <P>Great!</P>
-        <P>But when we tried another condition that changed the original prompt and regenerated the response, it produced:</P>
-        <Quote label="Model output" tone="model">$55</Quote>
-        <P>Not so great.</P>
+        <P>We then tried:</P>
+        <Table
+          head={["Condition", "What we changed", "Result"]}
+          rows={[
+            [
+              "Keep the existing note and continue",
+              "Preserved the note containing $15 and $50, then added: “Based on the note above, give the answer as a short phrase. Do not reply unknown.”",
+              "$65",
+            ],
+            [
+              "Generate a fresh response",
+              "Changed the original instructions to require a best guess instead of allowing “unknown,” then generated the note and answer again from the same evidence.",
+              "$55",
+            ],
+          ]}
+        />
+        <P>
+          The second condition did not preserve the successful extraction of $15 and $50 in the original note. It let the model
+          produce a new response from the beginning.
+        </P>
 
         <Figure
           caption={
             <>
-              <Strong>Figure 7.</Strong> The two examples side by side. Changing the final instruction recovered both answers, but
-              another prompt change produced a wrong sum. Different interventions, different outcomes.
+              <Strong>Figure 7.</Strong> How each prompt was changed. Keeping the model’s own note and adding one final instruction
+              recovered both answers. Rewriting the instructions and generating from scratch threw that note away, and the new
+              response got the sum wrong.
             </>
           }
         >
@@ -546,6 +561,19 @@ export default function MoreThanReasoningPage() {
           For example, instead of only seeing the final answer, we might observe which words are associated with the model’s
           representations at different points in the network.
         </P>
+
+        <Figure
+          caption={
+            <>
+              <Strong>Figure 8.</Strong> The logit lens, drawn schematically. Tap the activation at any layer and decode it with
+              the final layer’s unembedding. Read-outs from early layers tend to be diffuse; later ones concentrate on the token
+              the model goes on to predict. The bar heights are illustrative, not measured.
+            </>
+          }
+        >
+          <LogitLensFigure />
+        </Figure>
+
         <P>Pretty cool, right?</P>
         <P>Well, there is a problem.</P>
         <P>
@@ -574,7 +602,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 8.</Strong> Schematic of the two read-outs. At layer ℓ, the logit lens decodes the activation
+              <Strong>Figure 9.</Strong> Schematic of the two read-outs. At layer ℓ, the logit lens decodes the activation
               directly; the J-lens first maps it toward the final layer with an averaged Jacobian. Normalization is omitted.
             </>
           }
@@ -592,6 +620,9 @@ export default function MoreThanReasoningPage() {
             Verbalizable Representations Form a Global Workspace in Language Models
           </a>
           <Cite id="gurnee2026" />.
+        </P>
+        <P>
+          Big shoutout to my friend Aadil Jamari, who first told me about the J-lens and the J-space in passing over dinner.
         </P>
         <P>They demonstrated something fascinating.</P>
         <P>Consider this question:</P>
@@ -615,7 +646,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 9.</Strong> The intervention from Gurnee et al.<Cite id="gurnee2026" />, drawn schematically. Swapping
+              <Strong>Figure 10.</Strong> The intervention from Gurnee et al.<Cite id="gurnee2026" />, drawn schematically. Swapping
               the <em>spider</em> coordinates for <em>ant</em> changes the answer from eight legs to six.
             </>
           }
@@ -757,7 +788,7 @@ export default function MoreThanReasoningPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 10.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
+              <Strong>Figure 11.</Strong> A two-hop question. The model has to go from Maya to Alex, then from Alex to a city.
               Changing one fact (Leeds → Bristol) should change the intermediate result and the answer with it.
             </>
           }

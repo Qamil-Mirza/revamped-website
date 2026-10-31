@@ -1,55 +1,176 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-type Run = { condition: string; output: string; ok: boolean };
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { useStepper } from "./hooks";
+
+type StageTone = "original" | "changed" | "kept" | "regenerated";
+type Stage = { tag: string; tone: StageTone; body: React.ReactNode };
+type Run = { condition: string; instructions: Stage; note: Stage; output: string; ok: boolean };
+
+const ORIGINAL_INSTRUCTIONS: Stage = {
+  tag: "original",
+  tone: "original",
+  body: "Write a brief note, then answer. Reply “unknown” if the memory isn’t enough.",
+};
+
+const ADDED_INSTRUCTION: Stage = {
+  tag: "instruction added",
+  tone: "changed",
+  body: (
+    <>
+      Original prompt, plus: <q className="italic">Based on the note above, give the answer as a short phrase. Do not reply unknown.</q>
+    </>
+  ),
+};
+
+const hl = (s: string) => <mark className="rounded bg-[#bbf7d0] px-0.5 text-[#15803d]">{s}</mark>;
+
+const SNAG_NOTE = <>…buying a {hl("rare blue Snaggletooth action figure")} from a thrift store…</>;
+const CAR_NOTE = <>…{hl("$15")} on a car wash… {hl("$50")} on a parking ticket…</>;
 
 const CASES: { question: string; kind: string; runs: Run[] }[] = [
   {
     question: "What type of action figure did I buy from a thrift store?",
     kind: "Direct extraction: the answer is already in the note",
     runs: [
-      { condition: "Original prompt", output: "unknown", ok: false },
-      { condition: "Same note, new final instruction", output: "Snaggletooth action figure", ok: true },
+      {
+        condition: "Original prompt",
+        instructions: ORIGINAL_INSTRUCTIONS,
+        note: { tag: "model’s note", tone: "original", body: SNAG_NOTE },
+        output: "unknown",
+        ok: false,
+      },
+      {
+        condition: "Keep the note and continue",
+        instructions: ADDED_INSTRUCTION,
+        note: { tag: "kept as written", tone: "kept", body: SNAG_NOTE },
+        output: "Snaggletooth action figure",
+        ok: true,
+      },
     ],
   },
   {
     question: "How much did I spend on car wash and parking ticket?",
     kind: "Composition: the note has $15 and $50; the answer needs addition",
     runs: [
-      { condition: "Original prompt", output: "unknown", ok: false },
-      { condition: "Same note, new final instruction", output: "$65", ok: true },
-      { condition: "Changed prompt, regenerated", output: "$55", ok: false },
+      {
+        condition: "Original prompt",
+        instructions: ORIGINAL_INSTRUCTIONS,
+        note: { tag: "model’s note", tone: "original", body: CAR_NOTE },
+        output: "unknown",
+        ok: false,
+      },
+      {
+        condition: "Keep the existing note and continue",
+        instructions: ADDED_INSTRUCTION,
+        note: { tag: "kept as written", tone: "kept", body: CAR_NOTE },
+        output: "$65",
+        ok: true,
+      },
+      {
+        condition: "Generate a fresh response",
+        instructions: {
+          tag: "instructions rewritten",
+          tone: "changed",
+          body: "Give a best guess; “unknown” is no longer allowed.",
+        },
+        note: {
+          tag: "regenerated",
+          tone: "regenerated",
+          body: "The original note is discarded. A new note and answer are generated from the same evidence.",
+        },
+        output: "$55",
+        ok: false,
+      },
     ],
   },
 ];
 
+const RUN_COUNT = CASES.reduce((n, c) => n + c.runs.length, 0);
+
 export function InterventionsFigure() {
+  const ref = useRef<HTMLDivElement>(null);
+  const active = useStepper(ref, RUN_COUNT, 2600, -1);
+  let runIndex = 0;
+
   return (
-    <div className="grid gap-3 p-4 md:grid-cols-2 md:p-6">
+    <div ref={ref} className="flex flex-col gap-4 p-4 md:p-6">
       {CASES.map((c) => (
-        <div key={c.question} className="rounded-xl border border-[#dcdbd2] bg-[#faf9f5] p-3.5">
+        <div key={c.question}>
           <div className="text-[14px] font-medium leading-snug text-[#1c1f1a]">{c.question}</div>
-          <div className="mb-3 mt-1 text-[12px] text-[#6b7067]">{c.kind}</div>
-          <div className="flex flex-col gap-1.5">
-            {c.runs.map((r) => (
-              <div key={r.condition} className="flex items-center justify-between gap-3 rounded-lg bg-white px-2.5 py-2 text-[13px] shadow-[0_0_0_1px_#ecebe4]">
-                <span className="text-[#6b7067]">{r.condition}</span>
-                <span className={cn("flex items-center gap-1.5 font-[family-name:var(--font-geist-mono)] font-semibold", r.ok ? "text-[#15803d]" : "text-[#1c1f1a]")}>
-                  {r.output}
-                  <span
-                    aria-label={r.ok ? "correct" : "incorrect"}
-                    className={cn(
-                      "grid h-4 w-4 place-items-center rounded-full text-[10px]",
-                      r.ok ? "bg-[#22c55e] text-white" : "bg-[#1c1f1a] text-[#f5f4ee]",
-                    )}
-                  >
-                    {r.ok ? "✓" : "✕"}
-                  </span>
-                </span>
-              </div>
-            ))}
+          <div className="mb-2.5 mt-0.5 text-[12px] text-[#6b7067]">{c.kind}</div>
+          <div className="mb-1.5 hidden grid-cols-[1.25fr_1.15fr_0.6fr] gap-2 px-3 font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067] md:grid">
+            <span>Instructions</span>
+            <span>Note</span>
+            <span className="text-right">Answer</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            {c.runs.map((run) => {
+              const i = runIndex++;
+              const lit = active === -1 || active === i;
+              return (
+                <motion.div
+                  key={run.condition}
+                  animate={{ opacity: lit ? 1 : 0.5 }}
+                  className={cn(
+                    "rounded-xl border p-3",
+                    active === i ? "border-[#9fd9b0] bg-[#f3fbf5]" : "border-[#dcdbd2] bg-[#faf9f5]",
+                  )}
+                >
+                  <div className="mb-2 text-[13px] font-semibold text-[#1c1f1a]">{run.condition}</div>
+                  <div className="grid gap-2 md:grid-cols-[1.25fr_1.15fr_0.6fr] md:items-stretch">
+                    <StageBox label="Instructions" stage={run.instructions} />
+                    <StageBox label="Note" stage={run.note} />
+                    <div className="flex items-center justify-between gap-2 rounded-lg bg-[#1c1f1a] px-3 py-2 md:flex-col md:items-end md:justify-center">
+                      <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#9aa096] md:hidden">
+                        Answer
+                      </span>
+                      <span className="flex items-center gap-1.5 text-right font-[family-name:var(--font-geist-mono)] text-[13px] font-semibold text-[#f5f4ee]">
+                        {run.output}
+                        <span
+                          aria-label={run.ok ? "correct" : "incorrect"}
+                          className={cn(
+                            "grid h-4 w-4 shrink-0 place-items-center rounded-full text-[10px]",
+                            run.ok ? "bg-[#22c55e] text-white" : "bg-[#f5f4ee] text-[#1c1f1a]",
+                          )}
+                        >
+                          {run.ok ? "✓" : "✕"}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+const TONES: Record<StageTone, { box: string; tag: string }> = {
+  original: { box: "border-[#dcdbd2] bg-white text-[#2b2f29]", tag: "bg-[#ecebe4] text-[#6b7067]" },
+  changed: { box: "border-[#9fd9b0] bg-white text-[#2b2f29]", tag: "bg-[#22c55e] text-white" },
+  kept: { box: "border-[#9fd9b0] bg-white text-[#2b2f29]", tag: "bg-[#dcfce7] text-[#15803d]" },
+  regenerated: { box: "border-dashed border-[#b9b8af] bg-white text-[#6b7067]", tag: "bg-[#1c1f1a] text-[#f5f4ee]" },
+};
+
+function StageBox({ label, stage }: { label: string; stage: Stage }) {
+  const tone = TONES[stage.tone];
+  return (
+    <div className={cn("rounded-lg border px-2.5 py-2 text-[12.5px] leading-snug", tone.box)}>
+      <div className="mb-1 flex items-center gap-1.5">
+        <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067] md:hidden">
+          {label}
+        </span>
+        <span className={cn("rounded px-1.5 py-[1px] font-[family-name:var(--font-geist-mono)] text-[9.5px] uppercase tracking-[0.06em]", tone.tag)}>
+          {stage.tag}
+        </span>
+      </div>
+      {stage.body}
     </div>
   );
 }

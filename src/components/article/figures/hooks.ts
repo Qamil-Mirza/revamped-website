@@ -3,11 +3,21 @@
 import { useEffect, useState, type RefObject } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 
+// The server can't know the visitor's motion preference, so render the animated
+// starting frame first and only switch to the reduced-motion frame after mount.
+// Otherwise the first client render wouldn't match the server HTML.
+function useReducedAfterMount(): boolean {
+  const reduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted && !!reduced;
+}
+
 // Steps through `count` states on a timer while the figure is on screen.
 // With reduced motion it parks on `restAt` so the figure shows its key state.
 export function useStepper(ref: RefObject<Element | null>, count: number, intervalMs: number, restAt = count - 1): number {
   const inView = useInView(ref, { margin: "-15% 0px" });
-  const reduced = useReducedMotion();
+  const reduced = useReducedAfterMount();
   const [step, setStep] = useState(0);
 
   useEffect(() => {
@@ -23,7 +33,7 @@ export function useStepper(ref: RefObject<Element | null>, count: number, interv
 // Returns how many characters are visible.
 export function useTypedLoop(ref: RefObject<Element | null>, text: string, charMs = 35, holdMs = 3200): number {
   const inView = useInView(ref, { margin: "-15% 0px" });
-  const reduced = useReducedMotion();
+  const reduced = useReducedAfterMount();
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
@@ -44,6 +54,6 @@ export function useTypedLoop(ref: RefObject<Element | null>, text: string, charM
 
 export function useOnceInView(ref: RefObject<Element | null>): boolean {
   const inView = useInView(ref, { once: true, margin: "-20% 0px" });
-  const reduced = useReducedMotion();
+  const reduced = useReducedAfterMount();
   return reduced || inView;
 }

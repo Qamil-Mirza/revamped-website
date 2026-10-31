@@ -92,3 +92,42 @@ export function List({ ordered = false, children }: { ordered?: boolean; childre
     </Tag>
   );
 }
+
+export function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
+  return (
+    <div className="my-6 overflow-x-auto rounded-xl border border-[#dcdbd2] bg-white">
+      <table className="w-full min-w-[520px] border-collapse text-left text-[14.5px] leading-relaxed">
+        <thead>
+          <tr className="border-b border-[#dcdbd2] bg-[#faf9f5]">
+            {head.map((h) => (
+              <th
+                key={h}
+                className="px-4 py-2.5 font-[family-name:var(--font-geist-mono)] text-[10px] font-semibold uppercase tracking-[0.1em] text-[#6b7067]"
+              >
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className="border-b border-[#ecebe4] align-top last:border-0">
+              {row.map((cell, j) => (
+                <td
+                  key={j}
+                  className={cn(
+                    "px-4 py-3 text-[#2b2f29]",
+                    j === 0 && "font-medium text-[#1c1f1a]",
+                    j === row.length - 1 && "whitespace-nowrap font-[family-name:var(--font-geist-mono)] font-semibold text-[#1c1f1a]",
+                  )}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
