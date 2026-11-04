@@ -197,6 +197,14 @@ export type JournalEntry = {
 // Newest first. Each write-up gets the next number.
 export const JOURNAL: JournalEntry[] = [
   {
+    number: 2,
+    date: "November 4, 2026",
+    title: "Weight-Space Programming for Mechanistic Interpretability",
+    summary:
+      "Can we ask an AI to perform brain surgery on another AI to understand its behavior?",
+    href: "/research/ai-brain-surgery",
+  },
+  {
     number: 1,
     date: "October 30, 2026",
     title: "More Than Reasoning: What Memory Experiments Taught Me About Language Models",
