@@ -94,9 +94,17 @@ describe("previous research", () => {
 });
 
 describe("research journal", () => {
-  it("starts with the memory write-up as entry 1", () => {
+  it("leads with the newest write-up", () => {
     expect(JOURNAL[0]).toMatchObject({
-      number: 1,
+      number: 2,
+      date: "November 4, 2026",
+      title: "Weight-Space Programming for Mechanistic Interpretability",
+      href: "/research/ai-brain-surgery",
+    });
+  });
+
+  it("keeps the memory write-up as entry 1", () => {
+    expect(JOURNAL.find((e) => e.number === 1)).toMatchObject({
       date: "October 30, 2026",
       title: "More Than Reasoning: What Memory Experiments Taught Me About Language Models",
       href: "/research/more-than-reasoning",

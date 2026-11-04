@@ -9,4 +9,8 @@ describe("sitemap", () => {
   it("includes the memory write-up", () => {
     expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/more-than-reasoning");
   });
+
+  it("includes the brain surgery write-up", () => {
+    expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/ai-brain-surgery");
+  });
 });
