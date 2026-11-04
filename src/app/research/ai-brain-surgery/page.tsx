@@ -70,9 +70,21 @@ export default function AiBrainSurgeryPage() {
           , I wrote about how a memory-management project became an investigation into models that fail despite having sufficient
           evidence.
         </P>
+        <P>One behavior kept showing up: the model would write the supported answer into its own note, then finish with “unknown.”</P>
         <P>
-          One behavior kept showing up: the model would write the supported answer into its own note, then finish with “unknown.” On
-          one set of controlled tasks, this happened in 152 of 165 false abstentions.
+          I tested Qwen2.5-3B-Instruct on short, controlled memory tasks: retrieving a stated fact, connecting two facts, or identifying
+          which fact was most recent. The prompt asked the model to write a memory note before giving its final answer.
+        </P>
+        <P>
+          On the held-out set, there were 165 responses where the supplied evidence supported an answer, but the model answered
+          “unknown.” In 152 of those, about 92%, its own preceding note already named the correct city.
+        </P>
+        <P className="text-[14.5px] leading-[1.55] text-[#6b7067] md:text-[15px]">
+          Note: The 165 responses span 90 underlying base cases and represent the false-abstention subset, not the entire evaluation set.
+        </P>
+        <P>
+          So this wasn’t a one-off. It still doesn’t prove the model finished the reasoning and then suppressed the answer, but it does
+          show that the mismatch from my last article is common enough to be worth chasing.
         </P>
         <P>
           I started looking inside the model using vocabulary lenses, which turn internal activations into word scores, and
