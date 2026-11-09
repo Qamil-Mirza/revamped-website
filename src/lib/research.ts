@@ -197,6 +197,14 @@ export type JournalEntry = {
 // Newest first. Each write-up gets the next number.
 export const JOURNAL: JournalEntry[] = [
   {
+    number: 3,
+    date: "November 8, 2026",
+    title: "Evaluating Agent-Proposed Weight Edits for False Abstention",
+    summary:
+      "A Claude agent proposed weight edits to stop Qwen2.5-3B refusing answers it already had. A preliminary report, shared early to invite scientific scrutiny.",
+    href: "/research/false-abstention-weight-edits",
+  },
+  {
     number: 2,
     date: "November 4, 2026",
     title: "Weight-Space Programming for Mechanistic Interpretability",
