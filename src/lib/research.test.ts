@@ -96,7 +96,15 @@ describe("previous research", () => {
 describe("research journal", () => {
   it("leads with the newest write-up", () => {
     expect(JOURNAL[0]).toMatchObject({
-      number: 2,
+      number: 3,
+      date: "November 8, 2026",
+      title: "Evaluating Agent-Proposed Weight Edits for False Abstention",
+      href: "/research/false-abstention-weight-edits",
+    });
+  });
+
+  it("keeps the brain surgery write-up as entry 2", () => {
+    expect(JOURNAL.find((e) => e.number === 2)).toMatchObject({
       date: "November 4, 2026",
       title: "Weight-Space Programming for Mechanistic Interpretability",
       href: "/research/ai-brain-surgery",
