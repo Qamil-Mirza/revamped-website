@@ -96,6 +96,15 @@ describe("previous research", () => {
 describe("research journal", () => {
   it("leads with the newest write-up", () => {
     expect(JOURNAL[0]).toMatchObject({
+      number: 4,
+      date: "November 21, 2026",
+      href: "/research/written-then-withheld",
+    });
+    expect(JOURNAL[0].title).toMatch(/^Written, then withheld/);
+  });
+
+  it("keeps the weight edits report as entry 3", () => {
+    expect(JOURNAL.find((e) => e.number === 3)).toMatchObject({
       number: 3,
       date: "November 8, 2026",
       title: "Evaluating Agent-Proposed Weight Edits for False Abstention",

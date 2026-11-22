@@ -197,6 +197,14 @@ export type JournalEntry = {
 // Newest first. Each write-up gets the next number.
 export const JOURNAL: JournalEntry[] = [
   {
+    number: 4,
+    date: "November 21, 2026",
+    title: "Written, then withheld: why does a small model say “unknown” to an answer it just wrote?",
+    summary:
+      "Qwen 2.5 3B writes the right answer in its own note, then replies “unknown.” I traced why, down to two attention heads, and checked whether other models do it too.",
+    href: "/research/written-then-withheld",
+  },
+  {
     number: 3,
     date: "November 8, 2026",
     title: "Evaluating Agent-Proposed Weight Edits for False Abstention",

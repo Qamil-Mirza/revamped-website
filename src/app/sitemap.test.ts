@@ -17,4 +17,8 @@ describe("sitemap", () => {
   it("includes the false abstention report", () => {
     expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/false-abstention-weight-edits");
   });
+
+  it("includes the written-then-withheld write-up", () => {
+    expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/written-then-withheld");
+  });
 });

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/research/more-than-reasoning",
         "/research/ai-brain-surgery",
         "/research/false-abstention-weight-edits",
+        "/research/written-then-withheld",
         "/sidequests",
         "/contact",
     ]
