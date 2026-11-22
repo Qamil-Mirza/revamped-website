@@ -375,8 +375,9 @@ export default function WrittenThenWithheldPage() {
           What are they doing? Layer 33 head 10 spends 61% of its attention on the “unknown” option text in the prompt. Blocking just
           the two heads’ view of those option words released 77% of false abstentions, while blocking random words of the same count
           released nothing. But the push isn’t special to false abstentions: zeroing the heads also lowers the “unknown” score on
-          questions the model already answered correctly. So there’s no “false abstention circuit”. It’s a general push toward
-          “unknown”, carried by two heads that read the option, and false abstentions are the close calls it tips over.
+          questions the model already answered correctly. So these two heads aren’t a dedicated “false abstention circuit”, and I
+          didn’t find one elsewhere. What they carry is a general push toward “unknown”, read off the option text, and false
+          abstentions are the close calls it tips over.
         </P>
 
         <QuestionHeading n={3}>When does Qwen abstain?</QuestionHeading>
