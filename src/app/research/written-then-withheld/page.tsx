@@ -360,7 +360,7 @@ export default function WrittenThenWithheldPage() {
           caption={
             <>
               <Strong>Figure 7.</Strong> All 576 of Qwen 2.5 3B’s attention heads. My search and the agent landed on pairs that share
-              layer 33 head 10. Zeroing my pair released 96.7% of written-then-withheld abstentions on held-out questions.
+              layer 33 head 10. Zeroing my pair released 96.7% of false abstentions on held-out questions.
             </>
           }
         >
@@ -475,8 +475,8 @@ export default function WrittenThenWithheldPage() {
           So why only Qwen? I compared Qwen 2.5 3B with its base model (before instruction tuning) on the same questions. The base
           model already falsely abstains (22%, against 44% for the instruct model), but differently: it mostly misses the fact. The
           answer is in its note in only 21% of its false abstentions, against 96% for the instruct model. On direct lookups it refuses
-          13 of 120, while the instruct model refuses 100 of 120. So the habit starts in the base model, and false abstention mostly
-          arrives with instruction tuning.
+          13 of 120, while the instruct model refuses 100 of 120. So the habit starts in the base model, but refusing an answer it has
+          already written mostly arrives with instruction tuning.
         </P>
 
         <Figure
