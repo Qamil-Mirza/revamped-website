@@ -333,8 +333,9 @@ export default function FalseAbstentionInvestigationPage() {
         <Figure
           caption={
             <>
-              <Strong>Figure 6.</Strong> The weight-space-editing loop. The agent only ever saw development questions. The final test
-              ran on questions sealed away from it.
+              <Strong>Figure 6.</Strong> LLM brain surgery. Claude, sealed in a sandbox, reads Qwen’s activations, cuts two attention
+              heads, and re-runs Qwen to see whether the answer changes. A schematic: in the real test this cut released 75% of false
+              abstentions, not every one, and the agent only ever saw development questions.
             </>
           }
         >
