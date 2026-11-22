@@ -100,7 +100,7 @@ describe("research journal", () => {
       date: "November 21, 2026",
       href: "/research/written-then-withheld",
     });
-    expect(JOURNAL[0].title).toMatch(/^Written, then withheld/);
+    expect(JOURNAL[0].title).toBe("A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct");
   });
 
   it("keeps the weight edits report as entry 3", () => {

@@ -12,12 +12,12 @@ import { TwoHeadsFigure } from "@/components/article/figures/TwoHeads";
 import { HBars } from "@/components/article/figures/HBars";
 
 const LINK_CLASS = "text-[#15803d] underline decoration-[#9fd9b0] underline-offset-2 hover:decoration-[#15803d]";
-const TITLE = "Written, then withheld: why does a small model say “unknown” to an answer it just wrote?";
+const TITLE = "A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct";
 const SUMMARY =
   "Qwen 2.5 3B writes the right answer in its own note, then replies “unknown.” I traced why, down to two attention heads, and checked whether other models do it too.";
 
 export const metadata: Metadata = {
-  title: "Written, Then Withheld | Qamil Mirza",
+  title: "A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct | Qamil Mirza",
   description: SUMMARY,
   alternates: {
     canonical: "https://qamil-mirza.com/research/written-then-withheld",
@@ -257,10 +257,6 @@ export default function WrittenThenWithheldPage() {
         <pre className="my-6 whitespace-pre-wrap break-words rounded-xl border border-[#dcdbd2] bg-white px-4 py-3 font-[family-name:var(--font-geist-mono)] text-[12.5px] leading-relaxed text-[#2b2f29]">
           {PROMPT}
         </pre>
-        <P>
-          One thing I’m proud of: every confirmatory experiment ran once, on a fresh set of questions generated just for it, after I’d
-          written down the code and the rule for what would count as a yes or a no. No peeking, no tuning on the test.
-        </P>
 
         <QuestionHeading n={1}>Does the answer get lost?</QuestionHeading>
         <P>
@@ -290,9 +286,9 @@ export default function WrittenThenWithheldPage() {
         <P>
           I also trained a logistic regression classifier on each model’s hidden activations at a middle layer, to see whether those
           activations could tell an answerable question from an unanswerable one. It reached an{" "}
-          <Strong>AUROC of 0.994–0.999 across 5 model families</Strong> (0.5 is chance). So the information about whether a question
-          can be answered is linearly readable in every model. (A probe only shows the information is there, not that the model uses
-          it.)
+          <Strong>AUROC of 0.994–0.999 across 5 model families</Strong>. So the information about whether a question can be answered
+          is linearly readable in every model. This probe shows that the information is there but makes no statement about whether the
+          model actually uses that information.
         </P>
 
         <Figure

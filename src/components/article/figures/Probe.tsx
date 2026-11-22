@@ -19,14 +19,14 @@ export function ProbeFigure() {
         viewBox={`0 0 ${W} 110`}
         className="mt-6 w-full"
         role="img"
-        aria-label="Probe AUROC was between 0.994 and 0.999 for all five model families, where 0.5 is chance."
+        aria-label="Probe AUROC was between 0.994 and 0.999 for all five model families."
       >
         <line x1={x(0.5)} x2={x(1)} y1="58" y2="58" stroke="#dcdbd2" strokeWidth="2" />
         {[0.5, 0.6, 0.7, 0.8, 0.9, 1].map((t) => (
           <g key={t}>
             <line x1={x(t)} x2={x(t)} y1="52" y2="64" stroke="#dcdbd2" />
             <text x={t === 0.5 ? x(t) - 4 : x(t)} y="84" textAnchor={t === 0.5 ? "start" : "middle"} className="fill-[#6b7067] text-[13px]">
-              {t === 0.5 ? "0.5 chance" : t.toFixed(1)}
+              {t.toFixed(1)}
             </text>
           </g>
         ))}
