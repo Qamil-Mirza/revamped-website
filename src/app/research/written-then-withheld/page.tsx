@@ -346,8 +346,8 @@ export default function WrittenThenWithheldPage() {
           questions it released <Strong>82%</Strong> of false “unknown”s to the right answer, while barely increasing wrong answers to
           unanswerable questions (3.5% → 4.2%). The other zeroed the outputs of two attention heads, layer 32 head 2 and layer 33 head
           10. On a new split it released <Strong>75%</Strong> of false abstentions, against at most 46% for 20 random pairs of heads
-          from the same layers. The humbling part though, is that neither edit was able to beat the simplest fix, a flat bias
-          subtracted against the unknown vector. So while the agent found out this really cool insight, it turns out a simple fix
+          from the same layers. The humbling part, though, is that neither edit was able to beat the simplest fix, a flat bias
+          subtracted from the “unknown” token’s score. So while the agent found out this really cool insight, it turns out a simple fix
           works too.
         </P>
         <P>
@@ -370,8 +370,8 @@ export default function WrittenThenWithheldPage() {
         <P>
           Then I tested those two heads on a held-out set of questions I hadn’t touched. Zeroing them released <Strong>96.7%</Strong>{" "}
           of the false abstentions where the answer was written, against at most <Strong>11.2%</Strong> for the best of 20 random
-          pairs. This wasn’t exactly a free edit. Zeroing out these heads also made the model answer 6.4% of correct “unknown”s on
-          where the question was genuinely unanswerable.
+          pairs. This wasn’t exactly a free edit. Zeroing out these heads also made the model answer 6.4% of the questions it had
+          correctly called “unknown” because they were genuinely unanswerable.
         </P>
         <P>
           What are they doing? Layer 33 head 10 spends 61% of its attention on the “unknown” option text in the prompt. Blocking just
@@ -379,7 +379,7 @@ export default function WrittenThenWithheldPage() {
           released nothing. But the push isn’t special to false abstentions: zeroing the heads also lowers the “unknown” score on
           questions the model already answered correctly. So these two heads aren’t a dedicated “false abstention circuit”, and I
           didn’t find one elsewhere. What I can say though is that these heads seem to carry a general push towards the “unknown”,
-          read off the option text and false abstentions are the close calls it tips over.
+          read off the option text, and false abstentions are the close calls it tips over.
         </P>
 
         <QuestionHeading n={3}>When does Qwen abstain?</QuestionHeading>
