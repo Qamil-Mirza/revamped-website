@@ -9,7 +9,6 @@ import { useStepper } from "./hooks";
 // cuts two attention heads, and re-runs Qwen to watch the answer change.
 // A schematic of the loop, cycling through its four beats.
 
-const LABEL = "font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.1em] text-[#6b7067]";
 const CLAUDE = "#D97757";
 const STEPS = ["Qwen answers", "Claude reads activations", "Claude edits weights", "Qwen answers again"];
 
@@ -231,34 +230,6 @@ export function EditLoopFigure() {
           Qwen 2.5 3B · 36 layers
         </text>
       </svg>
-
-      <div className="mt-4 grid gap-4 md:grid-cols-[1.25fr_1fr]">
-        <div>
-          <div className={`${LABEL} mb-2`}>Rules of the sandbox</div>
-          <ul className="flex flex-wrap gap-1.5 text-[12.5px] text-[#2b2f29]">
-            {[
-              "No internet",
-              "Only numpy and a tokenizer",
-              "No gradients",
-              "Metered forward passes on development questions",
-              "Can edit attention outputs, MLP down-projections and layer norms",
-              "Hard limits on each edit’s size",
-              "At most 3 submissions",
-            ].map((rule) => (
-              <li key={rule} className="rounded-full border border-[#dcdbd2] bg-[#faf9f5] px-2.5 py-1">
-                {rule}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col">
-          <div className={`${LABEL} mb-2`}>Then, outside the loop</div>
-          <div className="flex-1 rounded-xl border border-[#9fd9b0] bg-[#f3fbf5] p-3.5 text-[13px] leading-relaxed text-[#1c1f1a]">
-            <strong className="font-semibold">We</strong> test each submitted edit on sealed held-out questions the agent never saw,
-            against 20 random edits of the same shape and a plain “less unknown” bias.
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
