@@ -18,7 +18,7 @@ describe("sitemap", () => {
     expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/false-abstention-weight-edits");
   });
 
-  it("includes the written-then-withheld write-up", () => {
-    expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/written-then-withheld");
+  it("includes the false abstention investigation write-up", () => {
+    expect(sitemap().map((e) => e.url)).toContain("https://qamil-mirza.com/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct");
   });
 });

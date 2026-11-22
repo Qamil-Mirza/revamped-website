@@ -98,7 +98,7 @@ describe("research journal", () => {
     expect(JOURNAL[0]).toMatchObject({
       number: 4,
       date: "November 21, 2026",
-      href: "/research/written-then-withheld",
+      href: "/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct",
     });
     expect(JOURNAL[0].title).toBe("A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct");
   });

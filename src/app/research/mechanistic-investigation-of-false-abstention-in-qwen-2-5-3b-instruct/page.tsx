@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct | Qamil Mirza",
   description: SUMMARY,
   alternates: {
-    canonical: "https://qamil-mirza.com/research/written-then-withheld",
+    canonical: "https://qamil-mirza.com/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct",
   },
 };
 
@@ -89,7 +89,7 @@ function PaperCards() {
   );
 }
 
-export default function WrittenThenWithheldPage() {
+export default function FalseAbstentionInvestigationPage() {
   return (
     <div className={`${articleFontVariable} min-h-screen bg-[#f5f4ee] font-[family-name:var(--font-geist-sans)] text-[#1c1f1a]`}>
       <NavBar variant="light" />
@@ -475,8 +475,8 @@ export default function WrittenThenWithheldPage() {
           So why only Qwen? I compared Qwen 2.5 3B with its base model (before instruction tuning) on the same questions. The base
           model already falsely abstains (22%, against 44% for the instruct model), but differently: it mostly misses the fact. The
           answer is in its note in only 21% of its false abstentions, against 96% for the instruct model. On direct lookups it refuses
-          13 of 120, while the instruct model refuses 100 of 120. So the habit starts in the base model, but refusing an answer it has
-          already written mostly arrives with instruction tuning.
+          13 of 120, while the instruct model refuses 100 of 120. The base model already says “unknown” sometimes, but because it
+          misses the fact. Refusing an answer it has already written mostly arrives with instruction tuning.
         </P>
 
         <Figure

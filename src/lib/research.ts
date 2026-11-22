@@ -202,7 +202,7 @@ export const JOURNAL: JournalEntry[] = [
     title: "A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct",
     summary:
       "Qwen 2.5 3B writes the right answer in its own note, then replies “unknown.” I traced why, down to two attention heads, and checked whether other models do it too.",
-    href: "/research/written-then-withheld",
+    href: "/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct",
   },
   {
     number: 3,
