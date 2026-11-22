@@ -594,9 +594,15 @@ export default function FalseAbstentionInvestigationPage() {
 
         <H2 id="whats-next">What’s next</H2>
         <P>
-          The result is a case study of one model rather than a law about all small models, so I’ll try to publish it at a workshop.
-          I’d never done that independently before, and I’m prepared for the wave of reviewer feedback. Next, I’m moving to a new
-          research project: extending the work in “Are Large Reasoning Models Interruptible?” on their self-doubt behaviour.
+          Research is never ending haha, so I’ll try to publish this result at workshops and see if I can get meaningful reviews and if
+          there’s room for improvement. I’d never done this process myself so that should be interesting. Next though, I’m moving to a
+          new research project. We’re still working out the details but my personal goal is to find a meaningful way to extend the work
+          in “Are Large Reasoning Models Interruptible?” on their self-doubt behaviour.
+        </P>
+        <P>
+          As I’m writing this, I will be attending a hackathon tomorrow with a company called Autolab. I’m curious how their agentic
+          harnesses are built to support research. I have one of my own that I used for this work, but I always made sure to keep my
+          hands and brain behind the wheel. Anyway I’m starting to just yap, if you stuck around this long, I appreciate it :)!
         </P>
         <P className="italic">
           Have questions? Concerns? Feedback? Criticism? Send them my way at{" "}
