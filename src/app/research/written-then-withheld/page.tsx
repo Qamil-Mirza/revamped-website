@@ -426,6 +426,13 @@ export default function WrittenThenWithheldPage() {
           </div>
         </Figure>
 
+        <P>
+          To be honest, I don’t really understand / know why Qwen falsely abstains more on these direct lookups. It seems
+          counterintuitive to what one might think. The fact that we add more distractor facts and it falsely abstains makes sense
+          intuitively. Maybe instruction tuning has taught Qwen to abstain when it’s shaky in its answer confidence. I do not have any
+          data to suggest this though, it is merely speculation.
+        </P>
+
         <QuestionHeading n={4}>Do other models do it? Why only Qwen?</QuestionHeading>
         <P>
           This is where my “small models just do this” assumption fell apart. I graded free-form answers from ten models with a Claude
@@ -468,8 +475,8 @@ export default function WrittenThenWithheldPage() {
           So why only Qwen? I compared Qwen 2.5 3B with its base model (before instruction tuning) on the same questions. The base
           model already falsely abstains (22%, against 44% for the instruct model), but differently: it mostly misses the fact. The
           answer is in its note in only 21% of its false abstentions, against 96% for the instruct model. On direct lookups it refuses
-          13 of 120, while the instruct model refuses 100 of 120. So the habit starts in the base model, and “written, then withheld”
-          mostly arrives with instruction tuning.
+          13 of 120, while the instruct model refuses 100 of 120. So the habit starts in the base model, and false abstention mostly
+          arrives with instruction tuning.
         </P>
 
         <Figure
