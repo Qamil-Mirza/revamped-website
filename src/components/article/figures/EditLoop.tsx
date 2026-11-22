@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useStepper } from "./hooks";
 
 // "LLM brain surgery": Claude, sealed in a sandbox, reads Qwen's activations,
-// cuts two attention heads, and re-runs Qwen to watch the answer change.
+// zeroes two attention heads, and re-runs Qwen to watch the answer change.
 // A schematic of the loop, cycling through its four beats.
 
 const CLAUDE = "#D97757";
@@ -40,7 +40,7 @@ function along(p0: Pt, c: Pt, p1: Pt, n: number) {
 
 // Qwen -> Claude: activations flow out of the middle of the stack.
 const READ = { from: { x: STACK.x - 6, y: 214 }, ctrl: { x: 270, y: 262 }, to: { x: C.x + 46, y: C.y + 22 } };
-// Claude -> Qwen: the scalpel's route into layers 32-33.
+// Claude -> Qwen: the edit lands in layers 32-33.
 const EDIT = { from: { x: C.x + 46, y: C.y - 26 }, ctrl: { x: 262, y: 40 }, to: { x: STACK.x + 2 * HEAD_W, y: layerY(32.5) + ROW / 2 } };
 const path = (p: typeof READ) => `M${p.from.x} ${p.from.y} Q${p.ctrl.x} ${p.ctrl.y} ${p.to.x} ${p.to.y}`;
 
@@ -138,12 +138,23 @@ export function EditLoopFigure() {
         ))}
 
         {/* The two lines of contact */}
-        <path d={path(EDIT)} fill="none" stroke={cut ? CLAUDE : "#dcdbd2"} strokeWidth="1.5" strokeDasharray="4 4" />
+        <path d={path(EDIT)} fill="none" stroke="#dcdbd2" strokeWidth="1.5" strokeDasharray="4 4" />
+        {cut && (
+          <motion.path
+            d={path(EDIT)}
+            fill="none"
+            stroke={CLAUDE}
+            strokeWidth="2"
+            initial={{ pathLength: step === 2 ? 0 : 1 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+          />
+        )}
         <path d={path(READ)} fill="none" stroke={reading ? "#15803d" : "#dcdbd2"} strokeWidth="1.5" strokeDasharray="4 4" />
         <text x="258" y="38" textAnchor="middle" className="fill-[#1c1f1a] text-[16px] font-semibold">
           edits weights
         </text>
-        <text x="270" y="282" textAnchor="middle" className="fill-[#1c1f1a] text-[16px] font-semibold">
+        <text x="288" y="290" textAnchor="middle" className="fill-[#1c1f1a] text-[16px] font-semibold">
           reads activations
         </text>
 
@@ -162,18 +173,6 @@ export function EditLoopFigure() {
             );
           })}
 
-        {step === 2 &&
-          (() => {
-            const { xs, ys } = along(EDIT.from, EDIT.ctrl, EDIT.to, 12);
-            return (
-              <motion.g initial={{ x: xs[0], y: ys[0] }} animate={{ x: xs, y: ys }} transition={{ duration: 1.1, ease: "easeInOut" }}>
-                <g transform="rotate(32)">
-                  <rect x="-30" y="-3.5" width="20" height="7" rx="3" fill="#1c1f1a" />
-                  <path d="M-11 -3.5 L5 -1.5 Q11 0 5 2.5 L-11 3.5 Z" fill="#d6d9d2" stroke="#6b7067" strokeWidth="1" />
-                </g>
-              </motion.g>
-            );
-          })()}
 
         {/* Qwen */}
         <rect x={STACK.x} y="16" width={STACK.w} height="32" rx="9" fill={fixed ? "#f3fbf5" : "#1c1f1a"} stroke={fixed ? "#15803d" : "#1c1f1a"} />
