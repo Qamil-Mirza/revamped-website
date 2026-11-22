@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/research/more-than-reasoning",
         "/research/ai-brain-surgery",
         "/research/false-abstention-weight-edits",
+        "/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct",
         "/sidequests",
         "/contact",
     ]

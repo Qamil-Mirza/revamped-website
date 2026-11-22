@@ -197,6 +197,14 @@ export type JournalEntry = {
 // Newest first. Each write-up gets the next number.
 export const JOURNAL: JournalEntry[] = [
   {
+    number: 4,
+    date: "November 21, 2026",
+    title: "A Mechanistic Investigation Of False Abstention In Qwen-2.5-3B Instruct",
+    summary:
+      "Qwen 2.5 3B writes the right answer in its own note, then replies “unknown.” I traced why, down to two attention heads, and checked whether other models do it too.",
+    href: "/research/mechanistic-investigation-of-false-abstention-in-qwen-2-5-3b-instruct",
+  },
+  {
     number: 3,
     date: "November 8, 2026",
     title: "Evaluating Agent-Proposed Weight Edits for False Abstention",
